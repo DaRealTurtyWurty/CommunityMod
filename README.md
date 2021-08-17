@@ -16,3 +16,4 @@ Your code will be reviewed by one of the Triage Team. If your code is SFW (Safe 
 - Bean Block
 - Bean Entity
 - Bean Entity Spawn Egg
+- Beans Sandwich

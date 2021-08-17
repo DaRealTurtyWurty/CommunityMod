@@ -31,6 +31,10 @@ public final class ItemInit {
 	public static final RegistryObject<Item> LONEWOLF_USER = ITEMS.register("lonewolf_user",
 			() -> new Item(new Item.Properties().tab(CommunityMod.TAB)));
 
+
+	public static final RegistryObject<Item> BEANS_SANDWICH = ITEMS.register("beans_sandwich",
+			() -> new Item(new Item.Properties().tab(CommunityMod.TAB).food(new FoodProperties.Builder().saturationMod(35.6F).meat().nutrition(20).build())));
+
 	@SubscribeEvent
 	public static void registerBlockItems(final RegistryEvent.Register<Item> event) {
 		final IForgeRegistry<Item> registry = event.getRegistry();
