@@ -1,0 +1,15 @@
+{
+  "type": "communitymod:dark_towers",
+  "generator": {
+    "type": "communitymod:dark_towers_chunk_generator",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "minecraft:the_void"
+    },
+    "settings": {
+      "tower_block": "minecraft:obsidian",
+      "min_height": 0,
+      "max_height": 256
+    }
+  }
+}
