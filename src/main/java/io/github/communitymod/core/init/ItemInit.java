@@ -51,6 +51,17 @@ public final class ItemInit {
 	
 	public static final RegistryObject<Item> MIGUEL_OF_FORTUNE = ITEMS.register("miguel_of_fortune", 
 			() -> new MiguelItem(new Item.Properties().tab(CommunityMod.TAB)));
+	
+	public static final RegistryObject<Item> CHEESE_ITEM = ITEMS.register("cheese_item",
+			() -> new Item(new Item.Properties()
+					.tab(CommunityMod.TAB)
+					.food(new FoodProperties.Builder()
+					.nutrition(1000)
+					.saturationMod(1000.0f)
+					.effect(() -> new MobEffectInstance(MobEffects.LEVITATION, 60, 1), 1.0f)
+					.effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 7200, 3), 0.5f)
+					.effect(() -> new MobEffectInstance(MobEffects.HEALTH_BOOST, 7200, 10), 0.25f)
+					.build())));
 
 	@SubscribeEvent
 	public static void registerBlockItems(final RegistryEvent.Register<Item> event) {
