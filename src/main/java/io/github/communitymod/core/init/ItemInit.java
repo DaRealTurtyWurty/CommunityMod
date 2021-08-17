@@ -1,14 +1,16 @@
 package io.github.communitymod.core.init;
 
 import io.github.communitymod.CommunityMod;
-import net.minecraft.world.effect.MobEffect;
+import io.github.communitymod.common.items.MiguelItem;
+import io.github.communitymod.common.items.OrbOfInsanity;
+import io.github.communitymod.common.items.SpecialItem;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
-import io.github.communitymod.common.items.MiguelItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BowlFoodItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -51,6 +53,12 @@ public final class ItemInit {
 	
 	public static final RegistryObject<Item> MIGUEL_OF_FORTUNE = ITEMS.register("miguel_of_fortune", 
 			() -> new MiguelItem(new Item.Properties().tab(CommunityMod.TAB)));
+
+	public static final RegistryObject<Item> SPECIAL_ITEM = ITEMS.register("special_item",
+			() -> new SpecialItem(new Item.Properties().tab(CommunityMod.TAB)));
+
+	public static final RegistryObject<Item> ORB_OF_INSANITY = ITEMS.register("orb_of_insanity",
+			() -> new OrbOfInsanity(new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.UNCOMMON)));
 
 	@SubscribeEvent
 	public static void registerBlockItems(final RegistryEvent.Register<Item> event) {
