@@ -1,0 +1,16 @@
+modLoader="javafml"
+loaderVersion="[37,)"
+license="MIT"
+#issueTrackerURL="https://github.com/DaRealTurtyWurty/CommunityMod/issues"
+
+[[mods]]
+modId="communitymod"
+version="${file.jarVersion}"
+displayName="Community Mod"
+authors="Turty's Productions Server"
+credits="Turty's Productions Server"
+description='''
+A mod made by the community, with a bunch of random and unorganized things.
+'''
+#logoFile="logo.png"
+#displayURL="https://github.com/DaRealTurtyWurty/CommunityMod"
