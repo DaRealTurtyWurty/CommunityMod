@@ -17,6 +17,7 @@ public final class BlockInit {
 	public static final RegistryObject<Block> BEAN_BLOCK = BLOCKS.register("bean_block", () -> new Block(
 			BlockBehaviour.Properties.of(Material.VEGETABLE).speedFactor(0.5f).sound(SoundType.CORAL_BLOCK)));
 
+	@SuppressWarnings("unchecked")
 	public static <T extends Block> void blacklistBlockItem(RegistryObject<T> block) {
 		ItemInit.BLOCK_ITEM_BLACKLIST.add((RegistryObject<Block>) block);
 	}
