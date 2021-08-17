@@ -22,5 +22,6 @@ closed.
 - Bean Block
 - Bean Entity
 - Bean Entity Spawn Egg
+- Beans Sandwich
 - Bean Soup
 - Lonewolf Item

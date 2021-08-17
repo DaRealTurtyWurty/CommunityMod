@@ -32,6 +32,9 @@ public final class ItemInit {
 	public static final RegistryObject<Item> BEANS = ITEMS.register("beans",
 			() -> new Item(new Item.Properties().tab(CommunityMod.TAB).stacksTo(69).fireResistant()));
 
+	public static final RegistryObject<Item> LONEWOLF_USER = ITEMS.register("lonewolf_user",
+			() -> new Item(new Item.Properties().tab(CommunityMod.TAB)));
+  
 	public static final FoodProperties BEAN_SOUP_PROPERTIES = (new FoodProperties.Builder().nutrition(8).saturationMod(0.6F)
 		.effect(() -> new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 7200, 0), 1.0F)
 		.effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 100, 0), 0.5F)
@@ -40,9 +43,9 @@ public final class ItemInit {
 
 	public static final RegistryObject<Item> BEAN_SOUP = ITEMS.register("bean_soup",
 			() -> new BowlFoodItem(new Item.Properties().tab(CommunityMod.TAB).food(BEAN_SOUP_PROPERTIES).stacksTo(1).fireResistant()));
-
-	public static final RegistryObject<Item> LONEWOLF_USER = ITEMS.register("lonewolf_user",
-			() -> new Item(new Item.Properties().tab(CommunityMod.TAB)));
+  
+  public static final RegistryObject<Item> BEANS_SANDWICH = ITEMS.register("beans_sandwich",
+			() -> new Item(new Item.Properties().tab(CommunityMod.TAB).food(new FoodProperties.Builder().saturationMod(35.6F).meat().nutrition(20).build())));
 
 	@SubscribeEvent
 	public static void registerBlockItems(final RegistryEvent.Register<Item> event) {
