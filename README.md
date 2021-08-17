@@ -24,4 +24,4 @@ closed.
 - Bean Entity Spawn Egg
 - Beans Sandwich
 - Bean Soup
-- Lonewolf Item
+- Toast
