@@ -8,6 +8,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
+@SuppressWarnings("unused")
 public final class CommonEvents {
 
 	@EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.FORGE)
