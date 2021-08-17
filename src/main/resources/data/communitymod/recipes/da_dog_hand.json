@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#x#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "communitymod:beans"
+    },
+    "x": {
+      "item": "minecraft:beef"
+    }
+  },
+  "result": {
+    "item": "communitymod:da_dog_hand",
+    "count": 69
+  }
+}
