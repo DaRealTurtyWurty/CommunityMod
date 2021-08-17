@@ -25,3 +25,9 @@ closed.
 - Beans Sandwich
 - Bean Soup
 - Toast
+- Lonewolf Item
+- Miguel of Fortune
+- Dark Towers Dimension (wip, if someone wants to contribute, feel free to!)
+- Special Item
+- Orb of Insanity
+- Bean Hat
