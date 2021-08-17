@@ -31,3 +31,4 @@ closed.
 - ModResourceLocation (use `new ModResourceLocation(STRING)` instead of `new ResourceLocation(MODID, STRING)`)
 - Special Item
 - Orb of Insanity
+- Bean Hat
