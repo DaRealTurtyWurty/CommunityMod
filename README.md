@@ -22,9 +22,9 @@ closed.
 - Bean Block
 - Bean Entity
 - Bean Entity Spawn Egg
-- Beans Sandwich
+- Bean Sandwich
 - Bean Soup
-- Lonewolf Item
+- toast
 - Miguel of Fortune
 - Dark Towers Dimension (wip, if someone wants to contribute, feel free to!)
 - Datagen (we probably have to change the textures' path to `textures/item` and `textures/block`)
