@@ -23,7 +23,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
-@SuppressWarnings("unused")
 public final class CommonEvents {
 
     @EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.FORGE)
