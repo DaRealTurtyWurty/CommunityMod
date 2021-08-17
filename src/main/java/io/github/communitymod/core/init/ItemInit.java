@@ -16,7 +16,6 @@ import net.minecraftforge.registries.IForgeRegistry;
 import java.util.HashSet;
 import java.util.Set;
 
-@SuppressWarnings("unused")
 @EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.MOD)
 public final class ItemInit {
 
