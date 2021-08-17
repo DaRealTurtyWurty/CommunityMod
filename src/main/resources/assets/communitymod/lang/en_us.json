@@ -1,12 +1,14 @@
 {
-  "block.communitymod.bean_block": "Block of Beans",
-  "entity.communitymod.bean": "Bean",
-  "item.communitymod.beans": "Beans",
-  "item.communitymod.bean_spawn_egg": "Spawn Bean",
-  "item.communitymod.lonewolf_user": "LoneWolf",
-  "item.communitymod.beans_sandwich": "Beans Sandwich",
-  "item.communitymod.bean_soup": "Bean Soup",
-  "item.communitymod.miguel_of_fortune": "Miguel of Fortune",
+	"block.communitymod.bean_block": "Block of Beans",
+	"entity.communitymod.bean": "Bean",
+	"item.communitymod.beans": "Beans",
+	"item.communitymod.bean_spawn_egg": "Spawn Bean",
+	"item.communitymod.lonewolf_user": "LoneWolf",
+	"item.communitymod.beans_sandwich": "Beans Sandwich",
+	"item.communitymod.bean_soup": "Bean Soup",
+	"item.communitymod.miguel_of_fortune": "Miguel of Fortune",
+	"item.communitymod.special_item": "Tutorial Item",
+	"item.communitymod.orb_of_insanity": "Orb of Insanity",
   "item.communitymod.bean_hat": "Bean Hat",
-  "itemGroup.communitymod": "Community Mod"
+	"itemGroup.communitymod": "Community Mod"
 }

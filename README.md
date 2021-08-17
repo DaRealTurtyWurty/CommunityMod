@@ -29,4 +29,6 @@ closed.
 - Dark Towers Dimension (wip, if someone wants to contribute, feel free to!)
 - Datagen (we probably have to change the textures' path to `textures/item` and `textures/block`)
 - ModResourceLocation (use `new ModResourceLocation(STRING)` instead of `new ResourceLocation(MODID, STRING)`)
+- Special Item
+- Orb of Insanity
 - Bean Hat
