@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import io.github.communitymod.CommunityMod;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -26,6 +27,9 @@ public final class ItemInit {
 
 	public static final RegistryObject<Item> BEANS = ITEMS.register("beans",
 			() -> new Item(new Item.Properties().tab(CommunityMod.TAB).stacksTo(69).fireResistant()));
+
+	public static final RegistryObject<Item> LONEWOLF_USER = ITEMS.register("lonewolf_user",
+			() -> new Item(new Item.Properties().tab(CommunityMod.TAB)));
 
 	@SubscribeEvent
 	public static void registerBlockItems(final RegistryEvent.Register<Item> event) {
