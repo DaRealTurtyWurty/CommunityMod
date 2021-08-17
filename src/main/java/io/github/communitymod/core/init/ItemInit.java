@@ -27,6 +27,9 @@ public final class ItemInit {
 	public static final RegistryObject<Item> BEANS = ITEMS.register("beans",
 			() -> new Item(new Item.Properties().tab(CommunityMod.TAB).stacksTo(69).fireResistant()));
 
+	public static final RegistryObject<Item> HELLO = ITEMS.register("hello",
+			() -> new Item(new Item.Properties().tab(CommunityMod.TAB)));
+
 	@SubscribeEvent
 	public static void registerBlockItems(final RegistryEvent.Register<Item> event) {
 		final IForgeRegistry<Item> registry = event.getRegistry();
