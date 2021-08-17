@@ -32,3 +32,4 @@ closed.
 - Special Item
 - Orb of Insanity
 - Bean Hat
+- Da Dog Hand
