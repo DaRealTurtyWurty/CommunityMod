@@ -27,7 +27,8 @@ closed.
 - Toast
 - Lonewolf Item
 - Miguel of Fortune
-- Dark Towers Dimension (wip, if someone wants to contribute, feel free to!)
+- Dark Towers Dimension (wip)
+- Ultimate Cheese
 - Special Item
 - Orb of Insanity
 - Bean Hat
