@@ -26,3 +26,5 @@ closed.
 - Bean Soup
 - Lonewolf Item
 - Miguel of Fortune
+- Special Item
+- Orb of Insanity
