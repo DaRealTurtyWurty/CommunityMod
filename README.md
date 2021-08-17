@@ -25,3 +25,4 @@ closed.
 - Beans Sandwich
 - Bean Soup
 - Lonewolf Item
+- Miguel of Fortune
