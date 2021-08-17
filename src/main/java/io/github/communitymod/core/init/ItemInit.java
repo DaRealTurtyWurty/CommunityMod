@@ -45,9 +45,8 @@ public final class ItemInit {
 	public static final RegistryObject<Item> BEAN_SOUP = ITEMS.register("bean_soup",
 			() -> new BowlFoodItem(new Item.Properties().tab(CommunityMod.TAB).food(BEAN_SOUP_PROPERTIES).stacksTo(1).fireResistant()));
   
-  public static final RegistryObject<Item> BEANS_SANDWICH = ITEMS.register("beans_sandwich",
+    public static final RegistryObject<Item> BEANS_SANDWICH = ITEMS.register("beans_sandwich",
 			() -> new Item(new Item.Properties().tab(CommunityMod.TAB).food(new FoodProperties.Builder().saturationMod(35.6F).meat().nutrition(20).build())));
-
 	
 	public static final RegistryObject<Item> MIGUEL_OF_FORTUNE = ITEMS.register("miguel_of_fortune", 
 			() -> new MiguelItem(new Item.Properties().tab(CommunityMod.TAB)));

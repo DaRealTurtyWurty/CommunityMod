@@ -2,12 +2,14 @@ package io.github.communitymod.common.items;
 
 import java.util.Random;
 
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
 
 public class MiguelItem extends Item {
 
@@ -16,33 +18,31 @@ public class MiguelItem extends Item {
 	}
 	
 	@Override
-	public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
+	public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {
+		ItemCooldowns itemCoolDowns = pPlayer.getCooldowns();
 		
-		ItemCooldowns itemCoolDowns = context.getPlayer().getCooldowns();
-		
-		if(!context.getLevel().isClientSide())
+		if(!pLevel.isClientSide())
 		{
-			if(!itemCoolDowns.isOnCooldown(stack.getItem()))
+			if(!itemCoolDowns.isOnCooldown(pPlayer.getItemInHand(pHand).getItem()))
 			{
 				Random rn = new Random();
 				int i = rn.nextInt(100);
 				if(i == 1)
 				{
-					context.getPlayer().spawnAtLocation(Items.DIAMOND);
+					pPlayer.spawnAtLocation(Items.DIAMOND);
 				}
 				else if(i > 90)
 				{
-					context.getPlayer().spawnAtLocation(Items.IRON_INGOT);
+					pPlayer.spawnAtLocation(Items.IRON_INGOT);
 				}
 				else {
-					context.getPlayer().spawnAtLocation(Items.DIRT);
+					pPlayer.spawnAtLocation(Items.DIRT);
 				}
-				itemCoolDowns.addCooldown(stack.getItem(), 200);
+				itemCoolDowns.addCooldown(pPlayer.getItemInHand(pHand).getItem(), 200);
 			}
-			
 		}
 		
-		return InteractionResult.SUCCESS;
+		return super.use(pLevel, pPlayer, pHand);
 	}
 
 }
