@@ -5,6 +5,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
+import io.github.communitymod.common.items.MiguelItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BowlFoodItem;
 import net.minecraft.world.item.Item;
@@ -46,6 +47,10 @@ public final class ItemInit {
   
   public static final RegistryObject<Item> BEANS_SANDWICH = ITEMS.register("beans_sandwich",
 			() -> new Item(new Item.Properties().tab(CommunityMod.TAB).food(new FoodProperties.Builder().saturationMod(35.6F).meat().nutrition(20).build())));
+
+	
+	public static final RegistryObject<Item> MIGUEL_OF_FORTUNE = ITEMS.register("miguel_of_fortune", 
+			() -> new MiguelItem(new Item.Properties().tab(CommunityMod.TAB)));
 
 	@SubscribeEvent
 	public static void registerBlockItems(final RegistryEvent.Register<Item> event) {
