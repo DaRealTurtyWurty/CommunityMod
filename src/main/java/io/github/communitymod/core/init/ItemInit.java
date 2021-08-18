@@ -5,6 +5,7 @@ import java.util.Set;
 
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.common.armor.BeanArmorMaterial;
+import io.github.communitymod.common.items.BeanBelt;
 import io.github.communitymod.common.items.MiguelItem;
 import io.github.communitymod.common.items.OrbOfInsanity;
 import io.github.communitymod.common.items.SpecialItem;
@@ -76,9 +77,19 @@ public final class ItemInit {
 	public static final RegistryObject<Item> ORB_OF_INSANITY = ITEMS.register("orb_of_insanity",
 			() -> new OrbOfInsanity(new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.UNCOMMON)));
 
-  public static final RegistryObject<Item> BEAN_HAT = ITEMS.register("bean_hat",
-      () -> new ArmorItem(BeanArmorMaterial.BEAN_ARMOR, EquipmentSlot.HEAD,
-                new Item.Properties().tab(CommunityMod.TAB)));
+    public static final RegistryObject<Item> BEAN_HAT = ITEMS.register("bean_hat", () ->
+            new ArmorItem(
+                BeanArmorMaterial.BEAN_ARMOR, 
+                EquipmentSlot.HEAD,
+                new Item.Properties().tab(CommunityMod.TAB)
+            )
+        );
+
+    public static final RegistryObject<Item> BEAN_BELT = ITEMS.register("bean_belt", () ->
+        new BeanBelt(
+            new Item.Properties().tab(CommunityMod.TAB)
+        )
+    );
   
 	public static final RegistryObject<Item> MUSIC_DISC_BEANAL = ITEMS.register("music_disc_beanal",
 			() -> new RecordItem(5, ()-> SoundsInit.MUSIC_DISC_BEANAL.get(), new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.RARE)));
