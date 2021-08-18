@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#B#",
+        "# #"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:leather"
+        },
+        "B": {
+            "item": "communitymod:beans"
+        }
+    },
+    "result": {
+        "item": "communitymod:bean_hat",
+        "count": 1
+    }
+}

@@ -2,19 +2,16 @@ package io.github.communitymod.core.init;
 
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.common.armor.BeanArmorMaterial;
+import io.github.communitymod.common.items.BeanBelt;
 import io.github.communitymod.common.items.MiguelItem;
 import io.github.communitymod.common.items.OrbOfInsanity;
 import io.github.communitymod.common.items.SpecialItem;
+import io.github.communitymod.core.util.enums.ModToolMaterials;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.BowlFoodItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.RecordItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -74,12 +71,24 @@ public final class ItemInit {
 	public static final RegistryObject<Item> ORB_OF_INSANITY = ITEMS.register("orb_of_insanity",
 			() -> new OrbOfInsanity(new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.UNCOMMON)));
 
-  public static final RegistryObject<Item> BEAN_HAT = ITEMS.register("bean_hat",
-      () -> new ArmorItem(BeanArmorMaterial.BEAN_ARMOR, EquipmentSlot.HEAD,
-                new Item.Properties().tab(CommunityMod.TAB)));
+    public static final RegistryObject<Item> BEAN_HAT = ITEMS.register("bean_hat", () ->
+            new ArmorItem(
+                BeanArmorMaterial.BEAN_ARMOR, 
+                EquipmentSlot.HEAD,
+                new Item.Properties().tab(CommunityMod.TAB)
+            )
+        );
+
+    public static final RegistryObject<Item> BEAN_BELT = ITEMS.register("bean_belt", () ->
+        new BeanBelt(
+            new Item.Properties().tab(CommunityMod.TAB)
+        )
+    );
   
 	public static final RegistryObject<Item> MUSIC_DISC_BEANAL = ITEMS.register("music_disc_beanal",
 			() -> new RecordItem(5, ()-> SoundsInit.MUSIC_DISC_BEANAL.get(), new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.RARE)));
+	
+	public static final RegistryObject<Item> BEAN_SWORD = ITEMS.register("bean_sword", () -> new SwordItem(ModToolMaterials.BEAN, 8, -2.4f, new Item.Properties().defaultDurability(100).tab(CommunityMod.TAB)));
 
 	@SubscribeEvent
 	public static void registerBlockItems(final RegistryEvent.Register<Item> event) {
