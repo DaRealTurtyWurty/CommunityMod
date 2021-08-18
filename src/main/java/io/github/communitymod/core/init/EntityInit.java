@@ -17,7 +17,7 @@ public final class EntityInit {
 			.create(ForgeRegistries.ENTITIES, CommunityMod.MODID);
 
 	public static final RegistryObject<EntityType<BeanEntity>> BEAN_ENTITY = ENTITIES.register("bean",
-			() -> EntityType.Builder.<BeanEntity>of(BeanEntity::new, MobCategory.AMBIENT).sized(0.8f, 1.75f)
+			() -> EntityType.Builder.<BeanEntity>of(BeanEntity::new, MobCategory.MISC).sized(0.8f, 1.75f)
 					.build(new ResourceLocation(CommunityMod.MODID, "bean").toString()));
 
 	public static void registerSpawnEggs() {

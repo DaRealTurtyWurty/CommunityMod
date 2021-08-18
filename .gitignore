@@ -25,8 +25,6 @@ eclipse
 run
 update.bat
 notes.txt
-.cache
-cache
 
 # Files from Forge MDK
 forge*changelog.txt
