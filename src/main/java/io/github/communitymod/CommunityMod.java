@@ -1,10 +1,6 @@
 package io.github.communitymod;
 
-import io.github.communitymod.core.init.BlockEntityInit;
-import io.github.communitymod.core.init.BlockInit;
-import io.github.communitymod.core.init.EntityInit;
-import io.github.communitymod.core.init.ItemInit;
-import io.github.communitymod.core.init.SoundsInit;
+import io.github.communitymod.core.init.*;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -29,6 +25,7 @@ public class CommunityMod {
 
 		ItemInit.ITEMS.register(bus);
 		BlockInit.BLOCKS.register(bus);
+		StructureInit.STRUCTURES.register(bus);
 		BlockInit.toBlacklist();
 		BlockEntityInit.BLOCK_ENTITIES.register(bus);
 		EntityInit.ENTITIES.register(bus);
