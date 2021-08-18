@@ -31,10 +31,6 @@ import java.util.Map;
 
 public final class CommonEvents {
 
-    private static StructurePieceType register(StructurePieceType structurePiece, String key) {
-        return Registry.register(Registry.STRUCTURE_PIECE, key.toLowerCase(Locale.ROOT), structurePiece);
-    }
-
     @EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.FORGE)
     public static final class ForgeEvents {
 
@@ -52,7 +48,6 @@ public final class CommonEvents {
                 serverLevel.getChunkSource().generator.getSettings().structureConfig = tempMap;
             }
         }
-
     }
 
     @EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.MOD)
@@ -91,7 +86,9 @@ public final class CommonEvents {
         public static void entityAttributes(final EntityAttributeCreationEvent event) {
             event.put(EntityInit.BEAN_ENTITY.get(), BeanEntity.createAttributes().build());
         }
-
+	
+	private static StructurePieceType register(StructurePieceType structurePiece, String key) {
+            return Registry.register(Registry.STRUCTURE_PIECE, key.toLowerCase(Locale.ROOT), structurePiece);
+        }
     }
-
 }
