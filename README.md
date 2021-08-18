@@ -32,5 +32,6 @@ closed.
 - Special Item
 - Orb of Insanity
 - Bean Hat
+- Bean Belt
 - Da Dog Hand
 - Bean Music Disc (by LudoCrypt) 'LudoCrypt - beanal'

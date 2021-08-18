@@ -5,6 +5,7 @@ import io.github.communitymod.core.init.BlockInit;
 import io.github.communitymod.core.init.EntityInit;
 import io.github.communitymod.core.init.ItemInit;
 import io.github.communitymod.core.init.SoundsInit;
+import io.github.communitymod.network.PacketHandler;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -35,5 +36,7 @@ public class CommunityMod {
 		EntityInit.registerSpawnEggs();
 		SoundsInit.SOUNDS.register(bus);
 		SoundsInit.registerSounds();
+        
+        PacketHandler.init();
 	}
 }
