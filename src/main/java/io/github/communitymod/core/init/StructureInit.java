@@ -3,19 +3,28 @@ package io.github.communitymod.core.init;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.sun.jna.Structure;
+import io.github.communitymod.CommunityMod;
+import io.github.communitymod.core.world.structures.bean.BeanStructure;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.world.level.levelgen.StructureSettings;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class StructureInit {
-    public static final DeferredRegister<Structure<?>> STRUCTURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, FirstMod.MOD_ID);
-    public static final RegistryObject<Structure<NoFeatureConfig>> UGLY_HOUSE_STRUCTURE = STRUCTURES.register("ugly_house", () -> (new UglyStructure(NoFeatureConfig.CODEC)));
+    public static final DeferredRegister<StructureFeature<?>> STRUCTURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, CommunityMod.MODID);
+    public static final RegistryObject<StructureFeature<NoneFeatureConfiguration>> BEAN_STRUCTURE = STRUCTURES.register("bean_structure", () -> new BeanStructure(NoneFeatureConfiguration.CODEC));
 
     public static void setupStructures() {
         setupMapSpacingAndLand(
-                UGLY_HOUSE_STRUCTURE.get(), /* The instance of the structure */
-                new StructureSeparationSettings(1, /* average distance apart in chunks between spawn attempts */
+                BEAN_STRUCTURE.get(), /* The instance of the structure */
+                new StructureFeatureConfiguration(1, /* average distance apart in chunks between spawn attempts */
                         0, /* minimum distance apart in chunks between spawn attempts. MUST BE LESS THAN ABOVE VALUE*/
                         694201337), /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */
                 true);
@@ -23,9 +32,9 @@ public class StructureInit {
 
         // Add more structures here and so on
     }
-    public static <F extends Structure<?>> void setupMapSpacingAndLand(
+    public static <F extends StructureFeature<?>> void setupMapSpacingAndLand(
             F structure,
-            StructureSeparationSettings structureSeparationSettings,
+            StructureFeatureConfiguration structureSeparationSettings,
             boolean transformSurroundingLand)
     {
         /*
@@ -35,7 +44,7 @@ public class StructureInit {
          * If the registration is setup properly for the structure,
          * getRegistryName() should never return null.
          */
-        Structure.STRUCTURES_REGISTRY.put(structure.getRegistryName().toString(), structure);
+        StructureFeature.STRUCTURES_REGISTRY.put(structure.getRegistryName().toString(), structure);
 
         /*
          * Whether surrounding land will be modified automatically to conform to the bottom of the structure.
@@ -48,9 +57,9 @@ public class StructureInit {
          * NOISE_AFFECTING_FEATURES requires AccessTransformer  (See resources/META-INF/accesstransformer.cfg)
          */
         if(transformSurroundingLand){
-            Structure.NOISE_AFFECTING_FEATURES =
-                    ImmutableList.<Structure<?>>builder()
-                            .addAll(Structure.NOISE_AFFECTING_FEATURES)
+            StructureFeature.NOISE_AFFECTING_FEATURES =
+                    ImmutableList.<StructureFeature<?>>builder()
+                            .addAll(StructureFeature.NOISE_AFFECTING_FEATURES)
                             .add(structure)
                             .build();
         }
@@ -68,9 +77,9 @@ public class StructureInit {
          *
          * DEFAULTS requires AccessTransformer  (See resources/META-INF/accesstransformer.cfg)
          */
-        DimensionStructuresSettings.DEFAULTS =
-                ImmutableMap.<Structure<?>, StructureSeparationSettings>builder()
-                        .putAll(DimensionStructuresSettings.DEFAULTS)
+        StructureSettings.DEFAULTS =
+                ImmutableMap.<StructureFeature<?>, StructureFeatureConfiguration>builder()
+                        .putAll(StructureSettings.DEFAULTS)
                         .put(structure, structureSeparationSettings)
                         .build();
 
@@ -82,8 +91,8 @@ public class StructureInit {
          * that field only applies for the default overworld and won't add to other worldtypes or dimensions (like amplified or Nether).
          * So yeah, don't do DimensionSettings.BUILTIN_OVERWORLD. Use the NOISE_GENERATOR_SETTINGS loop below instead if you must.
          */
-        WorldGenRegistries.NOISE_GENERATOR_SETTINGS.entrySet().forEach(settings -> {
-            Map<Structure<?>, StructureSeparationSettings> structureMap = settings.getValue().structureSettings().structureConfig();
+        BuiltinRegistries.NOISE_GENERATOR_SETTINGS.entrySet().forEach(settings -> {
+            Map<StructureFeature<?>, StructureFeatureConfiguration> structureMap = settings.getValue().structureSettings().structureConfig();
 
             /*
              * Pre-caution in case a mod makes the structure map immutable like datapacks do.
@@ -92,7 +101,7 @@ public class StructureInit {
              * structureConfig requires AccessTransformer  (See resources/META-INF/accesstransformer.cfg)
              */
             if(structureMap instanceof ImmutableMap){
-                Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(structureMap);
+                Map<StructureFeature<?>, StructureFeatureConfiguration> tempMap = new HashMap<>(structureMap);
                 tempMap.put(structure, structureSeparationSettings);
                 settings.getValue().structureSettings().structureConfig = tempMap;
             }
