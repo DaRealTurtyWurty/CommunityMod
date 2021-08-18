@@ -25,7 +25,6 @@ closed.
 - Beans Sandwich
 - Bean Soup
 - Toast
-- Lonewolf Item
 - Miguel of Fortune
 - Dark Towers Dimension (wip)
 - Ultimate Cheese
