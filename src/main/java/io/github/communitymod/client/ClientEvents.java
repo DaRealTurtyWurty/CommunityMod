@@ -13,7 +13,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public final class ClientEvents {
 
-	@EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.MOD, value = Dist.CLIENT)
+	@EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.FORGE, value = Dist.CLIENT)
 	public static final class ForgeEvents {
 
 	}

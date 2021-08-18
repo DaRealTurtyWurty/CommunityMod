@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "GGG",
+        " GG",
+        " G "
+    ],
+    "key": {
+        "G": {
+            "item": "minecraft:gray_dye"
+        }
+    },
+    "result": {
+        "item": "communitymod:special_item",
+        "count": 1
+    }
+}
