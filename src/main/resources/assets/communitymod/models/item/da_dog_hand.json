@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures" : {
-    "layer0": "communitymod:items/lonewolf_user"
+    "layer0": "communitymod:items/da_dog_hand"
   }
 }

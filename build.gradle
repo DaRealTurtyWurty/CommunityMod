@@ -54,7 +54,7 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', archivesBaseName, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args "--mod", archivesBaseName, "--all", "--output", "\"" + file("src/generated/resources").toString() + "\"", "--validate", "--existing", "\"" + sourceSets.main.resources.srcDirs[0] + "\""
 
             mods {
                 communitymod {
@@ -102,4 +102,8 @@ publishing {
             url "file://${project.projectDir}/mcmodsrepo"
         }
     }
+}
+
+processResources {
+    duplicatesStrategy = 'include'
 }
