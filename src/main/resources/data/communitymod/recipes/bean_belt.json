@@ -1,22 +1,23 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " # ",
-    "#L#",
-    " B "
-  ],
-  "key": {
-    "#": {
-      "item": "minecraft:leather"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " # ",
+        "#L#",
+        " B "
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:leather"
+        },
+        "L": {
+            "item": "minecraft:lead"
+        },
+        "B": {
+            "item": "communitymod:beans"
+        }
     },
-    "L": {
-      "item": "minecraft:lead"
-    },
-    "B": {
-      "item": "communitymod:beans"
+    "result": {
+        "item": "communitymod:bean_belt",
+        "count": 1
     }
-  },
-  "result": {
-    "item": "communitymod:bean_belt"
-  }
 }
