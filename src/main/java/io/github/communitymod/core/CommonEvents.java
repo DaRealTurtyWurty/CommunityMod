@@ -44,7 +44,6 @@ public final class CommonEvents {
 		@SubscribeEvent
 		public static void addDimensionalSpacing(final WorldEvent.Load event) {
 			if (event.getWorld() instanceof ServerLevel serverLevel) {
-
 				Map<StructureFeature<?>, StructureFeatureConfiguration> tempMap = new HashMap<>(serverLevel.getChunkSource().generator.getSettings().structureConfig());
 				tempMap.putIfAbsent(StructureInit.BEAN_STRUCTURE.get(), StructureSettings.DEFAULTS.get(StructureInit.BEAN_STRUCTURE.get()));
 				serverLevel.getChunkSource().generator.getSettings().structureConfig = tempMap;
@@ -75,22 +74,16 @@ public final class CommonEvents {
 			}
 			if (event.includeClient()) {
 				generator.addProvider(new ModDataGeneration.LanguageGen(generator, "en_us"));
-				/* TODO: change textures path to /item and /block etc. else it won't work!
-				generator.addProvider(
-						new ModDataGeneration.ItemModelGen(generator, existingFileHelper));
-				generator.addProvider(
-						new ModDataGeneration.BlockStateGen(generator, existingFileHelper));
-				 */
-			}
+            }
 		}
 
 		@SubscribeEvent
 		public static void entityAttributes(final EntityAttributeCreationEvent event) {
 			event.put(EntityInit.BEAN_ENTITY.get(), BeanEntity.createAttributes().build());
 		}
-	}
 
-	private static StructurePieceType register(StructurePieceType structurePiece, String key) {
-		return Registry.register(Registry.STRUCTURE_PIECE, key.toLowerCase(Locale.ROOT), structurePiece);
-	}
+		private static StructurePieceType register(StructurePieceType structurePiece, String key) {
+			return Registry.register(Registry.STRUCTURE_PIECE, key.toLowerCase(Locale.ROOT), structurePiece);
+		}
+    }
 }
