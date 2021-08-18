@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "communitymod:bean_block"
+    }
+  ],
+  "result": {
+    "item": "communitymod:beans",
+    "count": 9
+  }
+}
