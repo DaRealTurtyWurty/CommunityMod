@@ -2,6 +2,7 @@ package io.github.communitymod.core;
 
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.common.entities.BeanEntity;
+import io.github.communitymod.common.entities.ThrownStickEntity;
 import io.github.communitymod.core.init.DimensionInit;
 import io.github.communitymod.core.init.EntityInit;
 import io.github.communitymod.core.init.StructureInit;
@@ -11,12 +12,20 @@ import io.github.communitymod.core.world.structures.bean.BeanPieces;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.StructureSettings;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructurePieceType;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.item.ItemEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -33,6 +42,23 @@ public final class CommonEvents {
 
     @EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.FORGE)
     public static final class ForgeEvents {
+
+        @SubscribeEvent
+        public static void onItemUse(final PlayerInteractEvent.RightClickItem event) {
+            ItemStack stack = event.getItemStack();
+            Entity user = event.getEntity();
+            Level level = user.level;
+
+            if (stack.getItem() == Items.STICK && user instanceof ServerPlayer player) {
+                stack.shrink(1);
+
+                ThrownStickEntity stickEntity = new ThrownStickEntity(player, level);
+                stickEntity.setItem(stack);
+                stickEntity.shootFromRotation(player, user.getXRot(), user.getYRot(), 0.0f, 1.5f, 0.0f);
+                level.addFreshEntity(stickEntity);
+            }
+
+        }
 
         @SubscribeEvent
         public static void biomeModification(final BiomeLoadingEvent event) {

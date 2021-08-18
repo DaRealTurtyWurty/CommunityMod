@@ -2,6 +2,7 @@ package io.github.communitymod.core.init;
 
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.common.entities.BeanEntity;
+import io.github.communitymod.common.entities.ThrownStickEntity;
 import io.github.communitymod.common.items.ModSpawnEggItem;
 import io.github.communitymod.core.util.SpawnEggData;
 import net.minecraft.resources.ResourceLocation;
@@ -17,8 +18,15 @@ public final class EntityInit {
 			.create(ForgeRegistries.ENTITIES, CommunityMod.MODID);
 
 	public static final RegistryObject<EntityType<BeanEntity>> BEAN_ENTITY = ENTITIES.register("bean",
-			() -> EntityType.Builder.<BeanEntity>of(BeanEntity::new, MobCategory.MISC).sized(0.8f, 1.75f)
+			() -> EntityType.Builder.<BeanEntity>of(BeanEntity::new, MobCategory.MISC)
+					.sized(0.8f, 1.75f)
 					.build(new ResourceLocation(CommunityMod.MODID, "bean").toString()));
+	public static final RegistryObject<EntityType<ThrownStickEntity>> THROWN_STICK = ENTITIES.register("stick",
+			() -> EntityType.Builder.<ThrownStickEntity>of(ThrownStickEntity::new, MobCategory.MISC)
+					.sized(0.25f, 0.25f)
+					.clientTrackingRange(4)
+					.updateInterval(10)
+					.build(new ResourceLocation(CommunityMod.MODID, "stick").toString()));
 
 	public static void registerSpawnEggs() {
 		ItemInit.ITEMS.register("bean_spawn_egg",

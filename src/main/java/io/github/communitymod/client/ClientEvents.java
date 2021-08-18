@@ -3,6 +3,7 @@ package io.github.communitymod.client;
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.client.entity.bean.BeanModel;
 import io.github.communitymod.client.entity.bean.BeanRenderer;
+import io.github.communitymod.client.entity.stick.ThrownStickEntityRenderer;
 import io.github.communitymod.core.init.EntityInit;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -33,6 +34,7 @@ public final class ClientEvents {
 		@SubscribeEvent
 		public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
 			event.registerEntityRenderer(EntityInit.BEAN_ENTITY.get(), BeanRenderer::new);
+			event.registerEntityRenderer(EntityInit.THROWN_STICK.get(), ThrownStickEntityRenderer::new);
 		}
 	}
 }
