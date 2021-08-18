@@ -34,4 +34,6 @@ closed.
 - Bean Hat
 - Bean Belt
 - Da Dog Hand
-- Bean Music Disc (by LudoCrypt) 'LudoCrypt - beanal'
+- Bean Music Disc (by LudoCrypt)
+- A Bean Structure
+- Bean Sword
