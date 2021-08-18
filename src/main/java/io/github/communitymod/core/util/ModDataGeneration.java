@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.mojang.datafixers.util.Pair;
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.common.items.ModSpawnEggItem;
+import io.github.communitymod.common.items.SpecialItem;
 import io.github.communitymod.core.init.BlockInit;
 import io.github.communitymod.core.init.EntityInit;
 import io.github.communitymod.core.init.ItemInit;
@@ -47,6 +48,7 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.apache.commons.lang3.text.WordUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -145,10 +147,6 @@ public class ModDataGeneration {
         }
     }
 
-    /* TODO: fix, pls help to match  loot tables and fix errors
-    Caused by: java.lang.IllegalStateException: Missing loottable 'minecraft:blocks/stone' for 'minecraft:stone')!
-    Caused by: java.lang.IllegalStateException: Weird loottable 'communitymod:entities/bean' for 'communitymod:bean', not a LivingEntity so should not have loot
-    */
     public static final class LootTableGen extends LootTableProvider {
 
         public LootTableGen(DataGenerator dataGeneratorIn) {
@@ -171,11 +169,7 @@ public class ModDataGeneration {
         public static class Blocks extends BlockLoot {
             @Override
             protected void addTables() {
-                this.dropBeans(BlockInit.BEAN_BLOCK.get(), ItemInit.BEANS.get());
-            }
-
-            private void dropBeans(Block block, Item itemToDrop) {
-                this.add(BlockInit.BEAN_BLOCK.get(), createBeanDrop(itemToDrop));
+                this.add(BlockInit.BEAN_BLOCK.get(), createBeanDrop(ItemInit.BEANS.get()));
             }
 
             protected static LootTable.Builder createBeanDrop(ItemLike pItem) {
@@ -191,8 +185,7 @@ public class ModDataGeneration {
         public static class Entities extends EntityLoot {
             @Override
             protected void addTables() {
-                //TODO: fix to match loot table for entity
-                this.add(EntityInit.BEAN_ENTITY.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(ItemInit.BEANS.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F))).apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 2.0F))))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))));
+                this.add(EntityInit.BEAN_ENTITY.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(3.0F)).add(LootItem.lootTableItem(ItemInit.BEANS.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F))).apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F))))));
             }
 
             @Override
@@ -227,19 +220,16 @@ public class ModDataGeneration {
                     add(EntityInit.BEAN_ENTITY.get(), "Bean");
 
                     //items
-                    add(ItemInit.BEAN_HAT.get(), "Bean Hat");
-                    add(ItemInit.BEAN_BELT.get(), "Bean Belt");
+                    add(ItemInit.SPECIAL_ITEM.get(), "Test Item");
+                    ItemInit.ITEMS.getEntries().stream().filter(item -> !(item.get() instanceof SpecialItem)).forEach(item -> {
+                        String name = WordUtils.capitalize(item.getId().getPath().replace("_", " "));
+                        addItem(item, name);
+                    });
+
+                    //tooltips
                     addToolTip(ItemInit.BEAN_BELT.get(), "Equip and press %3$s%2$sSHIFT%1$s to go %4$sboom%1$s!");
-                    add(ItemInit.BEAN_SOUP.get(), "Bean Soup");
-                    addSpawnEgg("bean_spawn_egg", "Spawn Bean");
-                    add(ItemInit.BEAN_SWORD.get(), "Bean Sword");
-                    add(ItemInit.BEANS.get(), "Beans");
-                    add(ItemInit.BEANS_SANDWICH.get(), "Beans Sandwitch");
-                    add(ItemInit.CHEESE_ITEM.get(), "Ultimate Cheese");
-                    add(ItemInit.MIGUEL_OF_FORTUNE.get(), "Miguel of Fortune");
-                    add(ItemInit.ORB_OF_INSANITY.get(), "Orb of Insanity");
-                    add(ItemInit.TOAST.get(), "Toast");
-                    add(ItemInit.SPECIAL_ITEM.get(), "Tutorial Item");
+
+                    // music disc desc
                     addMusicDisc(ItemInit.MUSIC_DISC_BEANAL.get(), "LudoCrypt - beanal");
 
                     //item group
@@ -253,13 +243,8 @@ public class ModDataGeneration {
             add(item.getDescriptionId() + ".tooltip", tooltipTranslation);
         }
 
-        private void addMusicDisc(Item item, String descTranslation) {
-            add(item, "Music Disc");
-            add(item.getDescriptionId() + ".desc", descTranslation);
-        }
-
-        private void addSpawnEgg(String name, String translation) {
-            add("item." + CommunityMod.MODID + "." + name, translation);
+        private void addMusicDisc(Item item, String musicDescTranslation) {
+            add(item.getDescriptionId() + ".desc", musicDescTranslation);
         }
     }
 

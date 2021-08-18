@@ -2,8 +2,8 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 9,
-      "bonus_rolls": 0,
+      "rolls": 9.0,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
@@ -14,7 +14,8 @@
         {
           "condition": "minecraft:survives_explosion"
         }
-      ]
+      ],
+      "functions": []
     }
   ]
 }

@@ -28,7 +28,7 @@ import net.minecraftforge.common.ForgeMod;
 public class BeanEntity extends Animal {
 
 	private static final ResourceLocation LOOT_TABLE = new ResourceLocation(CommunityMod.MODID,
-			"entity/bean");
+			"entities/bean");
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10).add(Attributes.MOVEMENT_SPEED, 1)
