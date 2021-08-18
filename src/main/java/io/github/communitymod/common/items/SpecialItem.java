@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * The SpecialItem from TurtyWurty's Forge tutorial.
- * <p>
+ *
  * I added it because ???
  */
 public class SpecialItem extends Item {

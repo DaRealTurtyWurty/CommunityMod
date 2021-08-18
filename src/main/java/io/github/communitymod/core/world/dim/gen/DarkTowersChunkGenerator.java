@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.WorldGenRegion;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.StructureFeatureManager;
@@ -92,7 +93,8 @@ public class DarkTowersChunkGenerator extends ChunkGenerator {
                 for (int y = 0; y < height; y++) {
                     if ((x >= 16 - gap * 2 | x <= gap * 2) | (z >= 16 - gap * 2 | z <= gap * 2)) {
                         chunkAccess.setBlockState(new BlockPos(x, 1, z), towerBlockState, false);
-                    } else {
+                    }
+                    else {
                         chunkAccess.setBlockState(new BlockPos(x, y, z), towerBlockState, false);
                     }
                 }
