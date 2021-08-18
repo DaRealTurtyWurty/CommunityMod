@@ -1,0 +1,10 @@
+{
+	"music.record.beanal": {
+		"sounds": [
+			{
+				"name": "communitymod:music/record/beanal",
+				"stream": true
+			}
+		]
+	}
+}

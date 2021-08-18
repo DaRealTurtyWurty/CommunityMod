@@ -103,3 +103,7 @@ publishing {
         }
     }
 }
+
+processResources {
+    duplicatesStrategy = 'include'
+}

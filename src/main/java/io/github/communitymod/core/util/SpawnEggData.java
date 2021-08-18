@@ -1,7 +1,5 @@
 package io.github.communitymod.core.util;
 
-import java.awt.Color;
-
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
@@ -11,6 +9,8 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.DispenserBlock;
+
+import java.awt.Color;
 
 public final class SpawnEggData {
 	public final int primaryColor;
