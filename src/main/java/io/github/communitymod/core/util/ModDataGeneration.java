@@ -38,6 +38,7 @@ public class ModDataGeneration {
                 case "en_us":
                     add(BlockInit.BEAN_BLOCK.get(), "Block of Beans");
                     add(EntityInit.BEAN_ENTITY.get(), "Bean");
+                    add(ItemInit.APPLE_INGOT.get(), "Apple Ingot");
                     add(ItemInit.BEANS.get(), "Beans");
                     add(ItemInit.BEANS_SANDWICH.get(), "Beans Sandwitch");
                     add(ItemInit.BEAN_SOUP.get(), "Bean Soup");
