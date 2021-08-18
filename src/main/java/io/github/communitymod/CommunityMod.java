@@ -4,6 +4,7 @@ import io.github.communitymod.core.init.BlockEntityInit;
 import io.github.communitymod.core.init.BlockInit;
 import io.github.communitymod.core.init.EntityInit;
 import io.github.communitymod.core.init.ItemInit;
+import io.github.communitymod.core.init.SoundsInit;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -32,5 +33,7 @@ public class CommunityMod {
 		BlockEntityInit.BLOCK_ENTITIES.register(bus);
 		EntityInit.ENTITIES.register(bus);
 		EntityInit.registerSpawnEggs();
+		SoundsInit.SOUNDS.register(bus);
+		SoundsInit.registerSounds();
 	}
 }
