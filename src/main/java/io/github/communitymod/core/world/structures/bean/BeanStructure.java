@@ -8,6 +8,7 @@ import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
@@ -23,6 +24,11 @@ public class BeanStructure extends StructureFeature<NoneFeatureConfiguration> {
         return BeanStructure.Start::new;
     }
 
+    @Override
+    public GenerationStep.Decoration step() {
+        return GenerationStep.Decoration.SURFACE_STRUCTURES;
+    }
+
     public static class Start extends StructureStart<NoneFeatureConfiguration> {
 
         public Start(StructureFeature<NoneFeatureConfiguration> p_159888_, ChunkPos p_159889_, int p_159890_, long p_159891_) {
@@ -30,8 +36,8 @@ public class BeanStructure extends StructureFeature<NoneFeatureConfiguration> {
         }
 
         public void generatePieces(RegistryAccess registryAccess, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, NoneFeatureConfiguration noneFeatureConfiguration, LevelHeightAccessor levelHeightAccessor) {
-            int x = chunkPos.x;
-            int z = chunkPos.z;
+            int x = chunkPos.getMinBlockX();
+            int z = chunkPos.getMinBlockZ();
             int y = chunkGenerator.getBaseHeight(x, z, Heightmap.Types.WORLD_SURFACE_WG, levelHeightAccessor);
             BlockPos blockPos = new BlockPos(x, y, z);
             Rotation rotation = Rotation.getRandom(this.random);

@@ -24,8 +24,8 @@ public class StructureInit {
     public static void setupStructures() {
         setupMapSpacingAndLand(
                 BEAN_STRUCTURE.get(), /* The instance of the structure */
-                new StructureFeatureConfiguration(1, /* average distance apart in chunks between spawn attempts */
-                        0, /* minimum distance apart in chunks between spawn attempts. MUST BE LESS THAN ABOVE VALUE*/
+                new StructureFeatureConfiguration(15, /* average distance apart in chunks between spawn attempts */
+                        10, /* minimum distance apart in chunks between spawn attempts. MUST BE LESS THAN ABOVE VALUE*/
                         694201337), /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */
                 true);
 

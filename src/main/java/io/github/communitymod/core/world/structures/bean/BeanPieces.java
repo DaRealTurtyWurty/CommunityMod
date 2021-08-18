@@ -19,7 +19,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlac
 import java.util.Random;
 
 public class BeanPieces {
-    static final ResourceLocation STRUCTURE_LOCATION = new ResourceLocation(CommunityMod.MODID, "bean_structure");
+    static final ResourceLocation STRUCTURE_LOCATION = new ResourceLocation(CommunityMod.MODID + ":bean_structure");
     public static final StructurePieceType BEAN_TYPE = BeanPiece::new;
 
     public BeanPieces() {
