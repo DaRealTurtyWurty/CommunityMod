@@ -1,8 +1,5 @@
 package io.github.communitymod.core.init;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.common.armor.BeanArmorMaterial;
 import io.github.communitymod.common.items.BeanBelt;
@@ -14,13 +11,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.BowlFoodItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.RecordItem;
-import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -30,6 +21,9 @@ import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.MOD)
 public final class ItemInit {

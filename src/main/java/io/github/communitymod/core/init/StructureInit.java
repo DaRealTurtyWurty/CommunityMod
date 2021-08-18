@@ -2,7 +2,6 @@ package io.github.communitymod.core.init;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.sun.jna.Structure;
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.core.world.structures.bean.BeanStructure;
 import net.minecraft.data.BuiltinRegistries;
