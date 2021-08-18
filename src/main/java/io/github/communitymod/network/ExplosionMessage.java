@@ -1,11 +1,11 @@
 package io.github.communitymod.network;
 
-import java.util.function.Supplier;
-
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Explosion.BlockInteraction;
 import net.minecraftforge.fmllegacy.network.NetworkEvent.Context;
 import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
+
+import java.util.function.Supplier;
 
 public class ExplosionMessage {
     public double x;
@@ -28,7 +28,7 @@ public class ExplosionMessage {
         buf.writeDouble(message.z);
         buf.writeFloat(message.explosionRadius);
         buf.writeEnum(message.blockInteraction);
-    };
+    }
 
     public static ExplosionMessage from(FriendlyByteBuf buf) {
         return new ExplosionMessage(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readFloat(),
@@ -36,10 +36,9 @@ public class ExplosionMessage {
     }
 
     public static void handle(ExplosionMessage msg, Supplier<Context> ctx) {
-        ctx.get().enqueueWork(() -> {
-            ServerLifecycleHooks.getCurrentServer().overworld().explode(null, msg.x, msg.y, msg.z, msg.explosionRadius,
-                    msg.blockInteraction);
-        });
+        ctx.get().enqueueWork(() ->
+                ServerLifecycleHooks.getCurrentServer().overworld().explode(null, msg.x, msg.y, msg.z,
+                        msg.explosionRadius, msg.blockInteraction));
         ctx.get().setPacketHandled(true);
     }
 }

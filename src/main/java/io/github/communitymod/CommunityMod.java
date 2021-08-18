@@ -2,8 +2,8 @@ package io.github.communitymod;
 
 import io.github.communitymod.core.config.Config;
 import io.github.communitymod.core.init.*;
-import net.minecraft.resources.ResourceLocation;
 import io.github.communitymod.network.PacketHandler;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -46,6 +46,6 @@ public class CommunityMod {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_SPEC);
 
-    		PacketHandler.init();
+		PacketHandler.init();
 	}
 }

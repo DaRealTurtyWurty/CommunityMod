@@ -1,8 +1,5 @@
 package io.github.communitymod.core.init;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.core.util.ModResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -10,6 +7,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public final class SoundsInit {
 

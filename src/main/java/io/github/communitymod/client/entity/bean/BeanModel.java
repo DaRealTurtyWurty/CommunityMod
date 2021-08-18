@@ -2,7 +2,6 @@ package io.github.communitymod.client.entity.bean;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-
 import io.github.communitymod.common.entities.BeanEntity;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;

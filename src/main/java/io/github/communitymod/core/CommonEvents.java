@@ -1,6 +1,5 @@
 package io.github.communitymod.core;
 
-import com.mojang.serialization.Codec;
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.common.entities.BeanEntity;
 import io.github.communitymod.core.init.DimensionInit;
@@ -12,9 +11,7 @@ import io.github.communitymod.core.world.structures.bean.BeanPieces;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.StructureSettings;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructurePieceType;
@@ -27,11 +24,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
-import org.apache.logging.log4j.LogManager;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
