@@ -7,6 +7,9 @@ import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public final class SoundsInit {
 
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister
