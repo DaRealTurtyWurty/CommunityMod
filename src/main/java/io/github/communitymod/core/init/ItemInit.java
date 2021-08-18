@@ -88,6 +88,12 @@ public final class ItemInit {
 	public static final RegistryObject<Item> MUSIC_DISC_BEANAL = ITEMS.register("music_disc_beanal",
 			() -> new RecordItem(5, ()-> SoundsInit.MUSIC_DISC_BEANAL.get(), new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.RARE)));
 	
+	public static final RegistryObject<Item> MUSIC_DISC_CHEESE = ITEMS.register("music_disc_cheese",
+			() -> new RecordItem(15, ()-> SoundsInit.MUSIC_DISC_CHEESE.get(), new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.EPIC)));
+	
+	public static final RegistryObject<Item> MUSIC_DISC_SOVIET = ITEMS.register("music_disc_soviet",
+			() -> new RecordItem(15, ()-> SoundsInit.MUSIC_DISC_SOVIET.get(), new Item.Properties().tab(CommunityMod.TAB).stacksTo(1)));
+	
 	public static final RegistryObject<Item> BEAN_SWORD = ITEMS.register("bean_sword", () -> new SwordItem(ModToolMaterials.BEAN, 8, -2.4f, new Item.Properties().defaultDurability(100).tab(CommunityMod.TAB)));
 
 	@SubscribeEvent
