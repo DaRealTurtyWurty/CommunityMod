@@ -91,10 +91,6 @@ jar {
 
 jar.finalizedBy('reobfJar')
 
-processResources {
-    duplicatesStrategy = 'include'
-}
-
 publishing {
     publications {
         mavenJava(MavenPublication) {
