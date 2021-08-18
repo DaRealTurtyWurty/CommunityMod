@@ -46,6 +46,6 @@ public class CommunityMod {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_SPEC);
 
-    	PacketHandler.init();
+    		PacketHandler.init();
 	}
 }
