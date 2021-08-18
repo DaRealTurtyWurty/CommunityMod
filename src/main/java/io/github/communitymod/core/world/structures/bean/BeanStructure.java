@@ -11,7 +11,6 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.levelgen.structure.IglooPieces;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
 
@@ -25,6 +24,7 @@ public class BeanStructure extends StructureFeature<NoneFeatureConfiguration> {
     }
 
     public static class Start extends StructureStart<NoneFeatureConfiguration> {
+
         public Start(StructureFeature<NoneFeatureConfiguration> p_159888_, ChunkPos p_159889_, int p_159890_, long p_159891_) {
             super(p_159888_, p_159889_, p_159890_, p_159891_);
         }
@@ -35,7 +35,7 @@ public class BeanStructure extends StructureFeature<NoneFeatureConfiguration> {
             int y = chunkGenerator.getBaseHeight(x, z, Heightmap.Types.WORLD_SURFACE_WG, levelHeightAccessor);
             BlockPos blockPos = new BlockPos(x, y, z);
             Rotation rotation = Rotation.getRandom(this.random);
-            IglooPieces.addPieces(structureManager, blockPos, rotation, this, this.random);
+            BeanPieces.addPieces(structureManager, blockPos, rotation, this, this.random);
         }
     }
 }
