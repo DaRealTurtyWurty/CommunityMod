@@ -21,7 +21,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * An item that does a random thing.
- *
+ * <p>
  * !!!Feel free to add other things this item does!!!
  */
 public class OrbOfInsanity extends Item {
@@ -90,7 +90,7 @@ public class OrbOfInsanity extends Item {
                 }
                 break;
             case 10:
-                player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 20*120, 1));
+                player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 20 * 120, 1));
                 player.setSecondsOnFire(120);
                 message = "The orb blocks your screen with fire!";
                 break;
@@ -133,11 +133,11 @@ public class OrbOfInsanity extends Item {
                 message = "The orb sets your health to be half of its maximum!";
                 break;
             case 20:
-                player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20*10, 255));
+                player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 10, 255));
                 message = "The orb grants you the health of a god, even if only for a short amount of time.";
                 break;
             case 21:
-                player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 20*8, 9));
+                player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 20 * 8, 9));
                 message = "Star music intensifies.";
                 break;
             case 22:
@@ -145,7 +145,7 @@ public class OrbOfInsanity extends Item {
                 message = "The orb grants you a single diamond.";
                 break;
             case 23:
-                player.addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 20*300, 10));
+                player.addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 20 * 300, 10));
                 message = "The orb grants you a significant boost to your maximum health.";
                 break;
             case 24:

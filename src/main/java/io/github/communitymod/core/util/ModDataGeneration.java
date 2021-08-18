@@ -37,11 +37,15 @@ public class ModDataGeneration {
             switch (locale) {
                 case "en_us":
                     add(BlockInit.BEAN_BLOCK.get(), "Block of Beans");
+
                     add(EntityInit.BEAN_ENTITY.get(), "Bean");
+
+                    add(ItemInit.APPLE_INGOT.get(), "Apple Ingot");
                     add(ItemInit.BEANS.get(), "Beans");
-                    add(ItemInit.BEANS_SANDWICH.get(), "Beans Sandwitch");
                     add(ItemInit.BEAN_SOUP.get(), "Bean Soup");
+                    add(ItemInit.BEANS_SANDWICH.get(), "Beans Sandwitch");
                     add(ItemInit.MIGUEL_OF_FORTUNE.get(), "Miguel of Fortune");
+
                     add(CommunityMod.TAB.getDisplayName().getString(), "Community Mod");
 
                     addSpawnEgg("bean_spawn_egg", "Spawn Bean");

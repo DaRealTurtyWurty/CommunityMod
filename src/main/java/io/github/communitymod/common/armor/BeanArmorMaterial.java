@@ -1,6 +1,5 @@
 package io.github.communitymod.common.armor;
 
-import java.util.function.Supplier;
 import io.github.communitymod.core.init.ItemInit;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -8,11 +7,13 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 
+import java.util.function.Supplier;
+
 public enum BeanArmorMaterial implements ArmorMaterial {
-    BEAN_ARMOR("bean", 10, new int[] { 1, 3, 3, 7 }, 17, SoundEvents.ARMOR_EQUIP_CHAIN, 4f, 0.2f,
+    BEAN_ARMOR("bean", 10, new int[]{1, 3, 3, 7}, 17, SoundEvents.ARMOR_EQUIP_CHAIN, 4f, 0.2f,
             () -> Ingredient.of(ItemInit.BEANS.get()));
 
-    private static final int[] baseDurability = { 100, 100, 100, 100 };
+    private static final int[] baseDurability = {100, 100, 100, 100};
 
     private final String name;
     private final int durabilityMultiplier;
@@ -24,7 +25,7 @@ public enum BeanArmorMaterial implements ArmorMaterial {
     private final Ingredient repairIngredient;
 
     BeanArmorMaterial(String name, int durabilityMultiplier, int[] defense, int enchantmentValue, SoundEvent equipSound,
-            float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
+                      float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
         this.name = name;
         this.durabilityMultiplier = durabilityMultiplier;
         this.defense = defense;
