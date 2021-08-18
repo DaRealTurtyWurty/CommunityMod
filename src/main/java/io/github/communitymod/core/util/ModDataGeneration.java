@@ -32,11 +32,13 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -156,13 +158,15 @@ public class ModDataGeneration {
        @Override
         protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables() {
             return ImmutableList.of(
-                    //Pair.of(Blocks::new, LootContextParamSets.BLOCK),
-                    //Pair.of(Entities::new, LootContextParamSets.ENTITY)
+                    Pair.of(Blocks::new, LootContextParamSets.BLOCK),
+                    Pair.of(Entities::new, LootContextParamSets.ENTITY)
             );
         }
 
         @Override
-        protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationTracker) {}
+        protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationTracker) {
+            map.forEach((resourceLocation, lootTable) -> LootTables.validate(validationTracker, resourceLocation, lootTable));
+        }
 
         public static class Blocks extends BlockLoot {
             @Override
@@ -175,7 +179,12 @@ public class ModDataGeneration {
             }
 
             protected static LootTable.Builder createBeanDrop(ItemLike pItem) {
-                return LootTable.lootTable().withPool(applyExplosionCondition(pItem, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(pItem))));
+                return LootTable.lootTable().withPool(applyExplosionCondition(pItem, LootPool.lootPool().setRolls(ConstantValue.exactly(9.0F)).add(LootItem.lootTableItem(pItem))));
+            }
+
+            @Override
+            protected Iterable<Block> getKnownBlocks() {
+                return BlockInit.BLOCKS.getEntries().stream().map(Supplier::get).collect(Collectors.toList());
             }
         }
 
@@ -183,8 +192,7 @@ public class ModDataGeneration {
             @Override
             protected void addTables() {
                 //TODO: fix to match loot table for entity
-                this.add(EntityInit.BEAN_ENTITY.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.STRING).apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F))).apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 2.0F))))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))));
-                //this.add(EntityInit.BEAN_ENTITY.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(3)).add(LootItem.lootTableItem(ItemInit.BEANS.get())).when(LootItemRandomChanceWithLootingCondition)));
+                this.add(EntityInit.BEAN_ENTITY.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(ItemInit.BEANS.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F))).apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 2.0F))))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))));
             }
 
             @Override
