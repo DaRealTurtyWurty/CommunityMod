@@ -87,7 +87,7 @@ public final class CommonEvents {
                     generator.addProvider(new ModDataGeneration.LanguageGen(generator, "en_us"));
 
 				    generator.addProvider(
-						    new ModDataGeneration.ItemModelGen(generator, existingFileHelper));
+						new ModDataGeneration.ItemModelGen(generator, existingFileHelper));
 				    generator.addProvider(
 						new ModDataGeneration.BlockStateGen(generator, existingFileHelper));
                 }
