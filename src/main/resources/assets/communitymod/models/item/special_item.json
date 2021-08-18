@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "communitymod:item/special_item"
+  "parent": "item/generated",
+  "textures" : {
+    "layer0": "communitymod:items/special_item"
   }
 }

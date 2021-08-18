@@ -1,7 +1,5 @@
 {
-  "variants": {
-    "": {
-      "model": "communitymod:block/bean_block"
-    }
-  }
+	"variants": {
+		"": { "model": "communitymod:block/bean_block" }
+	}
 }

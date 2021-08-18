@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "communitymod:block/bean_block"
-  }
+	"parent": "block/cube_all",
+	"textures": {
+		"all": "communitymod:blocks/bean_block"
+	}
 }
