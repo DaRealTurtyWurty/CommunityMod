@@ -2,34 +2,29 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
+      "item": "communitymod:beans"
+    },
+    {
+      "item": "communitymod:beans"
+    },
+    {
+      "item": "communitymod:beans"
+    },
+    {
+      "item": "communitymod:beans"
+    },
+    {
+      "item": "communitymod:beans"
+    },
+    {
+      "item": "communitymod:beans"
+    },
+    {
       "item": "minecraft:bowl"
-    },
-    {
-      "item": "communitymod:beans"
-    },
-    {
-      "item": "communitymod:beans"
-    },
-    {
-      "item": "communitymod:beans"
-    },
-    {
-      "item": "communitymod:beans"
-    },
-    {
-      "item": "communitymod:beans"
-    },
-    {
-      "item": "communitymod:beans"
-    },
-    {
-      "item": "communitymod:beans"
-    },
-    {
-      "item": "communitymod:beans"
     }
   ],
   "result": {
-    "item": "communitymod:bean_soup"
+    "item": "communitymod:bean_soup",
+    "count": 1
   }
 }

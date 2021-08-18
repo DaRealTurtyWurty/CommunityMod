@@ -11,6 +11,7 @@ import io.github.communitymod.core.world.structures.bean.BeanPieces;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.levelgen.StructureSettings;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
@@ -69,21 +70,16 @@ public final class CommonEvents {
                 ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
                 if (event.includeServer()) {
-                    generator.addProvider(new ModDataGeneration.RecipeGen(generator));
-                    BlockTagsProvider blockTagsProvider = new ModDataGeneration.BlockTagsGen(generator,
-                            existingFileHelper);
-                    generator.addProvider(new ModDataGeneration.ItemTagsGen(generator, blockTagsProvider,
-                            existingFileHelper));
-                    generator.addProvider(new ModDataGeneration.AdvancementGen(generator));
-                    generator.addProvider(new ModDataGeneration.LootTableGen(generator));
+                    //TODO: recipes, loot tables, tags
                 }
                 if (event.includeClient()) {
                     generator.addProvider(new ModDataGeneration.LanguageGen(generator, "en_us"));
-
-				    generator.addProvider(
+				/* TODO: change textures path to /item and /block etc. else it won't work!
+				generator.addProvider(
 						new ModDataGeneration.ItemModelGen(generator, existingFileHelper));
-				    generator.addProvider(
+				generator.addProvider(
 						new ModDataGeneration.BlockStateGen(generator, existingFileHelper));
+				 */
                 }
             }
 
