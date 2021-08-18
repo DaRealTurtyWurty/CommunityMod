@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "communitymod:orb_of_insanity"
+    ]
+  },
+  "criteria": {
+    "has_rotten_flesh": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:rotten_flesh"
+            ]
+          }
+        ]
+      }
+    },
+    "has_poisonous_potato": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:poisonous_potato"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "communitymod:orb_of_insanity"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_rotten_flesh",
+      "has_poisonous_potato",
+      "has_the_recipe"
+    ]
+  ]
+}
