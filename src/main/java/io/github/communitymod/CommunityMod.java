@@ -1,12 +1,17 @@
 package io.github.communitymod;
 
+import io.github.communitymod.core.config.Config;
 import io.github.communitymod.core.init.*;
 import io.github.communitymod.network.PacketHandler;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod(CommunityMod.MODID)
 public class CommunityMod {
@@ -17,7 +22,11 @@ public class CommunityMod {
 
 		@Override
 		public ItemStack makeIcon() {
-			return ItemInit.BEANS.get().getDefaultInstance();
+			ResourceLocation resourceLocation = new ResourceLocation(Config.CLIENT.tabIcon.get());
+			return (ForgeRegistries.ITEMS.containsKey(resourceLocation)
+					? ForgeRegistries.ITEMS.getValue(resourceLocation)
+					: ItemInit.BEANS.get())
+					.getDefaultInstance();
 		}
 	};
 
@@ -33,7 +42,10 @@ public class CommunityMod {
 		EntityInit.registerSpawnEggs();
 		SoundsInit.SOUNDS.register(bus);
 		SoundsInit.registerSounds();
-        
-        PacketHandler.init();
+
+		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_SPEC);
+
+		PacketHandler.init();
 	}
 }
