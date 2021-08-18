@@ -9,7 +9,7 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public enum BeanArmorMaterial implements ArmorMaterial {
-    BEAN_ARMOR("bean", 10, new int[] { 1, 3, 3, 7 }, 17, SoundEvents.ARMOR_EQUIP_CHAIN, 4f, 0.2f,
+    BEAN_ARMOR("bean", 10, new int[] { 1, 1, 1, 1 }, 20, SoundEvents.ARMOR_EQUIP_CHAIN, 0f, 0f,
             () -> Ingredient.of(ItemInit.BEANS.get()));
 
     private static final int[] baseDurability = { 100, 100, 100, 100 };
@@ -74,5 +74,4 @@ public enum BeanArmorMaterial implements ArmorMaterial {
     public float getKnockbackResistance() {
         return this.knockbackResistance;
     }
-
 }

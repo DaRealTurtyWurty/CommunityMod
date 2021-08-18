@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "communitymod:beans_from_block"
+    ]
+  },
+  "criteria": {
+    "has_bean_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "communitymod:bean_block"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "communitymod:beans_from_block"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_bean_block",
+      "has_the_recipe"
+    ]
+  ]
+}
