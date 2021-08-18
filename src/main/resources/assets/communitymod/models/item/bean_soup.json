@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "communitymod:item/bean_soup"
+  "parent": "item/generated",
+  "textures" : {
+    "layer0": "communitymod:items/bean_soup"
   }
 }
