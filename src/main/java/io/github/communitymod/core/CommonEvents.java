@@ -2,6 +2,7 @@ package io.github.communitymod.core;
 
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.common.entities.BeanEntity;
+import io.github.communitymod.common.entities.GooseEntity;
 import io.github.communitymod.core.init.DimensionInit;
 import io.github.communitymod.core.init.EntityInit;
 import io.github.communitymod.core.init.StructureInit;
@@ -80,6 +81,7 @@ public final class CommonEvents {
 		@SubscribeEvent
 		public static void entityAttributes(final EntityAttributeCreationEvent event) {
 			event.put(EntityInit.BEAN_ENTITY.get(), BeanEntity.createAttributes().build());
+			event.put(EntityInit.GOOSE_ENTITY.get(), GooseEntity.createAttributes().build());
 		}
 
 		private static StructurePieceType register(StructurePieceType structurePiece, String key) {

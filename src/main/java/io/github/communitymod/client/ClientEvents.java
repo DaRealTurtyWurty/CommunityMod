@@ -3,6 +3,8 @@ package io.github.communitymod.client;
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.client.entity.bean.BeanModel;
 import io.github.communitymod.client.entity.bean.BeanRenderer;
+import io.github.communitymod.client.entity.goose.GooseModel;
+import io.github.communitymod.client.entity.goose.GooseRenderer;
 import io.github.communitymod.core.init.EntityInit;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -28,11 +30,13 @@ public final class ClientEvents {
 		@SubscribeEvent
 		public static void registerLayers(final EntityRenderersEvent.RegisterLayerDefinitions event) {
 			event.registerLayerDefinition(BeanRenderer.BEAN_LAYER, BeanModel::createBodyMesh);
+			event.registerLayerDefinition(GooseRenderer.GOOSE_LAYER, GooseModel::createBodyLayer);
 		}
 
 		@SubscribeEvent
 		public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
 			event.registerEntityRenderer(EntityInit.BEAN_ENTITY.get(), BeanRenderer::new);
+			event.registerEntityRenderer(EntityInit.GOOSE_ENTITY.get(), GooseRenderer::new);
 		}
 	}
 }
