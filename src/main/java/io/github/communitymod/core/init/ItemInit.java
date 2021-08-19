@@ -39,13 +39,6 @@ public final class ItemInit {
 			.saturationMod(0.6F).effect(() -> new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 7200, 0), 1.0F)
 			.effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 100, 0), 0.5F).alwaysEat().build();
 
-	public static final RegistryObject<Item> BEAN_BELT = ITEMS.register("bean_belt",
-			() -> new BeanBelt(new Item.Properties().tab(CommunityMod.TAB)));
-
-	public static final RegistryObject<Item> BEAN_HAT = ITEMS.register("bean_hat",
-			() -> new ArmorItem(BeanArmorMaterial.BEAN_ARMOR, EquipmentSlot.HEAD,
-					new Item.Properties().tab(CommunityMod.TAB)));
-
 	public static final RegistryObject<Item> BEAN_SOUP = ITEMS.register("bean_soup", () -> new BowlFoodItem(
 			new Item.Properties().tab(CommunityMod.TAB).food(BEAN_SOUP_PROPERTIES).stacksTo(1).fireResistant()));
 
@@ -70,13 +63,33 @@ public final class ItemInit {
 	public static final RegistryObject<Item> MIGUEL_OF_FORTUNE = ITEMS.register("miguel_of_fortune",
 			() -> new MiguelItem(new Item.Properties().tab(CommunityMod.TAB)));
 
-	public static final RegistryObject<Item> MUSIC_DISC_BEANAL = ITEMS.register("music_disc_beanal",
-			() -> new RecordItem(5, SoundsInit.MUSIC_DISC_BEANAL,
-					new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.RARE)));
 
 	public static final RegistryObject<Item> ORB_OF_INSANITY = ITEMS.register("orb_of_insanity",
 			() -> new OrbOfInsanity(new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.UNCOMMON)));
 
+  public static final RegistryObject<Item> BEAN_HAT = ITEMS.register("bean_hat", () ->
+          new ArmorItem(
+              BeanArmorMaterial.BEAN_ARMOR, 
+              EquipmentSlot.HEAD,
+              new Item.Properties().tab(CommunityMod.TAB)
+          )
+      );
+
+  public static final RegistryObject<Item> BEAN_BELT = ITEMS.register("bean_belt", () ->
+      new BeanBelt(
+          new Item.Properties().tab(CommunityMod.TAB)
+      )
+  );
+  
+	public static final RegistryObject<Item> MUSIC_DISC_BEANAL = ITEMS.register("music_disc_beanal",
+			() -> new RecordItem(5, ()-> SoundsInit.MUSIC_DISC_BEANAL.get(), new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.RARE)));
+	
+	public static final RegistryObject<Item> MUSIC_DISC_CHEESE = ITEMS.register("music_disc_cheese",
+			() -> new RecordItem(15, ()-> SoundsInit.MUSIC_DISC_CHEESE.get(), new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.EPIC)));
+	
+	public static final RegistryObject<Item> MUSIC_DISC_SOVIET = ITEMS.register("music_disc_soviet",
+			() -> new RecordItem(15, ()-> SoundsInit.MUSIC_DISC_SOVIET.get(), new Item.Properties().tab(CommunityMod.TAB).stacksTo(1)));
+	
 	public static final RegistryObject<Item> SPECIAL_ITEM = ITEMS.register("special_item",
 			() -> new SpecialItem(new Item.Properties().tab(CommunityMod.TAB)));
 
