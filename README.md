@@ -25,7 +25,6 @@ closed.
 - Beans Sandwich
 - Bean Soup
 - Toast
-- Lonewolf Item
 - Miguel of Fortune
 - Dark Towers Dimension (wip)
 - Ultimate Cheese
@@ -37,3 +36,5 @@ closed.
 - Bean Music Disc (by LudoCrypt)
 - A Bean Structure
 - Bean Sword
+- USSR Anthem Music Disc
+- James May Cheese Song Music Disc

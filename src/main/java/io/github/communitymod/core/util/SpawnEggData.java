@@ -1,5 +1,7 @@
 package io.github.communitymod.core.util;
 
+import java.awt.Color;
+
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
@@ -10,22 +12,20 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.DispenserBlock;
 
-import java.awt.Color;
-
 public final class SpawnEggData {
-	public final int primaryColor;
-	public final int secondaryColor;
 	private DispenseItemBehavior dispenseBehaviour = new DefaultDispenseItemBehavior() {
 		@Override
 		protected ItemStack execute(BlockSource source, ItemStack stack) {
-			final Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
+			final var direction = source.getBlockState().getValue(DispenserBlock.FACING);
 			final EntityType<?> type = ((SpawnEggItem) stack.getItem()).getType(stack.getTag());
-			type.spawn(source.getLevel(), stack, null, source.getPos().relative(direction),
-					MobSpawnType.DISPENSER, direction != Direction.UP, false);
+			type.spawn(source.getLevel(), stack, null, source.getPos().relative(direction), MobSpawnType.DISPENSER,
+					direction != Direction.UP, false);
 			stack.shrink(1);
 			return stack;
 		}
 	};
+	public final int primaryColor;
+	public final int secondaryColor;
 
 	public SpawnEggData(Color primaryColor, Color secondaryColor) {
 		this(primaryColor.getRGB(), secondaryColor.getRGB());
