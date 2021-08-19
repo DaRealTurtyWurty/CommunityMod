@@ -1,7 +1,12 @@
 package io.github.communitymod;
 
 import io.github.communitymod.core.config.Config;
-import io.github.communitymod.core.init.*;
+import io.github.communitymod.core.init.BlockEntityInit;
+import io.github.communitymod.core.init.BlockInit;
+import io.github.communitymod.core.init.EntityInit;
+import io.github.communitymod.core.init.ItemInit;
+import io.github.communitymod.core.init.SoundsInit;
+import io.github.communitymod.core.init.StructureInit;
 import io.github.communitymod.network.PacketHandler;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -15,34 +20,34 @@ import net.minecraftforge.registries.ForgeRegistries;
 @Mod(CommunityMod.MODID)
 public class CommunityMod {
 
-    public static final String MODID = "communitymod";
+	public static final String MODID = "communitymod";
 
-    public static final CreativeModeTab TAB = new CreativeModeTab(MODID) {
+	public static final CreativeModeTab TAB = new CreativeModeTab(MODID) {
 
-        @Override
-        public ItemStack makeIcon() {
-            final var resourceLocation = new ResourceLocation(Config.CLIENT.tabIcon.get());
-            return (ForgeRegistries.ITEMS.containsKey(resourceLocation)
-                    ? ForgeRegistries.ITEMS.getValue(resourceLocation)
-                    : ItemInit.BEANS.get()).getDefaultInstance();
-        }
-    };
+		@Override
+		public ItemStack makeIcon() {
+			final var resourceLocation = new ResourceLocation(Config.CLIENT.tabIcon.get());
+			return (ForgeRegistries.ITEMS.containsKey(resourceLocation)
+					? ForgeRegistries.ITEMS.getValue(resourceLocation)
+					: ItemInit.BEANS.get()).getDefaultInstance();
+		}
+	};
 
-    public CommunityMod() {
-        final var bus = FMLJavaModLoadingContext.get().getModEventBus();
+	public CommunityMod() {
+		final var bus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ItemInit.ITEMS.register(bus);
-        BlockInit.BLOCKS.register(bus);
-        StructureInit.STRUCTURES.register(bus);
-        BlockInit.toBlacklist();
-        BlockEntityInit.BLOCK_ENTITIES.register(bus);
-        EntityInit.ENTITIES.register(bus);
-        EntityInit.registerSpawnEggs();
-        SoundsInit.SOUNDS.register(bus);
+		ItemInit.ITEMS.register(bus);
+		BlockInit.BLOCKS.register(bus);
+		StructureInit.STRUCTURES.register(bus);
+		BlockInit.toBlacklist();
+		BlockEntityInit.BLOCK_ENTITIES.register(bus);
+		EntityInit.ENTITIES.register(bus);
+		EntityInit.registerSpawnEggs();
+		SoundsInit.SOUNDS.register(bus);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_SPEC);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_SPEC);
 
-        PacketHandler.init();
-    }
+		PacketHandler.init();
+	}
 }
