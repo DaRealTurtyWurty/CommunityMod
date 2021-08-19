@@ -11,8 +11,7 @@ Community Mod. Just for fun.
 Alternatively, you can do a lot of these steps in your IDE or GitHub Desktop Application.
 
 ### How will my PR be accepted?
-Your code will be reviewed by one of the Triage Team. If your code is SFW (Safe For Work), does not break the mod, and
-does not change the concept or someone else's idea, then the code will be merged. If it breaks any of these it will be
+Your code will be reviewed by one of the Triage Team. If your code is SFW (Safe For Work), does not break the mod, does not change the concept of someone else's idea, and follows the [style guidelines](https://github.com/DaRealTurtyWurty/CommunityMod/blob/main/CONTRIBUTING.md), then the code will be merged. If it breaks any of these it will be
 closed. You must also add to this file in the [section below](#whats-included-in-this-mod) for what you have added/modified in your PR. If you do not
 supply an edit to this README.md, then you will be asked to add to it. If you continue failing to do so, your PR will be
 closed.
