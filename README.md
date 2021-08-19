@@ -36,3 +36,9 @@ closed.
 - Bean Music Disc (by LudoCrypt)
 - A Bean Structure
 - Bean Sword
+- Bean Talisman
+- Bean Ring
+- Bean Artifact
+- Skills
+- Mob levels
+- /stats

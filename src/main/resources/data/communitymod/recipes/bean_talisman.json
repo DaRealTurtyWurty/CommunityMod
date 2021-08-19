@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BHB",
+    "HHH",
+    "BHB"
+  ],
+  "key": {
+    "H": {
+      "item": "minecraft:bread"
+    },
+    "B": {
+      "item": "communitymod:bean_block"
+    }
+  },
+  "result": {
+    "item": "communitymod:bean_talisman",
+    "count": 1
+  }
+}
