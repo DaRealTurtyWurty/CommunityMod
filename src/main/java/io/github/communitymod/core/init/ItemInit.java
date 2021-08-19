@@ -2,10 +2,7 @@ package io.github.communitymod.core.init;
 
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.common.armor.BeanArmorMaterial;
-import io.github.communitymod.common.items.BeanBelt;
-import io.github.communitymod.common.items.MiguelItem;
-import io.github.communitymod.common.items.OrbOfInsanity;
-import io.github.communitymod.common.items.SpecialItem;
+import io.github.communitymod.common.items.*;
 import io.github.communitymod.core.util.enums.ModToolMaterials;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -89,6 +86,12 @@ public final class ItemInit {
 			() -> new RecordItem(5, ()-> SoundsInit.MUSIC_DISC_BEANAL.get(), new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.RARE)));
 	
 	public static final RegistryObject<Item> BEAN_SWORD = ITEMS.register("bean_sword", () -> new SwordItem(ModToolMaterials.BEAN, 8, -2.4f, new Item.Properties().defaultDurability(100).tab(CommunityMod.TAB)));
+
+	public static final RegistryObject<Item> WHAT = ITEMS.register("what", () ->
+			new WhatSign(
+					new Item.Properties().tab(CommunityMod.TAB)
+			)
+	);
 
 	@SubscribeEvent
 	public static void registerBlockItems(final RegistryEvent.Register<Item> event) {
