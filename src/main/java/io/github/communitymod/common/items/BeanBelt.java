@@ -1,5 +1,9 @@
 package io.github.communitymod.common.items;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import io.github.communitymod.common.armor.BeanArmorMaterial;
 import io.github.communitymod.network.ExplosionMessage;
 import io.github.communitymod.network.PacketHandler;
@@ -16,38 +20,35 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Explosion.BlockInteraction;
 import net.minecraft.world.level.Level;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
 public class BeanBelt extends ArmorItem {
-    private static final byte COOLDOWN = 3 * SharedConstants.TICKS_PER_SECOND;
-    private byte ticks = COOLDOWN;
+	private static final byte COOLDOWN = 3 * SharedConstants.TICKS_PER_SECOND;
+	private byte ticks = COOLDOWN;
 
-    public BeanBelt(Properties properties) {
-        super(BeanArmorMaterial.BEAN_ARMOR, EquipmentSlot.LEGS, properties);
-    }
+	public BeanBelt(Properties properties) {
+		super(BeanArmorMaterial.BEAN_ARMOR, EquipmentSlot.LEGS, properties);
+	}
 
-    @Override
-    public void onArmorTick(ItemStack stack, Level world, Player player) {
-        if (ticks < COOLDOWN) {
-            ticks++;
-        }
+	@Override
+	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+		tooltip.add(new TextComponent(I18n.get("item.communitymod.bean_belt.tooltip", MyColor.RESET, MyColor.BOLD,
+				MyColor.AQUA, MyColor.RED)));
 
-        if (player.isCrouching() && ticks == COOLDOWN) {
-            ticks = 0;
+		super.appendHoverText(stack, level, tooltip, flag);
+	}
 
-            PacketHandler.INSTANCE.sendToServer(new ExplosionMessage(player.getX(), player.getY(), player.getZ(),
-                    2.0f, BlockInteraction.DESTROY));
-        }
+	@Override
+	public void onArmorTick(ItemStack stack, Level world, Player player) {
+		if (this.ticks < COOLDOWN) {
+			this.ticks++;
+		}
 
-        super.onArmorTick(stack, world, player);
-    }
+		if (player.isCrouching() && this.ticks == COOLDOWN) {
+			this.ticks = 0;
 
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(new TextComponent(I18n.get("item.communitymod.bean_belt.tooltip", MyColor.RESET, MyColor.BOLD,
-                MyColor.AQUA, MyColor.RED)));
+			PacketHandler.INSTANCE.sendToServer(
+					new ExplosionMessage(player.getX(), player.getY(), player.getZ(), 2.0f, BlockInteraction.DESTROY));
+		}
 
-        super.appendHoverText(stack, level, tooltip, flag);
-    }
+		super.onArmorTick(stack, world, player);
+	}
 }
