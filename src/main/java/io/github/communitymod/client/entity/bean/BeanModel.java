@@ -2,6 +2,7 @@ package io.github.communitymod.client.entity.bean;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+
 import io.github.communitymod.common.entities.BeanEntity;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -9,17 +10,22 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.model.geom.builders.PartDefinition;
 
 public class BeanModel<T extends BeanEntity> extends EntityModel<T> {
 
+	private final ModelPart main;
+
+	public BeanModel(ModelPart model) {
+		this.main = model;
+	}
+
 	public static LayerDefinition createBodyMesh() {
 		final var meshDefinition = new MeshDefinition();
-		final PartDefinition partDefinition = meshDefinition.getRoot();
+		final var partDefinition = meshDefinition.getRoot();
 
 		partDefinition.addOrReplaceChild("main",
-				CubeListBuilder.create().texOffs(24, 19).addBox(-2.0f, -6.0f, 0.0f, 5.0f, 1.0f, 1.0f)
-						.texOffs(24, 17).addBox(-3.0f, -7.0f, 0.0f, 8.0f, 1.0f, 1.0f).texOffs(0, 14)
+				CubeListBuilder.create().texOffs(24, 19).addBox(-2.0f, -6.0f, 0.0f, 5.0f, 1.0f, 1.0f).texOffs(24, 17)
+						.addBox(-3.0f, -7.0f, 0.0f, 8.0f, 1.0f, 1.0f).texOffs(0, 14)
 						.addBox(-4.0f, -9.0f, 0.0f, 10.0f, 2.0f, 1.0f).texOffs(21, 13)
 						.addBox(-2.0f, -12.0f, 0.0f, 10.0f, 1.0f, 1.0f).texOffs(22, 2)
 						.addBox(-1.0f, -13.0f, 0.0f, 9.0f, 1.0f, 1.0f).texOffs(0, 0)
@@ -35,17 +41,11 @@ public class BeanModel<T extends BeanEntity> extends EntityModel<T> {
 						.addBox(-1.0f, -20.0f, 0.0f, 9.0f, 1.0f, 1.0f).texOffs(24, 4)
 						.addBox(-2.0f, -5.0f, 0.0f, 1.0f, 5.0f, 1.0f).texOffs(12, 23)
 						.addBox(2.0f, -5.0f, 0.0f, 1.0f, 5.0f, 1.0f).texOffs(0, 25)
-						.addBox(-2.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f).texOffs(24, 21)
-						.addBox(2.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f),
+						.addBox(-2.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f).texOffs(24, 21).addBox(2.0f, -1.0f, -1.0f, 1.0f,
+								1.0f, 1.0f),
 				PartPose.offsetAndRotation(0.0f, 24.0f, 0.0f, 0.0f, 0.0f, 0.0f));
 
 		return LayerDefinition.create(meshDefinition, 64, 64);
-	}
-
-	private final ModelPart main;
-
-	public BeanModel(ModelPart model) {
-		this.main = model;
 	}
 
 	@Override
@@ -55,8 +55,8 @@ public class BeanModel<T extends BeanEntity> extends EntityModel<T> {
 	}
 
 	@Override
-	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks,
-			float netHeadYaw, float headPitch) {
+	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
+			float headPitch) {
 		// Use this method to setup the animation and rotation angles
 	}
 }
