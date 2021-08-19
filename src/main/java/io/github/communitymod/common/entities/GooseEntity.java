@@ -147,7 +147,7 @@ public class GooseEntity extends Animal {
 
 		Vec3 var1 = this.getDeltaMovement();
 		if (!this.onGround && var1.y < 0.0D) {
-			this.setDeltaMovement(var1.multiply(1.0D, 0.75D, 1.0D));
+			this.setDeltaMovement(var1.multiply(1.0D, 0.3D, 1.0D));
 		}
 
 		if (!this.isNoAi() && GoalUtils.hasGroundPathNavigation(this)) {
