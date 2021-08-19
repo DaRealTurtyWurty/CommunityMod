@@ -25,13 +25,13 @@ closed.
 - Beans Sandwich
 - Bean Soup
 - Toast
-- Lonewolf Item
 - Miguel of Fortune
 - Dark Towers Dimension (wip)
 - Ultimate Cheese
 - Special Item
 - Orb of Insanity
 - Bean Hat
+- Bean Belt
 - Da Dog Hand
 - Bean Music Disc (by LudoCrypt)
 - A Bean Structure

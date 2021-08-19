@@ -1,12 +1,14 @@
 package io.github.communitymod.core;
 
 import io.github.communitymod.CommunityMod;
+import io.github.communitymod.common.capability.provider.WolfItemHandlerProvider;
 import io.github.communitymod.common.entities.BeanEntity;
 import io.github.communitymod.common.entities.ThrownStickEntity;
 import io.github.communitymod.core.init.DimensionInit;
 import io.github.communitymod.core.init.EntityInit;
 import io.github.communitymod.core.init.StructureInit;
 import io.github.communitymod.core.util.ModDataGeneration;
+import io.github.communitymod.core.util.ModResourceLocation;
 import io.github.communitymod.core.world.structures.ConfiguredStructures;
 import io.github.communitymod.core.world.structures.bean.BeanPieces;
 import net.minecraft.core.Registry;
@@ -16,6 +18,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -24,6 +27,7 @@ import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructurePieceType;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
@@ -42,6 +46,7 @@ public final class CommonEvents {
 
     @EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.FORGE)
     public static final class ForgeEvents {
+
 
         @SubscribeEvent(receiveCanceled = true)
         public static void onItemUse(final PlayerInteractEvent.RightClickItem event) {
@@ -62,6 +67,16 @@ public final class CommonEvents {
 
                 event.setCancellationResult(InteractionResult.sidedSuccess(!level.isClientSide()));
                 event.setCanceled(true);
+            }
+        }
+
+        @SubscribeEvent
+        public static void attachWolfCaps(final AttachCapabilitiesEvent<Entity> event) {
+            Entity entity = event.getObject();
+            if (entity.getType() == EntityType.WOLF) {
+                WolfItemHandlerProvider provider = new WolfItemHandlerProvider();
+                event.addCapability(new ModResourceLocation("inventory"), provider);
+                event.addListener(provider::invalidate);
             }
         }
 
@@ -104,12 +119,6 @@ public final class CommonEvents {
             }
             if (event.includeClient()) {
                 generator.addProvider(new ModDataGeneration.LanguageGen(generator, "en_us"));
-				/* TODO: change textures path to /item and /block etc. else it won't work!
-				generator.addProvider(
-						new ModDataGeneration.ItemModelGen(generator, existingFileHelper));
-				generator.addProvider(
-						new ModDataGeneration.BlockStateGen(generator, existingFileHelper));
-				 */
             }
         }
 
