@@ -13,6 +13,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -23,8 +25,6 @@ import net.minecraft.world.level.levelgen.feature.StructurePieceType;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.event.entity.item.ItemEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -43,21 +43,26 @@ public final class CommonEvents {
     @EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.FORGE)
     public static final class ForgeEvents {
 
-        @SubscribeEvent
+        @SubscribeEvent(receiveCanceled = true)
         public static void onItemUse(final PlayerInteractEvent.RightClickItem event) {
             ItemStack stack = event.getItemStack();
             Entity user = event.getEntity();
             Level level = user.level;
 
             if (stack.getItem() == Items.STICK && user instanceof ServerPlayer player) {
-                stack.shrink(1);
+                if (!player.getAbilities().instabuild) stack.shrink(1);
 
                 ThrownStickEntity stickEntity = new ThrownStickEntity(player, level);
                 stickEntity.setItem(stack);
                 stickEntity.shootFromRotation(player, user.getXRot(), user.getYRot(), 0.0f, 1.5f, 0.0f);
+                stickEntity.setFiredRotation(player.getYRot());
                 level.addFreshEntity(stickEntity);
-            }
 
+                player.awardStat(Stats.ITEM_USED.get(stack.getItem()), 1);
+
+                event.setCancellationResult(InteractionResult.sidedSuccess(!level.isClientSide()));
+                event.setCanceled(true);
+            }
         }
 
         @SubscribeEvent
@@ -68,12 +73,12 @@ public final class CommonEvents {
         @SubscribeEvent
         public static void addDimensionalSpacing(final WorldEvent.Load event) {
             if (event.getWorld() instanceof ServerLevel serverLevel) {
-
                 Map<StructureFeature<?>, StructureFeatureConfiguration> tempMap = new HashMap<>(serverLevel.getChunkSource().generator.getSettings().structureConfig());
                 tempMap.putIfAbsent(StructureInit.BEAN_STRUCTURE.get(), StructureSettings.DEFAULTS.get(StructureInit.BEAN_STRUCTURE.get()));
                 serverLevel.getChunkSource().generator.getSettings().structureConfig = tempMap;
             }
         }
+
     }
 
     @EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.MOD)
@@ -112,9 +117,11 @@ public final class CommonEvents {
         public static void entityAttributes(final EntityAttributeCreationEvent event) {
             event.put(EntityInit.BEAN_ENTITY.get(), BeanEntity.createAttributes().build());
         }
-	
-	private static StructurePieceType register(StructurePieceType structurePiece, String key) {
+
+        private static StructurePieceType register(StructurePieceType structurePiece, String key) {
             return Registry.register(Registry.STRUCTURE_PIECE, key.toLowerCase(Locale.ROOT), structurePiece);
         }
+
     }
+
 }
