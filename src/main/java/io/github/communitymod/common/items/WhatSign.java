@@ -12,6 +12,7 @@ public class WhatSign extends Item {
     public WhatSign(Properties properties) {
         super(properties);
     }
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         player.getCooldowns().addCooldown(this, 180);
