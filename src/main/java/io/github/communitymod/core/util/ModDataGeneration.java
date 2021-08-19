@@ -39,7 +39,6 @@ public class ModDataGeneration {
                     add(BlockInit.BEAN_BLOCK.get(), "Block of Beans");
                     add(EntityInit.BEAN_ENTITY.get(), "Bean");
                     add(ItemInit.BEANS.get(), "Beans");
-                    add(ItemInit.LONEWOLF_USER.get(), "LoneWolf");
                     add(ItemInit.BEANS_SANDWICH.get(), "Beans Sandwitch");
                     add(ItemInit.BEAN_SOUP.get(), "Bean Soup");
                     add(ItemInit.MIGUEL_OF_FORTUNE.get(), "Miguel of Fortune");

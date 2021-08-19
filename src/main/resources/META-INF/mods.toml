@@ -1,7 +1,7 @@
 modLoader="javafml"
 loaderVersion="[37,)"
 license="MIT"
-#issueTrackerURL="https://github.com/DaRealTurtyWurty/CommunityMod/issues"
+issueTrackerURL="https://github.com/DaRealTurtyWurty/CommunityMod/issues"
 
 [[mods]]
 modId="communitymod"
@@ -13,4 +13,4 @@ description='''
 A mod made by the community, with a bunch of random and unorganized things.
 '''
 #logoFile="logo.png"
-#displayURL="https://github.com/DaRealTurtyWurty/CommunityMod"
+displayURL="https://github.com/DaRealTurtyWurty/CommunityMod"
