@@ -84,3 +84,5 @@ In order for your PR to be accepted:
 21. Long literals **must** use uppercase `L`.
 22. Hexadecimal literals **must** use uppercase `A-F`.
 23. All other literals **must** use lowercase letters.
+
+For any other niche cases, refer to https://cr.openjdk.java.net/~alundblad/styleguide/index-v6.html
