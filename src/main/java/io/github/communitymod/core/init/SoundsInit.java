@@ -21,6 +21,9 @@ public final class SoundsInit {
 	public static final RegistryObject<SoundEvent> MUSIC_DISC_BEANAL = SOUNDS.register("music.record.beanal",
 			() -> new SoundEvent(new ModResourceLocation("music.record.beanal")));
 
+	public static final RegistryObject<SoundEvent> WHAT = SOUNDS.register("items.misc.what",
+			() -> new SoundEvent(new ModResourceLocation("items.misc.what")));
+
 	public static void registerSounds() {
 
 	}
