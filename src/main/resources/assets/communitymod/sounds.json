@@ -1,34 +1,31 @@
 {
-  "music.record.beanal": {
-    "sounds": [
-      {
-        "name": "communitymod:music/record/beanal",
-        "stream": true
-      }
-    ]
-  },
-  "music.record.cheese": {
-    "sounds": [
-      {
-        "name": "communitymod:music/record/cheese",
-        "stream": true
-      }
-    ]
-  },
-  "music.record.ussr": {
-    "sounds": [
-      {
-        "name": "communitymod:music/record/ussr",
-        "stream": true
-      }
-    ]
-  },
-  "items.misc.what": {
-    "sounds": [
-      {
-        "name": "communitymod:items/misc/what",
-        "stream": true
-      }
-    ]
-  }
+	"music.record.beanal": {
+		"sounds": [
+			{
+				"name": "communitymod:music/record/beanal",
+				"stream": true
+			}
+		]
+	},
+	"music.record.cheese": {
+		"sounds": [
+			{
+				"name": "communitymod:music/record/cheese",
+				"stream": true
+			}
+		]
+	},
+	"music.record.ussr": {
+		"sounds": [
+			{
+				"name": "communitymod:music/record/ussr",
+				"stream": true
+	"items.misc.what": {
+		"sounds": [
+			{
+			"name": "communitymod:items/misc/what",
+			"stream": true
+			}
+		]
+	}
 }
