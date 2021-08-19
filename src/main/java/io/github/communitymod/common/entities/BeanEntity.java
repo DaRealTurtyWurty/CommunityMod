@@ -1,6 +1,7 @@
 package io.github.communitymod.common.entities;
 
 import io.github.communitymod.CommunityMod;
+import io.github.communitymod.common.entities.ai.goals.WolfFetchStickGoal;
 import io.github.communitymod.core.init.EntityInit;
 import io.github.communitymod.core.init.ItemInit;
 import net.minecraft.resources.ResourceLocation;
