@@ -36,4 +36,9 @@ closed.
 - Bean Music Disc (by LudoCrypt)
 - A Bean Structure
 - Bean Sword
+- USSR Anthem Music Disc
+- James May Cheese Song Music Disc
+- Apple O Realz
+- Realz Ingot
+- Eternium Ingot
 - Goose Entity
