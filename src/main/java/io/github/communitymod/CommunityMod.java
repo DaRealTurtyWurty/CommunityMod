@@ -1,7 +1,12 @@
 package io.github.communitymod;
 
 import io.github.communitymod.core.config.Config;
-import io.github.communitymod.core.init.*;
+import io.github.communitymod.core.init.BlockEntityInit;
+import io.github.communitymod.core.init.BlockInit;
+import io.github.communitymod.core.init.EntityInit;
+import io.github.communitymod.core.init.ItemInit;
+import io.github.communitymod.core.init.SoundsInit;
+import io.github.communitymod.core.init.StructureInit;
 import io.github.communitymod.core.network.PacketHandler;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;

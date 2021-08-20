@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.DispenserBlock;
 
-import java.awt.*;
+import java.awt.Color;
 
 public final class SpawnEggData {
     private DispenseItemBehavior dispenseBehaviour = new DefaultDispenseItemBehavior() {
