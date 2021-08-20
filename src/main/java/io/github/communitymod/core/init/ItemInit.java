@@ -46,6 +46,14 @@ public final class ItemInit {
             .effect(() -> new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 7200, 0), 1.0F)
             .effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 100, 0), 0.5F).alwaysEat().build();
 
+    public static final RegistryObject<Item> APPLE_INGOT = ITEMS.register("apple_ingot",
+            () -> new Item(new Item.Properties()
+                    .tab(CommunityMod.TAB)
+                    .food(new FoodProperties.Builder()
+                            .nutrition(1)
+                            .saturationMod(10f)
+                            .build())));
+
     public static final RegistryObject<Item> BEAN_SOUP = ITEMS.register("bean_soup",
             () -> new BowlFoodItem(new Item.Properties().tab(CommunityMod.TAB).food(BEAN_SOUP_PROPERTIES)
                     .stacksTo(1).fireResistant()));
