@@ -15,28 +15,28 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public final class ClientEvents {
 
-	@EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.FORGE, value = Dist.CLIENT)
-	public static final class ForgeEvents {
+    @EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.FORGE, value = Dist.CLIENT)
+    public static final class ForgeEvents {
 
-	}
+    }
 
-	@EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.MOD, value = Dist.CLIENT)
-	public static final class ModEvents {
-		@SubscribeEvent
-		public static void clientSetup(final FMLClientSetupEvent event) {
+    @EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.MOD, value = Dist.CLIENT)
+    public static final class ModEvents {
+        @SubscribeEvent
+        public static void clientSetup(final FMLClientSetupEvent event) {
 
-		}
+        }
 
-		@SubscribeEvent
-		public static void registerLayers(final EntityRenderersEvent.RegisterLayerDefinitions event) {
-			event.registerLayerDefinition(BeanRenderer.BEAN_LAYER, BeanModel::createBodyMesh);
-			event.registerLayerDefinition(GooseRenderer.GOOSE_LAYER, GooseModel::createBodyLayer);
-		}
+        @SubscribeEvent
+        public static void registerLayers(final EntityRenderersEvent.RegisterLayerDefinitions event) {
+            event.registerLayerDefinition(BeanRenderer.BEAN_LAYER, BeanModel::createBodyMesh);
+            event.registerLayerDefinition(GooseRenderer.GOOSE_LAYER, GooseModel::createBodyLayer);
+        }
 
-		@SubscribeEvent
-		public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
-			event.registerEntityRenderer(EntityInit.BEAN_ENTITY.get(), BeanRenderer::new);
-			event.registerEntityRenderer(EntityInit.GOOSE_ENTITY.get(), GooseRenderer::new);
-		}
-	}
+        @SubscribeEvent
+        public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
+            event.registerEntityRenderer(EntityInit.BEAN_ENTITY.get(), BeanRenderer::new);
+            event.registerEntityRenderer(EntityInit.GOOSE_ENTITY.get(), GooseRenderer::new);
+        }
+    }
 }

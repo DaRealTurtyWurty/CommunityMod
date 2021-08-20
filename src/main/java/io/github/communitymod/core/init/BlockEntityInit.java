@@ -7,6 +7,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public final class BlockEntityInit {
 
-	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister
-			.create(ForgeRegistries.BLOCK_ENTITIES, CommunityMod.MODID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister
+            .create(ForgeRegistries.BLOCK_ENTITIES, CommunityMod.MODID);
 }
