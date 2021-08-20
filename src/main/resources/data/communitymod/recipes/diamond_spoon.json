@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        " /B",
+        "/O/",
+        "T/ "
+    ],
+    "key":
+    {
+        "/": {"item": "minecraft:diamond"},
+        "B": {"item": "minecraft:bowl"},
+        "O": {"item": "minecraft:diamond_block"},
+        "T": {"item": "minecraft:emerald"}
+    },
+    "result":
+    {
+        "item": "communitymod:diamond_spoon",
+        "count": 1
+    }
+}

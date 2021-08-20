@@ -20,11 +20,22 @@
 			{
 				"name": "communitymod:music/record/ussr",
 				"stream": true
+			}
+		]
+	},
 	"items.misc.what": {
 		"sounds": [
 			{
-			"name": "communitymod:items/misc/what",
-			"stream": true
+				"name": "communitymod:items/misc/what",
+				"stream": true
+			}
+		]
+	},
+	"items.misc.bonk": {
+		"sounds": [
+			{
+				"name": "communitymod:items/misc/bonk",
+				"stream": true
 			}
 		]
 	}
