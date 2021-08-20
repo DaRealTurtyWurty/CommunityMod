@@ -1,6 +1,6 @@
 package io.github.communitymod.common.items.bean_accessories;
 
-import io.github.communitymod.client.util.ColorText;
+import io.github.communitymod.util.MyColor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.Item;
@@ -18,12 +18,14 @@ public class BeanRing extends Item {
 
     @Override
     public void appendHoverText(ItemStack p_41421_, @Nullable Level p_41422_, List<Component> text, TooltipFlag p_41424_) {
-        text.add(new TextComponent(ColorText.GRAY + "Gain " + ColorText.WHITE + "+1 Speed" + ColorText.GRAY + " and " + ColorText.RED + "+1 Strength"));
-        text.add(new TextComponent(ColorText.GRAY + "for every " + ColorText.GOLD + "96 beans" + ColorText.GRAY + " in your inventory."));
-        text.add(new TextComponent(ColorText.GRAY + "Note: " + ColorText.GOLD + "1 Block of Beans" + ColorText.GRAY + " = " + ColorText.GOLD + "9 Beans"));
+        text.add(new TextComponent(MyColor.GRAY + "Gain " + MyColor.WHITE + "+1 Speed" + MyColor.GRAY + " and " + MyColor.RED + "+1 Strength"));
+        text.add(new TextComponent(MyColor.GRAY + "for every " + MyColor.GOLD + "96 beans" + MyColor.GRAY + " in your inventory."));
+        text.add(new TextComponent(MyColor.GRAY + "Note: " + MyColor.GOLD + "1 Block of Beans" + MyColor.GRAY + " = " + MyColor.GOLD + "9 Beans"));
         text.add(new TextComponent(""));
-        text.add(new TextComponent(ColorText.GOLD + "Ability: Blessing of beans"));
-        text.add(new TextComponent(ColorText.GRAY + "Every second, Have a " + ColorText.AQUA + "1% chance" + ColorText.GRAY + " to drop " + ColorText.GOLD + "beans" + ColorText.GRAY + " around you."));
+        text.add(new TextComponent(MyColor.GOLD + "Ability: Blessing of beans"));
+        text.add(new TextComponent(MyColor.GRAY + "Every second, Have a " + MyColor.AQUA + "1% chance" + MyColor.GRAY + " to drop " + MyColor.GOLD + "beans" + MyColor.GRAY + " around you."));
+        text.add(new TextComponent(""));
+        text.add(new TextComponent(MyColor.RED + "Requires " + MyColor.GOLD + "Farming 6"));
         super.appendHoverText(p_41421_, p_41422_, text, p_41424_);
     }
 }

@@ -2,8 +2,8 @@ package io.github.communitymod.capabilities.playerskills;
 
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.capabilities.entitylevel.CapabilityMobLevel;
-import io.github.communitymod.client.util.ColorText;
-import io.github.communitymod.core.CommonEvents;
+import io.github.communitymod.core.GameplayEvents;
+import io.github.communitymod.util.MyColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -38,8 +38,8 @@ public class PlayerSkillsEventHandler {
                     target.getCapability(CapabilityMobLevel.MOB_LEVEL_CAPABILITY).ifPresent(mobLevel -> {
                         skills.AwardCombatXp(Math.round(Math.round(mobLevel.getMobLevel() + (event.getEntityLiving().getMaxHealth() * 3))));
                         player.level.playSound(null, player, SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1f, 1f);
-                        CommonEvents.ForgeEvents.skillShowText = ColorText.DARK_AQUA + "+" + (Math.round(mobLevel.getMobLevel() + (event.getEntityLiving().getMaxHealth() * 3))) + " Combat (" + skills.getCombatXp() + "/" + ((Math.pow((skills.getCombatLvl() + 3), 3) - Math.pow((skills.getCombatLvl() + 1), 2)) * 2) + ")";
-                        CommonEvents.ForgeEvents.skillShowTimer = 60;
+                        GameplayEvents.skillShowText = MyColor.DARK_AQUA + "+" + (Math.round(mobLevel.getMobLevel() + (event.getEntityLiving().getMaxHealth() * 3))) + " Combat (" + skills.getCombatLvl() + ": " + skills.getCombatXp() + "/" + ((Math.pow((skills.getCombatLvl() + 3), 3) - Math.pow((skills.getCombatLvl() + 1), 2)) * 2) + ")";
+                        GameplayEvents.skillShowTimer = 60;
                     }));
             //ClientUtils.SendPrivateMessage("calc: " + "(((" + PlayerSkills.combatLvl + " + 3) ^ 2) - ((" + PlayerSkills.combatLvl + " + 1) ^ 2))");
         }
@@ -53,18 +53,18 @@ public class PlayerSkillsEventHandler {
                 if (event.getState().is(BlockTags.CROPS)) {
                     skills.AwardFarmingXp(6);
                     event.getPlayer().level.playSound(null, event.getPlayer(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1f, 1f);
-                    CommonEvents.ForgeEvents.skillShowText = ColorText.DARK_AQUA + "+6 Farming (" + skills.getFarmingXp() + "/" + ((Math.pow((skills.getFarmingLvl() + 3), 3) - Math.pow((skills.getFarmingLvl() + 1), 2)) * 2) + ")";
-                    CommonEvents.ForgeEvents.skillShowTimer = 60;
+                    GameplayEvents.skillShowText = MyColor.DARK_AQUA + "+6 Farming (" + skills.getFarmingLvl() + ": " + skills.getFarmingXp() + "/" + ((Math.pow((skills.getFarmingLvl() + 3), 3) - Math.pow((skills.getFarmingLvl() + 1), 2)) * 2) + ")";
+                    GameplayEvents.skillShowTimer = 60;
                 } else if (event.getState().is(BlockTags.LOGS)) {
                     skills.AwardForagingXp(10);
                     event.getPlayer().level.playSound(null, event.getPlayer(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1f, 1f);
-                    CommonEvents.ForgeEvents.skillShowText = ColorText.DARK_AQUA + "+10 Foraging (" + skills.getForagingXp() + "/" + ((Math.pow((skills.getForagingLvl() + 3), 3) - Math.pow((skills.getForagingLvl() + 1), 2)) * 2) + ")";
-                    CommonEvents.ForgeEvents.skillShowTimer = 60;
+                    GameplayEvents.skillShowText = MyColor.DARK_AQUA + "+10 Foraging (" + skills.getForagingLvl() + ": " + skills.getForagingXp() + "/" + ((Math.pow((skills.getForagingLvl() + 3), 3) - Math.pow((skills.getForagingLvl() + 1), 2)) * 2) + ")";
+                    GameplayEvents.skillShowTimer = 60;
                 } else {
                     skills.AwardMiningXp(((harvestLevel + 1) * 5) + (event.getExpToDrop() * 2));
                     event.getPlayer().level.playSound(null, event.getPlayer(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1f, 1f);
-                    CommonEvents.ForgeEvents.skillShowText = ColorText.DARK_AQUA + "+" + (((harvestLevel + 1) * 5) + (event.getExpToDrop() * 2)) + " Mining (" + skills.getMiningXp() + "/" + ((Math.pow((skills.getMiningLvl() + 3), 3) - Math.pow((skills.getMiningLvl() + 1), 2)) * 2) + ")";
-                    CommonEvents.ForgeEvents.skillShowTimer = 60;
+                    GameplayEvents.skillShowText = MyColor.DARK_AQUA + "+" + (((harvestLevel + 1) * 5) + (event.getExpToDrop() * 2)) + " Mining (" + skills.getMiningLvl() + ": " + skills.getMiningXp() + "/" + ((Math.pow((skills.getMiningLvl() + 3), 3) - Math.pow((skills.getMiningLvl() + 1), 2)) * 2) + ")";
+                    GameplayEvents.skillShowTimer = 60;
                 }
             });
         }

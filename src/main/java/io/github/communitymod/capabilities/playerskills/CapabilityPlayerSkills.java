@@ -7,10 +7,10 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 
 public class CapabilityPlayerSkills {
 
-    @CapabilityInject(IPlayerSkills.class)
-    public static Capability<IPlayerSkills> PLAYER_STATS_CAPABILITY = null;
+    @CapabilityInject(PlayerSkills.class)
+    public static Capability<PlayerSkills> PLAYER_STATS_CAPABILITY = null;
 
     public static void register() {
-        CapabilityManager.INSTANCE.register(IPlayerSkills.class);
+        CapabilityManager.INSTANCE.register(PlayerSkills.class);
     }
 }

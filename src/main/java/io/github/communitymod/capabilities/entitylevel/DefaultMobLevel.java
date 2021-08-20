@@ -1,6 +1,6 @@
 package io.github.communitymod.capabilities.entitylevel;
 
-public class DefaultMobLevel implements IMobLevel {
+public class DefaultMobLevel implements MobLevel {
 
     private int mobLevel;
 

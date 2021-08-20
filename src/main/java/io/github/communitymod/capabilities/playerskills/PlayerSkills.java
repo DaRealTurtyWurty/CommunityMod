@@ -1,6 +1,6 @@
 package io.github.communitymod.capabilities.playerskills;
 
-public interface IPlayerSkills {
+public interface PlayerSkills {
     int getCombatXp();
 
     void setCombatXp(int xp);

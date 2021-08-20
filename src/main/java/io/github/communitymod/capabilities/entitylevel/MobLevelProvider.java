@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 
 public class MobLevelProvider implements ICapabilitySerializable<CompoundTag> {
     private final DefaultMobLevel mobLevel = new DefaultMobLevel();
-    private final LazyOptional<IMobLevel> mobLevelOptional = LazyOptional.of(() -> mobLevel);
+    private final LazyOptional<MobLevel> mobLevelOptional = LazyOptional.of(() -> mobLevel);
 
     public void invalidate() {
         mobLevelOptional.invalidate();

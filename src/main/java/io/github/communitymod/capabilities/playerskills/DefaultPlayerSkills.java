@@ -1,6 +1,8 @@
 package io.github.communitymod.capabilities.playerskills;
 
-public class DefaultPlayerSkills implements IPlayerSkills {
+import io.github.communitymod.core.GameplayEvents;
+
+public class DefaultPlayerSkills implements PlayerSkills {
 
     private int combatLvl;
     private int combatXp;
@@ -168,32 +170,27 @@ public class DefaultPlayerSkills implements IPlayerSkills {
         int qxp = xp;
         while (qxp > 0) {
             ++combatXp;
-            CheckCombatXP();
+            if (combatXp > (Math.pow((combatLvl + 3), 3) - Math.pow((combatLvl + 1), 2)) * 2) {
+                ++combatLvl;
+                combatXp = 0;
+                GameplayEvents.displayLevelCombat = combatLvl;
+                GameplayEvents.showLevelCombat = true;
+            }
             qxp -= 1;
         }
     }
-
-    private void CheckCombatXP() {
-        if (combatXp > (Math.pow((combatLvl + 3), 3) - Math.pow((combatLvl + 1), 2)) * 2) {
-            ++combatLvl;
-            combatXp = 0;
-        }
-    }
-
 
     public void AwardMiningXp(int xp) {
         int qxp = xp;
         while (qxp > 0) {
             ++miningXp;
-            CheckMiningXP();
+            if (miningXp > (Math.pow((miningLvl + 3), 3) - Math.pow((miningLvl + 1), 2)) * 2) {
+                ++miningLvl;
+                miningXp = 0;
+                GameplayEvents.displayLevelMining = miningLvl;
+                GameplayEvents.showLevelMining = true;
+            }
             qxp -= 1;
-        }
-    }
-
-    private void CheckMiningXP() {
-        if (miningXp > (Math.pow((miningLvl + 3), 3) - Math.pow((miningLvl + 1), 2)) * 2) {
-            ++miningLvl;
-            miningXp = 0;
         }
     }
 
@@ -201,15 +198,13 @@ public class DefaultPlayerSkills implements IPlayerSkills {
         int qxp = xp;
         while (qxp > 0) {
             ++farmingXp;
-            CheckFarmingXP();
+            if (farmingXp > (Math.pow((farmingLvl + 3), 3) - Math.pow((farmingLvl + 1), 2)) * 2) {
+                ++farmingLvl;
+                farmingXp = 0;
+                GameplayEvents.displayLevelFarming = farmingLvl;
+                GameplayEvents.showLevelFarming = true;
+            }
             qxp -= 1;
-        }
-    }
-
-    private void CheckFarmingXP() {
-        if (farmingXp > (Math.pow((farmingLvl + 3), 3) - Math.pow((farmingLvl + 1), 2)) * 2) {
-            ++farmingLvl;
-            farmingXp = 0;
         }
     }
 
@@ -217,15 +212,13 @@ public class DefaultPlayerSkills implements IPlayerSkills {
         int qxp = xp;
         while (qxp > 0) {
             ++foragingXp;
-            CheckForagingXP();
+            if (foragingXp > (Math.pow((foragingLvl + 3), 3) - Math.pow((foragingLvl + 1), 2)) * 2) {
+                ++foragingLvl;
+                foragingXp = 0;
+                GameplayEvents.displayLevelForaging = foragingLvl;
+                GameplayEvents.showLevelForaging = true;
+            }
             qxp -= 1;
-        }
-    }
-
-    private void CheckForagingXP() {
-        if (foragingXp > (Math.pow((foragingLvl + 3), 3) - Math.pow((foragingLvl + 1), 2)) * 2) {
-            ++foragingLvl;
-            foragingXp = 0;
         }
     }
 }

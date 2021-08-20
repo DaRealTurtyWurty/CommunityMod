@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 
 public class PlayerSkillsProvider implements ICapabilitySerializable<CompoundTag> {
     private final DefaultPlayerSkills skills = new DefaultPlayerSkills();
-    private final LazyOptional<IPlayerSkills> playerSkillsOptional = LazyOptional.of(() -> skills);
+    private final LazyOptional<PlayerSkills> playerSkillsOptional = LazyOptional.of(() -> skills);
 
     public void invalidate() {
         playerSkillsOptional.invalidate();
