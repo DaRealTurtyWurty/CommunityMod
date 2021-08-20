@@ -41,3 +41,4 @@ closed.
 - Apple O Realz
 - Realz Ingot
 - Eternium Ingot
+- Goose Entity
