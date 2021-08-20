@@ -47,3 +47,4 @@ to this README.md, then you will be asked to add to it. If you continue failing 
 - Realz Ingot
 - Eternium Ingot
 - Goose Entity
+- Apple Ingot

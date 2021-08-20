@@ -1,14 +1,30 @@
 package io.github.communitymod.core.init;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import io.github.communitymod.CommunityMod;
-import io.github.communitymod.common.items.*;
+import io.github.communitymod.common.items.BeanBelt;
+import io.github.communitymod.common.items.MiguelItem;
+import io.github.communitymod.common.items.OrbOfInsanity;
+import io.github.communitymod.common.items.SpecialItem;
+import io.github.communitymod.common.items.WhatSign;
+import io.github.communitymod.common.items.Dice;
+import io.github.communitymod.common.items.SpoonTemplate;
 import io.github.communitymod.core.util.BeanArmorMaterial;
 import io.github.communitymod.core.util.ModToolMaterials;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.BowlFoodItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.RecordItem;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -17,9 +33,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.MOD)
 public final class ItemInit {
@@ -33,6 +46,14 @@ public final class ItemInit {
             .saturationMod(0.6F)
             .effect(() -> new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 7200, 0), 1.0F)
             .effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 100, 0), 0.5F).alwaysEat().build();
+
+    public static final RegistryObject<Item> APPLE_INGOT = ITEMS.register("apple_ingot",
+            () -> new Item(new Item.Properties()
+                    .tab(CommunityMod.TAB)
+                    .food(new FoodProperties.Builder()
+                            .nutrition(1)
+                            .saturationMod(10f)
+                            .build())));
 
     public static final RegistryObject<Item> BEAN_SOUP = ITEMS.register("bean_soup",
             () -> new BowlFoodItem(new Item.Properties().tab(CommunityMod.TAB).food(BEAN_SOUP_PROPERTIES)
@@ -83,8 +104,15 @@ public final class ItemInit {
             () -> new RecordItem(15, SoundsInit.MUSIC_DISC_SOVIET,
                     new Item.Properties().tab(CommunityMod.TAB).stacksTo(1)));
 
+    public static final RegistryObject<Item> MUSIC_DISC_DICE = ITEMS.register("music_disc_dice",
+            () -> new RecordItem(15, SoundsInit.MUSIC_DISC_DICE,
+                    new Item.Properties().tab(CommunityMod.TAB).stacksTo(1)));
+
     public static final RegistryObject<Item> SPECIAL_ITEM = ITEMS.register("special_item",
             () -> new SpecialItem(new Item.Properties().tab(CommunityMod.TAB)));
+
+    public static final RegistryObject<Item> BASIC_DIE = ITEMS.register("basic_die",
+            () -> new Dice(new Item.Properties().tab(CommunityMod.TAB)));
 
     public static final RegistryObject<Item> TOAST = ITEMS.register("toast",
             () -> new Item(new Item.Properties().tab(CommunityMod.TAB)
@@ -105,6 +133,32 @@ public final class ItemInit {
                             .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 7200, 3), 0.5f)
                             .effect(() -> new MobEffectInstance(MobEffects.HEALTH_BOOST, 7200, 10), 0.25f)
                             .build())));
+
+    //Spoons
+    public static final RegistryObject<Item> WOODEN_SPOON = ITEMS.register("wooden_spoon",
+        () -> new SpoonTemplate(
+            Tiers.WOOD, 5.0f, -2.0f,
+            new Item.Properties().tab(CommunityMod.TAB).durability(256).defaultDurability(256)));
+    public static final RegistryObject<Item> STONE_SPOON = ITEMS.register("stone_spoon",
+        () -> new SpoonTemplate(
+            Tiers.STONE, 5.0f, -2.0f,
+            new Item.Properties().tab(CommunityMod.TAB).durability(512).defaultDurability(512)));
+    public static final RegistryObject<Item> GOLDEN_SPOON = ITEMS.register("golden_spoon",
+        () -> new SpoonTemplate(
+            Tiers.GOLD, 5.0f, -2.0f,
+            new Item.Properties().tab(CommunityMod.TAB).durability(128).defaultDurability(128)));
+    public static final RegistryObject<Item> IRON_SPOON = ITEMS.register("iron_spoon",
+        () -> new SpoonTemplate(
+            Tiers.IRON, 5.0f, -2.0f,
+            new Item.Properties().tab(CommunityMod.TAB).durability(1024).defaultDurability(1024)));
+    public static final RegistryObject<Item> DIAMOND_SPOON = ITEMS.register("diamond_spoon",
+        () -> new SpoonTemplate(
+            Tiers.DIAMOND, 5.0f, -2.0f,
+            new Item.Properties().tab(CommunityMod.TAB).durability(2048).defaultDurability(2048)));
+    public static final RegistryObject<Item> NETHERITE_SPOON = ITEMS.register("netherite_spoon",
+        () -> new SpoonTemplate(
+            Tiers.NETHERITE, 5.0f, -2.0f,
+            new Item.Properties().tab(CommunityMod.TAB).durability(4096).defaultDurability(4096)));
 
     @SubscribeEvent
     public static void registerBlockItems(final RegistryEvent.Register<Item> event) {
