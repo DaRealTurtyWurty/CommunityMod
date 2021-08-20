@@ -4,11 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import io.github.communitymod.CommunityMod;
-import io.github.communitymod.common.items.BeanBelt;
-import io.github.communitymod.common.items.MiguelItem;
-import io.github.communitymod.common.items.OrbOfInsanity;
-import io.github.communitymod.common.items.SpecialItem;
-import io.github.communitymod.common.items.WhatSign;
+import io.github.communitymod.common.items.*;
+import io.github.communitymod.core.init.BlockInit;
 import io.github.communitymod.core.util.BeanArmorMaterial;
 import io.github.communitymod.core.util.ModToolMaterials;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -93,8 +90,15 @@ public final class ItemInit {
             () -> new RecordItem(15, SoundsInit.MUSIC_DISC_SOVIET,
                     new Item.Properties().tab(CommunityMod.TAB).stacksTo(1)));
 
+    public static final RegistryObject<Item> MUSIC_DISC_DICE = ITEMS.register("music_disc_dice",
+            () -> new RecordItem(15, SoundsInit.MUSIC_DISC_DICE,
+                    new Item.Properties().tab(CommunityMod.TAB).stacksTo(1)));
+
     public static final RegistryObject<Item> SPECIAL_ITEM = ITEMS.register("special_item",
             () -> new SpecialItem(new Item.Properties().tab(CommunityMod.TAB)));
+
+    public static final RegistryObject<Item> BASIC_DIE = ITEMS.register("basic_die",
+            () -> new Dice(new Item.Properties().tab(CommunityMod.TAB)));
 
     public static final RegistryObject<Item> TOAST = ITEMS.register("toast",
             () -> new Item(new Item.Properties().tab(CommunityMod.TAB)

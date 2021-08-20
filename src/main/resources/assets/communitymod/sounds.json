@@ -15,6 +15,14 @@
 			}
 		]
 	},
+	"music.record.dice": {
+		"sounds": [
+			{
+				"name": "communitymod:music/record/dice",
+				"stream": true
+			}
+		]
+	},
 	"music.record.ussr": {
 		"sounds": [
 			{

@@ -1,8 +1,8 @@
 package io.github.communitymod.core.config;
 
+import io.github.communitymod.core.init.ItemInit;
 import org.apache.commons.lang3.tuple.Pair;
 
-import io.github.communitymod.core.init.ItemInit;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class Config {
