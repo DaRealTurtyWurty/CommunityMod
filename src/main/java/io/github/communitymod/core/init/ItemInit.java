@@ -4,7 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import io.github.communitymod.CommunityMod;
-import io.github.communitymod.common.items.*;
+import io.github.communitymod.common.items.BeanBelt;
+import io.github.communitymod.common.items.MiguelItem;
+import io.github.communitymod.common.items.OrbOfInsanity;
+import io.github.communitymod.common.items.SpecialItem;
+import io.github.communitymod.common.items.WhatSign;
+import io.github.communitymod.common.items.Dice;
 import io.github.communitymod.core.init.BlockInit;
 import io.github.communitymod.core.util.BeanArmorMaterial;
 import io.github.communitymod.core.util.ModToolMaterials;
