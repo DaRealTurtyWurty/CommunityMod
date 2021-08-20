@@ -2,22 +2,40 @@ package io.github.communitymod.common.entities.ai.goals;
 
 import io.github.communitymod.common.entities.ThrownStickEntity;
 import io.github.communitymod.core.init.EntityInit;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraft.world.phys.Vec3;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
 public class WolfFetchStickGoal extends Goal {
 
     private final Wolf wolf;
+    private final double speed;
     private ThrownStickEntity targetStick;
 
-    public WolfFetchStickGoal(Wolf wolf) {
+    public WolfFetchStickGoal(Wolf wolf, double speed) {
         this.wolf = wolf;
+        this.speed = speed;
+        this.setFlags(EnumSet.of(Flag.LOOK, Flag.MOVE, Flag.JUMP));
+    }
+
+    /**
+     * This is called by a coremod. Do NOT remove.
+     * Adds, well, this goal to the wolf GoalSelector.
+     *
+     * @param wolf Wolf instance.
+     * @author 0xJoeMama
+     */
+    @SuppressWarnings("unused")
+    public static void registerGoal(Wolf wolf) {
+        wolf.goalSelector.addGoal(4, new WolfFetchStickGoal(wolf, 1.2d));
     }
 
     @Override
@@ -31,7 +49,7 @@ public class WolfFetchStickGoal extends Goal {
 
         if (stickEntity.isPresent()) {
             this.targetStick = stickEntity.get();
-            return true;
+            return !(this.wolf.getMainHandItem().getItem() == Items.STICK);
         }
 
         return false;
@@ -39,26 +57,28 @@ public class WolfFetchStickGoal extends Goal {
 
     @Override
     public void tick() {
-        boolean stableDestination = this.wolf.getNavigation().isStableDestination(this.targetStick.getOnPos());
-        if (stableDestination) {
-            this.wolf.getNavigation().moveTo(this.targetStick, this.wolf.getSpeed() * 1.2d);
-        }
+        Vec3 stickPos = this.targetStick.position();
+        this.wolf.getNavigation().moveTo(stickPos.x, stickPos.y, stickPos.z, this.speed);
+        this.wolf.getLookControl().setLookAt(this.targetStick);
+        System.out.println(this.targetStick);
     }
 
     @Override
     public void stop() {
-        if (this.targetStick.distanceTo(this.wolf) <= 0.8f) {
+        if (this.targetStick.distanceTo(this.wolf) <= 1.5f) {
+            this.wolf.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.STICK));
             this.targetStick.discard();
-
-            this.wolf.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-                    .ifPresent(iItemHandler ->
-                            iItemHandler.insertItem(0, Items.STICK.getDefaultInstance(), false));
         }
     }
 
     @Override
     public boolean canContinueToUse() {
-        return this.targetStick.isOnGround() && this.wolf.distanceTo(this.targetStick) <= 1f;
+        float distance = this.wolf.distanceTo(this.targetStick);
+        System.out.println(distance);
+
+        return this.targetStick.isAlive() &&
+                !this.targetStick.isOnGround() &&
+                distance < 1f;
     }
 
     private ThrownStickEntity findClosest(ThrownStickEntity thrownStickEntity, ThrownStickEntity thrownStickEntity2) {
