@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        " /B",
+        "/O/",
+        "T/ "
+    ],
+    "key":
+    {
+        "/": {"item": "minecraft:iron_ingot"},
+        "B": {"item": "minecraft:bowl"},
+        "O": {"item": "minecraft:iron_block"},
+        "T": {"item": "minecraft:iron_nugget"}
+    },
+    "result":
+    {
+        "item": "communitymod:iron_spoon",
+        "count": 1
+    }
+}
