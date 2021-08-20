@@ -11,7 +11,14 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -20,16 +27,7 @@ import net.minecraftforge.common.ForgeMod;
 
 public class BeanEntity extends Animal {
 
-	private static final ResourceLocation LOOT_TABLE = new ResourceLocation(CommunityMod.MODID,
-			"entities/bean");
-
-	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10).add(Attributes.MOVEMENT_SPEED, 1)
-				.add(Attributes.FOLLOW_RANGE, 16).add(Attributes.ATTACK_DAMAGE, 7)
-				.add(Attributes.ATTACK_SPEED, 5).add(Attributes.ARMOR, 3).add(Attributes.ARMOR_TOUGHNESS, 1)
-				.add(Attributes.JUMP_STRENGTH, 16).add(ForgeMod.ENTITY_GRAVITY.get(), 0.5)
-				.add(ForgeMod.REACH_DISTANCE.get(), 16).add(ForgeMod.SWIM_SPEED.get(), 2);
-	}
+	private static final ResourceLocation LOOT_TABLE = new ResourceLocation(CommunityMod.MODID, "entities/bean");
 
 	public BeanEntity(EntityType<BeanEntity> type, Level level) {
 		super(type, level);
@@ -40,11 +38,19 @@ public class BeanEntity extends Animal {
 		setPos(x, y, z);
 	}
 
+	public static AttributeSupplier.Builder createAttributes() {
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10).add(Attributes.MOVEMENT_SPEED, 1)
+				.add(Attributes.FOLLOW_RANGE, 16).add(Attributes.ATTACK_DAMAGE, 7).add(Attributes.ATTACK_SPEED, 5)
+				.add(Attributes.ARMOR, 3).add(Attributes.ARMOR_TOUGHNESS, 1).add(Attributes.JUMP_STRENGTH, 16)
+				.add(ForgeMod.ENTITY_GRAVITY.get(), 0.5).add(ForgeMod.REACH_DISTANCE.get(), 16)
+				.add(ForgeMod.SWIM_SPEED.get(), 2);
+	}
+
 	@Override
 	public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob partner) {
 		final var bean = new BeanEntity(level, partner.getX(), partner.getY(), partner.getZ());
-		bean.finalizeSpawn(level, level.getCurrentDifficultyAt(bean.blockPosition()), MobSpawnType.BREEDING,
-				null, null);
+		bean.finalizeSpawn(level, level.getCurrentDifficultyAt(bean.blockPosition()), MobSpawnType.BREEDING, null,
+				null);
 		return bean;
 	}
 
