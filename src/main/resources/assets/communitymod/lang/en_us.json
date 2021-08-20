@@ -14,5 +14,8 @@
     "item.communitymod.special_item": "Tutorial Item",
     "item.communitymod.music_disc_beanal": "Music Disc",
     "item.communitymod.music_disc_beanal.desc": "LudoCrypt - beanal",
+    "item.communitymod.realz_ingot": "Realz Ingot",
+    "item.communitymod.realz_apple": "Apple O Realz",
+    "item.communitymod.eternium_crystal": "Eternium Crystal"
     "itemGroup.communitymod": "Community Mod"
 }
