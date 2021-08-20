@@ -20,11 +20,6 @@
 			{
 				"name": "communitymod:music/record/ussr",
 				"stream": true
-	"items.misc.what": {
-		"sounds": [
-			{
-			"name": "communitymod:items/misc/what",
-			"stream": true
 			}
 		]
 	}

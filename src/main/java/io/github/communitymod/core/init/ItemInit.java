@@ -88,19 +88,13 @@ public final class ItemInit {
 			() -> new RecordItem(15, ()-> SoundsInit.MUSIC_DISC_CHEESE.get(), new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.EPIC)));
 	
 	public static final RegistryObject<Item> MUSIC_DISC_SOVIET = ITEMS.register("music_disc_soviet",
-			() -> new RecordItem(15, ()-> SoundsInit.MUSIC_DISC_SOVIET.get(), new Item.Properties().tab(CommunityMod.TAB).stacksTo(1)));
+			() -> new RecordItem(15, ()-> SoundsInit.MUSIC_DISC_SOVIET.get(), new	 Item.Properties().tab(CommunityMod.TAB).stacksTo(1)));
 	
 	public static final RegistryObject<Item> SPECIAL_ITEM = ITEMS.register("special_item",
 			() -> new SpecialItem(new Item.Properties().tab(CommunityMod.TAB)));
 
 	public static final RegistryObject<Item> TOAST = ITEMS.register("toast", () -> new Item(new Item.Properties()
 			.tab(CommunityMod.TAB).food(new FoodProperties.Builder().saturationMod(15).meat().nutrition(30).build())));
-
-	public static final RegistryObject<Item> WHAT = ITEMS.register("what", () ->
-			new WhatSign(
-					new Item.Properties().tab(CommunityMod.TAB)
-			)
-	);
 
 	@SubscribeEvent
 	public static void registerBlockItems(final RegistryEvent.Register<Item> event) {
