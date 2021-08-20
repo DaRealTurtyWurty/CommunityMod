@@ -38,3 +38,6 @@ closed.
 - Bean Sword
 - USSR Anthem Music Disc
 - James May Cheese Song Music Disc
+- Apple O Realz
+- Realz Ingot
+- Eternium Ingot
