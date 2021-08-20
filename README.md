@@ -36,9 +36,12 @@ closed.
 - Bean Music Disc (by LudoCrypt)
 - A Bean Structure
 - Bean Sword
+- USSR Anthem Music Disc
+- James May Cheese Song Music Disc
 - Bean Talisman
 - Bean Ring
 - Bean Artifact
 - Skills
 - Mob levels
 - /stats
+
