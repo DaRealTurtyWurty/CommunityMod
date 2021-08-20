@@ -90,8 +90,21 @@ public final class ItemInit {
 	
 	public static final RegistryObject<Item> BEAN_SWORD = ITEMS.register("bean_sword", () -> new SwordItem(ModToolMaterials.BEAN, 8, -2.4f, new Item.Properties().defaultDurability(100).tab(CommunityMod.TAB)));
 
-	public static final RegistryObject<Item> ETERNIUM_INGOT = ITEMS.register("eternium_ingot",
-			() -> new Item(new Item.Properties().tab(CommunityMod.TAB).stacksTo(420).fireResistant()));
+	public static final RegistryObject<Item> ETERNIUM_CRYSTAL = ITEMS.register("eternium_crystal",
+			() -> new Item(new Item.Properties().tab(CommunityMod.TAB).stacksTo(420).fireResistant()))
+		
+	public static final RegistryObject<Item> REALZ_INGOT = ITEMS.register("realz_ingot",
+			() -> new Item(new Item.Properties().tab(CommunityMod.TAB).stacksTo(69420).fireResistant()))
+		
+	public static final RegistryObject<Item> REALZ_APPLE = ITEMS.register("realz_apple",
+			() -> new Item(new Item.Properties()
+					.tab(CommunityMod.TAB)
+					.food(new FoodProperties.Builder()
+					.nutrition(1000)
+					.saturationMod(1000.0f)
+					.effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 7200, 3), 0.5f)
+					.effect(() -> new MobEffectInstance(MobEffects.HEALTH_BOOST, 7200, 10), 0.25f)
+					.build())));
 
 	
 	@SubscribeEvent
