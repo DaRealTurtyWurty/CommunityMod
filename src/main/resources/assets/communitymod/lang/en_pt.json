@@ -1,4 +1,7 @@
 {
   "item.communitymod.special_item": "Guidin Thing",
-  "item.communitymod.orb_of_insanity": "Cannonball o Crazy"
+  "item.communitymod.orb_of_insanity": "Cannonball o Crazy",
+  "item.communitymod.basic_die": "Cannonball o Dots",
+  "item.communitymod.music_disc_dice": "Music Disc",
+  "item.communitymod.music_disc_dice.desc": "Viewer o Rocks - Cannonball o Dots"
 }

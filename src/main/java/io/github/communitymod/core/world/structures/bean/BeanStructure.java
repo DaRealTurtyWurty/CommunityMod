@@ -17,37 +17,39 @@ import net.minecraft.world.level.levelgen.structure.StructureStart;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
 
 public class BeanStructure extends StructureFeature<NoneFeatureConfiguration> {
-	public BeanStructure(Codec<NoneFeatureConfiguration> p_66121_) {
-		super(p_66121_);
-	}
+    public BeanStructure(final Codec<NoneFeatureConfiguration> codec) {
+        super(codec);
+    }
 
-	@Override
-	public StructureStartFactory<NoneFeatureConfiguration> getStartFactory() {
-		return BeanStructure.Start::new;
-	}
+    @Override
+    public StructureStartFactory<NoneFeatureConfiguration> getStartFactory() {
+        return BeanStructure.Start::new;
+    }
 
-	@Override
-	public GenerationStep.Decoration step() {
-		return GenerationStep.Decoration.SURFACE_STRUCTURES;
-	}
+    @Override
+    public GenerationStep.Decoration step() {
+        return GenerationStep.Decoration.SURFACE_STRUCTURES;
+    }
 
-	public static class Start extends StructureStart<NoneFeatureConfiguration> {
+    public static class Start extends StructureStart<NoneFeatureConfiguration> {
 
-		public Start(StructureFeature<NoneFeatureConfiguration> p_159888_, ChunkPos p_159889_, int p_159890_,
-				long p_159891_) {
-			super(p_159888_, p_159889_, p_159890_, p_159891_);
-		}
+        public Start(final StructureFeature<NoneFeatureConfiguration> structure, final ChunkPos chunkPos,
+                final int references, final long seed) {
+            super(structure, chunkPos, references, seed);
+        }
 
-		@Override
-		public void generatePieces(RegistryAccess registryAccess, ChunkGenerator chunkGenerator,
-				StructureManager structureManager, ChunkPos chunkPos, Biome biome,
-				NoneFeatureConfiguration noneFeatureConfiguration, LevelHeightAccessor levelHeightAccessor) {
-			final var x = chunkPos.getMinBlockX();
-			final var z = chunkPos.getMinBlockZ();
-			final var y = chunkGenerator.getBaseHeight(x, z, Heightmap.Types.WORLD_SURFACE_WG, levelHeightAccessor);
-			final var blockPos = new BlockPos(x, y, z);
-			final var rotation = Rotation.getRandom(this.random);
-			BeanPieces.addPieces(structureManager, blockPos, rotation, this, this.random);
-		}
-	}
+        @Override
+        public void generatePieces(final RegistryAccess registryAccess, final ChunkGenerator chunkGenerator,
+                final StructureManager structureManager, final ChunkPos chunkPos, final Biome biome,
+                final NoneFeatureConfiguration noneFeatureConfiguration,
+                final LevelHeightAccessor levelHeightAccessor) {
+            final var x = chunkPos.getMinBlockX();
+            final var z = chunkPos.getMinBlockZ();
+            final var y = chunkGenerator.getBaseHeight(x, z, Heightmap.Types.WORLD_SURFACE_WG,
+                    levelHeightAccessor);
+            final var blockPos = new BlockPos(x, y, z);
+            final var rotation = Rotation.getRandom(this.random);
+            BeanPieces.addPieces(structureManager, blockPos, rotation, this);
+        }
+    }
 }

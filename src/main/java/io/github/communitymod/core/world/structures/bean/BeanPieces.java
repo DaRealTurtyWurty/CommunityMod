@@ -19,45 +19,44 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureMana
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 
 public class BeanPieces {
-	public static final StructurePieceType BEAN_TYPE = BeanPiece::new;
-	static final ResourceLocation STRUCTURE_LOCATION = new ResourceLocation(CommunityMod.MODID + ":bean_structure");
+    public static final StructurePieceType BEAN_TYPE = BeanPiece::new;
 
-	public BeanPieces() {
-	}
+    static final ResourceLocation STRUCTURE_LOCATION = new ResourceLocation(
+            CommunityMod.MODID + ":bean_structure");
 
-	public static void addPieces(StructureManager structureManager, BlockPos blockPos, Rotation rotation,
-			StructurePieceAccessor p_162438_, Random p_162439_) {
-		p_162438_.addPiece(new BeanPiece(structureManager, STRUCTURE_LOCATION, blockPos, rotation, 0));
-	}
+    public static void addPieces(final StructureManager structureManager, final BlockPos blockPos,
+            final Rotation rotation, final StructurePieceAccessor accessor) {
+        accessor.addPiece(new BeanPiece(structureManager, STRUCTURE_LOCATION, blockPos, rotation, 0));
+    }
 
-	public static class BeanPiece extends TemplateStructurePiece {
+    public static class BeanPiece extends TemplateStructurePiece {
 
-		public BeanPiece(ServerLevel serverLevel, CompoundTag compoundTag) {
-			super(BEAN_TYPE, compoundTag, serverLevel,
-					p_162451_ -> makeSettings(Rotation.valueOf(compoundTag.getString("Rot"))));
-		}
+        public BeanPiece(final ServerLevel serverLevel, final CompoundTag compoundTag) {
+            super(BEAN_TYPE, compoundTag, serverLevel,
+                    p_162451_ -> makeSettings(Rotation.valueOf(compoundTag.getString("Rot"))));
+        }
 
-		public BeanPiece(StructureManager structureManager, ResourceLocation location, BlockPos blockPos,
-				Rotation rotation, int p_71248_) {
-			super(BEAN_TYPE, 0, structureManager, location, location.toString(), makeSettings(rotation), blockPos);
-		}
+        public BeanPiece(final StructureManager structureManager, final ResourceLocation location,
+                final BlockPos blockPos, final Rotation rotation, final int index) {
+            super(BEAN_TYPE, index, structureManager, location, location.toString(), makeSettings(rotation),
+                    blockPos);
+        }
 
-		private static StructurePlaceSettings makeSettings(Rotation p_162447_) {
-			return new StructurePlaceSettings().setRotation(p_162447_).setMirror(Mirror.NONE)
-					.addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK);
-		}
+        private static StructurePlaceSettings makeSettings(final Rotation rot) {
+            return new StructurePlaceSettings().setRotation(rot).setMirror(Mirror.NONE)
+                    .addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK);
+        }
 
-		@Override
-		protected void addAdditionalSaveData(ServerLevel p_162444_, CompoundTag p_162445_) {
-			super.addAdditionalSaveData(p_162444_, p_162445_);
-			p_162445_.putString("Rot", this.placeSettings.getRotation().name());
-		}
+        @Override
+        protected void addAdditionalSaveData(final ServerLevel level, final CompoundTag nbt) {
+            super.addAdditionalSaveData(level, nbt);
+            nbt.putString("Rot", this.placeSettings.getRotation().name());
+        }
 
-		@Override
-		protected void handleDataMarker(String s, BlockPos blockPos, ServerLevelAccessor serverLevelAccessor,
-				Random random, BoundingBox boundingBox) {
-
-		}
-
-	}
+        @Override
+        protected void handleDataMarker(final String name, final BlockPos blockPos,
+                final ServerLevelAccessor serverLevelAccessor, final Random random,
+                final BoundingBox boundingBox) {
+        }
+    }
 }

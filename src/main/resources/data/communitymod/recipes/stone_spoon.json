@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        " /B",
+        "/O/",
+        "T/ "
+    ],
+    "key":
+    {
+        "/": {"item": "minecraft:brick"},
+        "B": {"item": "minecraft:bowl"},
+        "O": {"tag": "forge:stone"},
+        "T": {"tag": "forge:cobblestone"}
+    },
+    "result":
+    {
+        "item": "communitymod:stone_spoon",
+        "count": 1
+    }
+}

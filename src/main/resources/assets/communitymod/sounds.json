@@ -15,10 +15,34 @@
 			}
 		]
 	},
+	"music.record.dice": {
+		"sounds": [
+			{
+				"name": "communitymod:music/record/dice",
+				"stream": true
+			}
+		]
+	},
 	"music.record.ussr": {
 		"sounds": [
 			{
 				"name": "communitymod:music/record/ussr",
+				"stream": true
+			}
+		]
+	},
+	"items.misc.what": {
+		"sounds": [
+			{
+				"name": "communitymod:items/misc/what",
+				"stream": true
+			}
+		]
+	},
+	"items.misc.bonk": {
+		"sounds": [
+			{
+				"name": "communitymod:items/misc/bonk",
 				"stream": true
 			}
 		]
