@@ -26,4 +26,7 @@ public final class SoundsInit {
 
     public static final RegistryObject<SoundEvent> WHAT = SOUNDS.register("items.misc.what",
             () -> new SoundEvent(new ModResourceLocation("items.misc.what")));
+
+    public static final RegistryObject<SoundEvent> BONK = SOUNDS.register("items.misc.bonk",
+            () -> new SoundEvent(new ModResourceLocation("items.misc.bonk")));
 }

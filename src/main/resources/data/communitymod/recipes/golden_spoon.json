@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        " /B",
+        "/O/",
+        "T/ "
+    ],
+    "key":
+    {
+        "/": {"item": "minecraft:gold_ingot"},
+        "B": {"item": "minecraft:bowl"},
+        "O": {"item": "minecraft:gold_block"},
+        "T": {"item": "minecraft:gold_nugget"}
+    },
+    "result":
+    {
+        "item": "communitymod:golden_spoon",
+        "count": 1
+    }
+}
