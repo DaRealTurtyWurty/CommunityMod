@@ -34,10 +34,11 @@
     "item.communitymod.stone_spoon": "Stone Spoon",
     "item.communitymod.toast": "Toast",
     "item.communitymod.what": "What?!",
+    "item.communitymod.basic_die": "Basic Die",
+    "item.communitymod.music_disc_dice": "Music Disc",
+    "item.communitymod.music_disc_dice.desc": "PickleString - Dice",
     "item.communitymod.wooden_spoon": "Wooden Spoon",
-
     "itemGroup.communitymod": "Community Mod",
-
     "tooltip.communitymod.spoonShovel.separator": "§6========================",
     "tooltip.communitymod.spoonShovel.text0": "§3 YES. It is a comically large spoon!",
     "tooltip.communitymod.spoonShovel.text1": "§3 Acts as a shovel!",
