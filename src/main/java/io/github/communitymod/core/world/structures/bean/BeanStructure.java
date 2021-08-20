@@ -1,7 +1,6 @@
 package io.github.communitymod.core.world.structures.bean;
 
 import com.mojang.serialization.Codec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.level.ChunkPos;

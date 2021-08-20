@@ -1,12 +1,7 @@
 package io.github.communitymod.core.init;
 
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.core.world.structures.bean.BeanStructure;
 import net.minecraft.core.Registry;
@@ -19,6 +14,10 @@ import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatur
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class StructureInit {
 

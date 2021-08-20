@@ -6,8 +6,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 
-import java.util.Random;
-
 public class MiguelItem extends Item {
 
     public MiguelItem(final Properties properties) {

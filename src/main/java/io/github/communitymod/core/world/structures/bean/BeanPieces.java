@@ -1,7 +1,5 @@
 package io.github.communitymod.core.world.structures.bean;
 
-import java.util.Random;
-
 import io.github.communitymod.CommunityMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -17,6 +15,8 @@ import net.minecraft.world.level.levelgen.structure.TemplateStructurePiece;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+
+import java.util.Random;
 
 public class BeanPieces {
     public static final StructurePieceType BEAN_TYPE = BeanPiece::new;
