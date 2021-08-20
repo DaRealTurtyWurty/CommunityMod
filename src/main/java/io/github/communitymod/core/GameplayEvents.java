@@ -82,7 +82,7 @@ public class GameplayEvents {
         if (attacker instanceof Mob attacker2) {
             attacker2.getCapability(CapabilityMobLevel.MOB_LEVEL_CAPABILITY).ifPresent(mobLevel -> {
                 float actualAmount = event.getAmount();
-                event.setAmount(actualAmount * (((((mobLevel.getMobLevel() / 2f) - 1f) * 50f) + 100f) / 100f) * (1f + (mobLevel.getMobLevel() / 4f) * 0.04f) * 5f);
+                event.setAmount(actualAmount * (((((mobLevel.getMobLevel() / 4f) - 1f) * 50f) + 100f) / 100f) * (1f + (mobLevel.getMobLevel() / 4f) * 0.04f) * 5f);
 
                 ArmorStand dmgTag = new ArmorStand(world, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
                 dmgTag.setCustomName(Component.nullToEmpty(MyColor.YELLOW + Math.round(event.getAmount())));
@@ -295,7 +295,7 @@ public class GameplayEvents {
                 entity.setCustomNameVisible(true);
                 entity.setCustomName(Component.nullToEmpty(MyColor.GRAY + "[Lv." + MyColor.RED + (mobLevel.getMobLevel()) + MyColor.GRAY + "] " +
                         entity.getType().getDescription().getString() +
-                        " " + MyColor.RED + Math.round((entity.getHealth() + entity.getAbsorptionAmount()) * 5 * (mobLevel.getMobLevel() / 2f)) + "/" + Math.round(entity.getMaxHealth() * 5 * (mobLevel.getMobLevel() / 2f))));
+                        " " + MyColor.RED + Math.round((entity.getHealth() + entity.getAbsorptionAmount()) * 5 * (mobLevel.getMobLevel() / 4f)) + "/" + Math.round(entity.getMaxHealth() * 5 * (mobLevel.getMobLevel() / 4f))));
             });
         }
     }
