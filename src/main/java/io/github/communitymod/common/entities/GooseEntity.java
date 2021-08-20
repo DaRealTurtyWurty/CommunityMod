@@ -81,30 +81,27 @@ public class GooseEntity extends Animal {
 	}
 
 	@Override
-	public boolean isFood(ItemStack pStack)
-	{
+	public boolean isFood(ItemStack pStack) {
 		return pStack.is(Tags.Items.SEEDS);
 	}
 
 	@Override
-	protected int calculateFallDamage(float p_225508_1_, float p_225508_2_)
-	{
+	protected int calculateFallDamage(float x, float z) {
 		return 0; // goose no take dmg. goose pro.
 	}
 
 	@Override
-	protected float getJumpPower()
-	{
+	protected float getJumpPower() {
 		return (this.level.random.nextFloat() * 1.5f) + 0.3f;
 	}
 
 	@Override
 	protected void jumpFromGround() {
 		super.jumpFromGround();
-		double d0 = this.moveControl.getSpeedModifier();
-		if (d0 > 0.0D) {
-			double d1 = distanceToSqr(this.getDeltaMovement());
-			if (d1 < 0.01D) {
+		double speed = this.moveControl.getSpeedModifier();
+		if (speed > 0.0D) {
+			double distance = distanceToSqr(this.getDeltaMovement());
+			if (distance < 0.01D) {
 				this.moveRelative(0.1F, new Vec3(0.0D, 0.0D, 1.0D));
 			}
 		}
@@ -112,17 +109,15 @@ public class GooseEntity extends Animal {
 		if (!this.level.isClientSide) {
 			this.level.broadcastEntityEvent(this, (byte)1);
 		}
-
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	public float getJumpCompletion(float p_175521_1_) {
-		return this.jumpDuration == 0 ? 0.0F : ((float)this.jumpTicks + p_175521_1_) / (float)this.jumpDuration;
+	public float getJumpCompletion(float value) {
+		return this.jumpDuration == 0 ? 0.0F : ((float)this.jumpTicks + value) / (float)this.jumpDuration;
 	}
 
-	public void setSpeedModifier(double p_175515_1_) {
-		this.getNavigation().setSpeedModifier(p_175515_1_);
-		this.moveControl.setWantedPosition(this.moveControl.getWantedX(), this.moveControl.getWantedY(), this.moveControl.getWantedZ(), p_175515_1_);
+	public void setSpeedModifier(double speed) {
+		this.getNavigation().setSpeedModifier(speed);
+		this.moveControl.setWantedPosition(this.moveControl.getWantedX(), this.moveControl.getWantedY(), this.moveControl.getWantedZ(), speed);
 	}
 
 	public void startJumping() {
@@ -132,9 +127,9 @@ public class GooseEntity extends Animal {
 	}
 
 	@Override
-	public void setJumping(boolean p_70637_1_) {
-		super.setJumping(p_70637_1_);
-		if (p_70637_1_) {
+	public void setJumping(boolean isJumping) {
+		super.setJumping(isJumping);
+		if (isJumping) {
 			this.playSound(this.getJumpSound(), this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
 		}
 	}
@@ -145,15 +140,16 @@ public class GooseEntity extends Animal {
 			--this.jumpDelayTicks;
 		}
 
-		Vec3 var1 = this.getDeltaMovement();
-		if (!this.onGround && var1.y < 0.0D) {
-			this.setDeltaMovement(var1.multiply(1.0D, 0.3D, 1.0D));
+		Vec3 delta = this.getDeltaMovement();
+		if (!this.onGround && delta.y < 0.0D) {
+			this.setDeltaMovement(delta.multiply(1.0D, 0.3D, 1.0D));
 		}
 
 		if (!this.isNoAi() && GoalUtils.hasGroundPathNavigation(this)) {
 			boolean flag = ((ServerLevel)this.level).isRaided(this.blockPosition());
 			((GroundPathNavigation)this.getNavigation()).setCanOpenDoors(flag);
 		}
+		
 		if (this.onGround) {
 			if (!this.wasOnGround) {
 				this.setJumping(false);
@@ -170,8 +166,8 @@ public class GooseEntity extends Animal {
 				}
 			}
 
-			GooseEntity.JumpHelperController Disguisagerentity$jumphelpercontroller = (GooseEntity.JumpHelperController)this.jumpControl;
-			if (!Disguisagerentity$jumphelpercontroller.wantJump()) {
+			GooseEntity.JumpHelperController jumpController = (GooseEntity.JumpHelperController)this.jumpControl;
+			if (!jumpController.wantJump()) {
 				if (this.moveControl.hasWanted() && this.jumpDelayTicks == 0) {
 					Path path = this.navigation.getPath();
 					Vec3 vector3d = new Vec3(this.moveControl.getWantedX(), this.moveControl.getWantedY(), this.moveControl.getWantedZ());
@@ -182,7 +178,7 @@ public class GooseEntity extends Animal {
 					this.facePoint(vector3d.x, vector3d.z);
 					this.startJumping();
 				}
-			} else if (!Disguisagerentity$jumphelpercontroller.canJump()) {
+			} else if (!jumpController.canJump()) {
 				this.enableJumpControl();
 			}
 		}
@@ -190,8 +186,8 @@ public class GooseEntity extends Animal {
 		this.wasOnGround = this.onGround;
 	}
 
-	private void facePoint(double p_175533_1_, double p_175533_3_) {
-		this.yBodyRot = (float)(Math.atan2(p_175533_3_ - this.getZ(), p_175533_1_ - this.getX()) * (double)(180F / (float)Math.PI)) - 90.0F;
+	private void facePoint(double x, double z) {
+		this.yBodyRot = (float)(Math.atan2(z - this.getZ(), x - this.getX()) * (double)(180F / (float)Math.PI)) - 90.0F;
 	}
 
 	private void enableJumpControl() {
@@ -208,7 +204,6 @@ public class GooseEntity extends Animal {
 		} else {
 			this.jumpDelayTicks = 1;
 		}
-
 	}
 
 	private void checkLandingDelay() {
@@ -226,33 +221,30 @@ public class GooseEntity extends Animal {
 			this.jumpDuration = 0;
 			this.setJumping(false);
 		}
-
 	}
 
 	protected SoundEvent getJumpSound() {
 		return SoundEvents.RABBIT_JUMP;
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	public void handleEntityEvent(byte p_70103_1_) {
-		if (p_70103_1_ == 1) {
+	public void handleEntityEvent(byte event) {
+		if (event == 1) {
 			this.spawnSprintParticle();
 			this.jumpDuration = 10;
 			this.jumpTicks = 0;
 		} else {
-			super.handleEntityEvent(p_70103_1_);
+			super.handleEntityEvent(event);
 		}
-
 	}
 
 	public class JumpHelperController extends JumpControl
 	{
-		private final GooseEntity Goose;
+		private final GooseEntity goose;
 		private boolean canJump;
 
-		public JumpHelperController(GooseEntity p_i45863_2_) {
-			super(p_i45863_2_);
-			this.Goose = p_i45863_2_;
+		public JumpHelperController(GooseEntity entity) {
+			super(entity);
+			this.goose = entity;
 		}
 
 		public boolean wantJump() {
@@ -263,49 +255,47 @@ public class GooseEntity extends Animal {
 			return this.canJump;
 		}
 
-		public void setCanJump(boolean p_180066_1_) {
-			this.canJump = p_180066_1_;
+		public void setCanJump(boolean canJump) {
+			this.canJump = canJump;
 		}
 
 		public void tick() {
 			if (this.jump) {
-				this.Goose.startJumping();
+				this.goose.startJumping();
 				this.jump = false;
 			}
-
 		}
 	}
 
 	static class MoveHelperController extends MoveControl
 	{
-		private final GooseEntity Goose;
+		private final GooseEntity goose;
 		private double nextJumpSpeed;
 
-		public MoveHelperController(GooseEntity p_i45862_1_) {
-			super(p_i45862_1_);
-			this.Goose = p_i45862_1_;
+		public MoveHelperController(GooseEntity goose) {
+			super(goose);
+			this.goose = goose;
 		}
 
 		public void tick() {
-			if (this.Goose.onGround && !this.Goose.jumping && !((GooseEntity.JumpHelperController)this.Goose.jumpControl).wantJump()) {
-				this.Goose.setSpeedModifier(0.0D);
+			if (this.goose.onGround && !this.goose.jumping && !((GooseEntity.JumpHelperController)this.goose.jumpControl).wantJump()) {
+				this.goose.setSpeedModifier(0.0D);
 			} else if (this.hasWanted()) {
-				this.Goose.setSpeedModifier(this.nextJumpSpeed);
+				this.goose.setSpeedModifier(this.nextJumpSpeed);
 			}
 
 			super.tick();
 		}
 
-		public void setWantedPosition(double p_75642_1_, double p_75642_3_, double p_75642_5_, double p_75642_7_) {
-			if (this.Goose.isInWater()) {
-				p_75642_7_ = 1.5D;
+		public void setWantedPosition(double x, double y, double z, double speed) {
+			if (this.goose.isInWater()) {
+				speed = 1.5D;
 			}
 
-			super.setWantedPosition(p_75642_1_, p_75642_3_, p_75642_5_, p_75642_7_);
-			if (p_75642_7_ > 0.0D) {
-				this.nextJumpSpeed = p_75642_7_;
+			super.setWantedPosition(z, y, z, speed);
+			if (speed > 0.0D) {
+				this.nextJumpSpeed = speed;
 			}
-
 		}
 	}
 }
