@@ -10,7 +10,6 @@ import io.github.communitymod.common.items.OrbOfInsanity;
 import io.github.communitymod.common.items.SpecialItem;
 import io.github.communitymod.common.items.WhatSign;
 import io.github.communitymod.common.items.Dice;
-import io.github.communitymod.core.init.BlockInit;
 import io.github.communitymod.core.util.BeanArmorMaterial;
 import io.github.communitymod.core.util.ModToolMaterials;
 import net.minecraft.world.effect.MobEffectInstance;
