@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TTT",
+    "TTT",
+    "TTT"
+  ],
+  "key": {
+    "T": {
+      "item": "communitymod:bean_talisman"
+    }
+  },
+  "result": {
+    "item": "communitymod:bean_ring",
+    "count": 1
+  }
+}

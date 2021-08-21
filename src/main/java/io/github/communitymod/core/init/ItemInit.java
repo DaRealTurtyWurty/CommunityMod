@@ -1,30 +1,17 @@
 package io.github.communitymod.core.init;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import io.github.communitymod.CommunityMod;
-import io.github.communitymod.common.items.BeanBelt;
-import io.github.communitymod.common.items.MiguelItem;
-import io.github.communitymod.common.items.OrbOfInsanity;
-import io.github.communitymod.common.items.SpecialItem;
-import io.github.communitymod.common.items.WhatSign;
-import io.github.communitymod.common.items.Dice;
-import io.github.communitymod.common.items.SpoonTemplate;
+import io.github.communitymod.common.items.*;
+import io.github.communitymod.common.items.bean_accessories.BeanArtifact;
+import io.github.communitymod.common.items.bean_accessories.BeanRing;
+import io.github.communitymod.common.items.bean_accessories.BeanTalisman;
 import io.github.communitymod.core.util.BeanArmorMaterial;
 import io.github.communitymod.core.util.ModToolMaterials;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.BowlFoodItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.Tiers;
-import net.minecraft.world.item.RecordItem;
-import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -33,6 +20,9 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.MOD)
 public final class ItemInit {
@@ -150,15 +140,22 @@ public final class ItemInit {
     public static final RegistryObject<Item> IRON_SPOON = ITEMS.register("iron_spoon",
         () -> new SpoonTemplate(
             Tiers.IRON, 5.0f, -2.0f,
-            new Item.Properties().tab(CommunityMod.TAB).durability(1024).defaultDurability(1024)));
+                new Item.Properties().tab(CommunityMod.TAB).durability(1024).defaultDurability(1024)));
     public static final RegistryObject<Item> DIAMOND_SPOON = ITEMS.register("diamond_spoon",
-        () -> new SpoonTemplate(
-            Tiers.DIAMOND, 5.0f, -2.0f,
-            new Item.Properties().tab(CommunityMod.TAB).durability(2048).defaultDurability(2048)));
+            () -> new SpoonTemplate(
+                    Tiers.DIAMOND, 5.0f, -2.0f,
+                    new Item.Properties().tab(CommunityMod.TAB).durability(2048).defaultDurability(2048)));
     public static final RegistryObject<Item> NETHERITE_SPOON = ITEMS.register("netherite_spoon",
-        () -> new SpoonTemplate(
-            Tiers.NETHERITE, 5.0f, -2.0f,
-            new Item.Properties().tab(CommunityMod.TAB).durability(4096).defaultDurability(4096)));
+            () -> new SpoonTemplate(
+                    Tiers.NETHERITE, 5.0f, -2.0f,
+                    new Item.Properties().tab(CommunityMod.TAB).durability(4096).defaultDurability(4096)));
+
+    public static final RegistryObject<Item> BEAN_TALISMAN = ITEMS.register("bean_talisman",
+            () -> new BeanTalisman(new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> BEAN_RING = ITEMS.register("bean_ring",
+            () -> new BeanRing(new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> BEAN_ARTIFACT = ITEMS.register("bean_artifact",
+            () -> new BeanArtifact(new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.EPIC)));
 
     @SubscribeEvent
     public static void registerBlockItems(final RegistryEvent.Register<Item> event) {

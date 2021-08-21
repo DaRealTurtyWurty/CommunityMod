@@ -1,9 +1,8 @@
 package io.github.communitymod.core;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import io.github.communitymod.CommunityMod;
+import io.github.communitymod.capabilities.entitylevel.CapabilityMobLevel;
+import io.github.communitymod.capabilities.playerskills.CapabilityPlayerSkills;
 import io.github.communitymod.common.entities.BeanEntity;
 import io.github.communitymod.common.entities.GooseEntity;
 import io.github.communitymod.core.init.DimensionInit;
@@ -15,6 +14,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.levelgen.StructureSettings;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -22,6 +22,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public final class CommonEvents {
 
@@ -31,7 +34,7 @@ public final class CommonEvents {
         @SuppressWarnings("resource")
         @SubscribeEvent
         public static void addDimensionalSpacing(final WorldEvent.Load event) {
-            if (event.getWorld()instanceof final ServerLevel serverLevel) {
+            if (event.getWorld() instanceof final ServerLevel serverLevel) {
                 final Map<StructureFeature<?>, StructureFeatureConfiguration> tempMap = new HashMap<>(
                         serverLevel.getChunkSource().generator.getSettings().structureConfig());
                 tempMap.putIfAbsent(StructureInit.BEAN_STRUCTURE.get(),
@@ -43,6 +46,12 @@ public final class CommonEvents {
         @SubscribeEvent
         public static void biomeModification(final BiomeLoadingEvent event) {
             event.getGeneration().getStructures().add(() -> ConfiguredStructures.CONFIGURE_TEST_STRUCTURE);
+        }
+
+        @SubscribeEvent
+        public static void registerCommands(final RegisterCommandsEvent event) {
+            //@todo fix command
+            //CommandInit.registerCommands(event);
         }
     }
 
@@ -57,6 +66,10 @@ public final class CommonEvents {
             StructureInit.register(BeanPieces.BEAN_TYPE, "bean_structure");
             StructureInit.setupStructures();
             ConfiguredStructures.registerConfiguredStructures();
+
+            //Capabilities
+            CapabilityPlayerSkills.register();
+            CapabilityMobLevel.register();
         }
 
         @SubscribeEvent
