@@ -1,16 +1,13 @@
 package io.github.communitymod.core.init;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.common.items.BeanBelt;
+import io.github.communitymod.common.items.Dice;
 import io.github.communitymod.common.items.MiguelItem;
 import io.github.communitymod.common.items.OrbOfInsanity;
 import io.github.communitymod.common.items.SpecialItem;
-import io.github.communitymod.common.items.WhatSign;
-import io.github.communitymod.common.items.Dice;
 import io.github.communitymod.common.items.SpoonTemplate;
+import io.github.communitymod.common.items.WhatSign;
 import io.github.communitymod.core.util.BeanArmorMaterial;
 import io.github.communitymod.core.util.ModToolMaterials;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -22,9 +19,9 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BowlFoodItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -33,6 +30,9 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.MOD)
 public final class ItemInit {

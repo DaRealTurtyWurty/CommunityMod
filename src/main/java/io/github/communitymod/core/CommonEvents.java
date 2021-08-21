@@ -1,8 +1,5 @@
 package io.github.communitymod.core;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.common.entities.BeanEntity;
 import io.github.communitymod.common.entities.GooseEntity;
@@ -22,6 +19,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public final class CommonEvents {
 

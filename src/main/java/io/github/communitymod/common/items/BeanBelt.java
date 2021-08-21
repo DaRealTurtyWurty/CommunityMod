@@ -1,9 +1,5 @@
 package io.github.communitymod.common.items;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import io.github.communitymod.core.network.ExplosionMessage;
 import io.github.communitymod.core.network.PacketHandler;
 import io.github.communitymod.core.util.BeanArmorMaterial;
@@ -19,6 +15,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Explosion.BlockInteraction;
 import net.minecraft.world.level.Level;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class BeanBelt extends ArmorItem {
     private static final byte COOLDOWN = 3 * SharedConstants.TICKS_PER_SECOND;

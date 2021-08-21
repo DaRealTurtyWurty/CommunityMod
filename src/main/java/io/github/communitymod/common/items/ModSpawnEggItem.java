@@ -1,12 +1,5 @@
 package io.github.communitymod.common.items;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Supplier;
-
-import javax.annotation.Nonnull;
-
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.core.util.SpawnEggData;
 import net.minecraft.nbt.CompoundTag;
@@ -14,6 +7,12 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
+
+import javax.annotation.Nonnull;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Supplier;
 
 public class ModSpawnEggItem extends SpawnEggItem {
 
