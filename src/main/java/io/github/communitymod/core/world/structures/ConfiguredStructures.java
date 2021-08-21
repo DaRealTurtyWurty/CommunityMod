@@ -11,14 +11,13 @@ import net.minecraft.world.level.levelgen.flat.FlatLevelGeneratorSettings;
 
 public class ConfiguredStructures {
 
-    public static final ConfiguredStructureFeature<?, ?> CONFIGURE_TEST_STRUCTURE = StructureInit.BEAN_STRUCTURE
-            .get().configured(FeatureConfiguration.NONE);
+    public static final ConfiguredStructureFeature<?, ?> CONFIGURE_TENT_STRUCTURE = StructureInit.TENT_STRUCTURE.get().configured(FeatureConfiguration.NONE);
+
 
     public static void registerConfiguredStructures() {
         final var registry = BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE;
 
-        Registry.register(registry, new ResourceLocation(CommunityMod.MODID, "configured_bean"),
-                CONFIGURE_TEST_STRUCTURE);
+        Registry.register(registry, new ResourceLocation(CommunityMod.MODID, "configured_tent"), CONFIGURE_TENT_STRUCTURE);
 
         /*
          * Ok so, this part may be hard to grasp but basically, just add your structure
@@ -39,7 +38,6 @@ public class ConfiguredStructures {
          *
          * Requires AccessTransformer ( see resources/META-INF/accesstransformer.cfg )
          */
-        FlatLevelGeneratorSettings.STRUCTURE_FEATURES.put(StructureInit.BEAN_STRUCTURE.get(),
-                CONFIGURE_TEST_STRUCTURE);
+        FlatLevelGeneratorSettings.STRUCTURE_FEATURES.put(StructureInit.TENT_STRUCTURE.get(), CONFIGURE_TENT_STRUCTURE);
     }
 }

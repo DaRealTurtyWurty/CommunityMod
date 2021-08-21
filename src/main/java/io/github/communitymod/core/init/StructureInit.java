@@ -3,7 +3,7 @@ package io.github.communitymod.core.init;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import io.github.communitymod.CommunityMod;
-import io.github.communitymod.core.world.structures.bean.BeanStructure;
+import io.github.communitymod.core.world.structures.tent.TentStructure;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.world.level.levelgen.StructureSettings;
@@ -24,11 +24,21 @@ public class StructureInit {
     public static final DeferredRegister<StructureFeature<?>> STRUCTURES = DeferredRegister
             .create(ForgeRegistries.STRUCTURE_FEATURES, CommunityMod.MODID);
 
-    public static final RegistryObject<StructureFeature<NoneFeatureConfiguration>> BEAN_STRUCTURE = STRUCTURES
-            .register("bean_structure", () -> new BeanStructure(NoneFeatureConfiguration.CODEC));
+    public static final RegistryObject<StructureFeature<NoneFeatureConfiguration>> TENT_STRUCTURE = STRUCTURES
+            .register("tent_structure", () -> new TentStructure(NoneFeatureConfiguration.CODEC));
 
     public static StructurePieceType register(final StructurePieceType structurePiece, final String key) {
         return Registry.register(Registry.STRUCTURE_PIECE, key.toLowerCase(Locale.ROOT), structurePiece);
+    }
+
+    public static void setupStructures() {
+        setupMapSpacingAndLand(TENT_STRUCTURE.get(),
+                new StructureFeatureConfiguration(7, //average distance apart in chunks between spawn
+                        5, //minimum distance apart in chunks. MUST BE LESS THAN ABOVE VALUE
+                        694201337), //this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique.
+                true);
+
+        // Add more structures here and so on
     }
 
     public static <F extends StructureFeature<?>> void setupMapSpacingAndLand(final F structure,
@@ -113,22 +123,4 @@ public class StructureInit {
         });
     }
 
-    public static void setupStructures() {
-        setupMapSpacingAndLand(BEAN_STRUCTURE.get(), /* The instance of the structure */
-                new StructureFeatureConfiguration(15, /*
-                                                       * average distance apart in chunks between spawn
-                                                       * attempts
-                                                       */
-                        10, /*
-                             * minimum distance apart in chunks between spawn attempts. MUST BE LESS THAN
-                             * ABOVE VALUE
-                             */
-                        694201337), /*
-                                     * this modifies the seed of the structure so no two structures always
-                                     * spawn over each-other. Make this large and unique.
-                                     */
-                true);
-
-        // Add more structures here and so on
-    }
 }
