@@ -5,6 +5,16 @@
     "entity.communitymod.bean": "Bean",
     "entity.communitymod.goose": "Goose",
 
+
+	"item.communitymod.cheeseburger": "The Hospital Burger",
+	"item.communitymod.burger_topbun": "Top Bun",
+	"item.communitymod.burger_bottombun": "Bottom Bun",
+	"item.communitymod.burger_cheese": "Cheese",
+	"item.communitymod.burger_lettuce": "Lettuce",
+	"item.communitymod.burger_meat": "Meat",
+	"item.communitymod.burger_tomato": "Tomato",
+	"item.communitymod.burger_ingredients": "Burger Ingredients",
+	
     "item.communitymod.apple_ingot": "Apple Ingot",
     "item.communitymod.bean_belt": "Bean Belt",
     "item.communitymod.bean_belt.tooltip": "Equip and press %3$s%2$sSHIFT%1$s to go %4$sboom%1$s!",
