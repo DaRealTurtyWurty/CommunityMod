@@ -1,11 +1,11 @@
 package io.github.communitymod.capabilities.playerskills;
 
 public interface PlayerSkills {
-    void AwardCombatXp(int xp);
+    void awardCombatXp(int xp);
 
-    void AwardMiningXp(int xp);
+    void awardMiningXp(int xp);
 
-    void AwardFarmingXp(int xp);
+    void awardFarmingXp(int xp);
 
-    void AwardForagingXp(int xp);
+    void awardForagingXp(int xp);
 }

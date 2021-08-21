@@ -26,7 +26,7 @@ public class DefaultPlayerSkills implements PlayerSkills {
     public float speed = 100f;
     public float baseSpeed = 100f;
 
-    public void AwardCombatXp(int xp) {
+    public void awardCombatXp(int xp) {
         //the while loops cannot be removed, as i cannot find another way to do this besides using recursion.
         int qxp = xp;
         while (qxp > 0) {
@@ -41,7 +41,7 @@ public class DefaultPlayerSkills implements PlayerSkills {
         }
     }
 
-    public void AwardMiningXp(int xp) {
+    public void awardMiningXp(int xp) {
         int qxp = xp;
         while (qxp > 0) {
             ++miningXp;
@@ -55,7 +55,7 @@ public class DefaultPlayerSkills implements PlayerSkills {
         }
     }
 
-    public void AwardFarmingXp(int xp) {
+    public void awardFarmingXp(int xp) {
         int qxp = xp;
         while (qxp > 0) {
             ++farmingXp;
@@ -69,7 +69,7 @@ public class DefaultPlayerSkills implements PlayerSkills {
         }
     }
 
-    public void AwardForagingXp(int xp) {
+    public void awardForagingXp(int xp) {
         int qxp = xp;
         while (qxp > 0) {
             ++foragingXp;

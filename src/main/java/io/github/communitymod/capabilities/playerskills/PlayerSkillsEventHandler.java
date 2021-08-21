@@ -39,7 +39,7 @@ public class PlayerSkillsEventHandler {
                     target.getCapability(CapabilityMobLevel.MOB_LEVEL_CAPABILITY).ifPresent(mobLevel -> {
                         DefaultPlayerSkills skills1 = (DefaultPlayerSkills) skills;
                         DefaultMobLevel actualMobLevel = (DefaultMobLevel) mobLevel;
-                        skills1.AwardCombatXp(Math.round(Math.round(actualMobLevel.mobLevel + (event.getEntityLiving().getMaxHealth() * 3))));
+                        skills1.awardCombatXp(Math.round(Math.round(actualMobLevel.mobLevel + (event.getEntityLiving().getMaxHealth() * 3))));
                         player.level.playSound(null, player, SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1f, 1f);
                         GameplayEvents.skillShowText = ColorConstants.DARK_AQUA + "+" + (Math.round(actualMobLevel.mobLevel + (event.getEntityLiving().getMaxHealth() * 3))) + " Combat (" + skills1.combatLvl + ": " + skills1.combatXp + "/" + ((Math.pow((skills1.combatLvl + 3), 3) - Math.pow((skills1.combatLvl + 1), 2)) * 2) + ")";
                         GameplayEvents.skillShowTimer = 60;
@@ -55,17 +55,17 @@ public class PlayerSkillsEventHandler {
             event.getPlayer().getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
                 DefaultPlayerSkills skills1 = (DefaultPlayerSkills) skills;
                 if (event.getState().is(BlockTags.CROPS)) {
-                    skills.AwardFarmingXp(6);
+                    skills.awardFarmingXp(6);
                     event.getPlayer().level.playSound(null, event.getPlayer(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1f, 1f);
                     GameplayEvents.skillShowText = ColorConstants.DARK_AQUA + "+6 Farming (" + skills1.farmingLvl + ": " + skills1.farmingXp + "/" + ((Math.pow((skills1.farmingLvl + 3), 3) - Math.pow((skills1.farmingLvl + 1), 2)) * 2) + ")";
                     GameplayEvents.skillShowTimer = 60;
                 } else if (event.getState().is(BlockTags.LOGS)) {
-                    skills.AwardForagingXp(10);
+                    skills.awardForagingXp(10);
                     event.getPlayer().level.playSound(null, event.getPlayer(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1f, 1f);
                     GameplayEvents.skillShowText = ColorConstants.DARK_AQUA + "+10 Foraging (" + skills1.foragingLvl + ": " + skills1.foragingXp + "/" + ((Math.pow((skills1.foragingLvl + 3), 3) - Math.pow((skills1.foragingLvl + 1), 2)) * 2) + ")";
                     GameplayEvents.skillShowTimer = 60;
                 } else {
-                    skills.AwardMiningXp(((harvestLevel + 1) * 5) + (event.getExpToDrop() * 2));
+                    skills.awardMiningXp(((harvestLevel + 1) * 5) + (event.getExpToDrop() * 2));
                     event.getPlayer().level.playSound(null, event.getPlayer(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1f, 1f);
                     GameplayEvents.skillShowText = ColorConstants.DARK_AQUA + "+" + (((harvestLevel + 1) * 5) + (event.getExpToDrop() * 2)) + " Mining (" + skills1.miningLvl + ": " + skills1.miningXp + "/" + ((Math.pow((skills1.miningLvl + 3), 3) - Math.pow((skills1.miningLvl + 1), 2)) * 2) + ")";
                     GameplayEvents.skillShowTimer = 60;
