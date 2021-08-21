@@ -7,6 +7,7 @@ import net.minecraftforge.fmllegacy.network.NetworkRegistry;
 import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
 
 public class PacketHandler {
+
     private static final String PROTOCOL_VERSION = "1";
     public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(CommunityMod.MODID, "main"), () -> PROTOCOL_VERSION, PROTOCOL_VERSION::equals,
@@ -15,9 +16,11 @@ public class PacketHandler {
     private static int id = 0;
 
     public static void init() {
+        // DIS NOT GOOD.
         INSTANCE.registerMessage(id++, ExplosionMessage.class, ExplosionMessage::encode, ExplosionMessage::from,
                 ExplosionMessage::handle);
 
         MinecraftForge.EVENT_BUS.register(PacketHandler.INSTANCE);
     }
+
 }

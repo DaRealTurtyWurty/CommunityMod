@@ -18,7 +18,7 @@ function initializeCoreMod() {
                     method.instructions.insert(beginning.getPrevious(), new VarInsnNode(Opcodes.ALOAD, 0))
 
                     method.instructions.insert(beginning.getPrevious(), ASMAPI.buildMethodCall(
-                        'io/github/communitymod/common/entities/ai/goals/WolfFetchStickGoal',
+                        'io/github/communitymod/common/entities/ThrownStickEntity',
                         'registerGoal',
                         '(Lnet/minecraft/world/entity/animal/Wolf;)V',
                         ASMAPI.MethodType.STATIC))

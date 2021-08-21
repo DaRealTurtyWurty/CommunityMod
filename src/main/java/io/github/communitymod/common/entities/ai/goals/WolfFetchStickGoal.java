@@ -26,20 +26,12 @@ public class WolfFetchStickGoal extends Goal {
         this.setFlags(EnumSet.of(Flag.LOOK, Flag.MOVE, Flag.JUMP));
     }
 
-    /**
-     * This is called by a coremod. Do NOT remove.
-     * Adds, well, this goal to the wolf GoalSelector.
-     *
-     * @param wolf Wolf instance.
-     * @author 0xJoeMama
-     */
-    @SuppressWarnings("unused")
-    public static void registerGoal(Wolf wolf) {
-        wolf.goalSelector.addGoal(4, new WolfFetchStickGoal(wolf, 1.2d));
-    }
-
     @Override
     public boolean canUse() {
+        if (this.wolf.isBaby()) {
+            return false;
+        }
+
         Level level = wolf.level;
 
         List<ThrownStickEntity> nearSticks = level.getEntities(EntityInit.THROWN_STICK.get(), this.wolf.getBoundingBox().inflate(10.0f),
@@ -60,7 +52,6 @@ public class WolfFetchStickGoal extends Goal {
         Vec3 stickPos = this.targetStick.position();
         this.wolf.getNavigation().moveTo(stickPos.x, stickPos.y, stickPos.z, this.speed);
         this.wolf.getLookControl().setLookAt(this.targetStick);
-        System.out.println(this.targetStick);
     }
 
     @Override
@@ -74,11 +65,11 @@ public class WolfFetchStickGoal extends Goal {
     @Override
     public boolean canContinueToUse() {
         float distance = this.wolf.distanceTo(this.targetStick);
-        System.out.println(distance);
 
         return this.targetStick.isAlive() &&
                 !this.targetStick.isOnGround() &&
-                distance < 1f;
+                distance < 1f &&
+                this.wolf.getNavigation().isStableDestination(this.targetStick.getOnPos());
     }
 
     private ThrownStickEntity findClosest(ThrownStickEntity thrownStickEntity, ThrownStickEntity thrownStickEntity2) {

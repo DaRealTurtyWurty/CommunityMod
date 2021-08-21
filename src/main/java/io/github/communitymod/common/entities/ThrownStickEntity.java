@@ -1,15 +1,19 @@
 package io.github.communitymod.common.entities;
 
+import io.github.communitymod.common.entities.ai.goals.WolfFetchStickGoal;
+import io.github.communitymod.common.entities.ai.goals.WolfReturnStickGoal;
 import io.github.communitymod.core.init.EntityInit;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
@@ -31,6 +35,19 @@ public class ThrownStickEntity extends ThrowableItemProjectile {
 
     public ThrownStickEntity(LivingEntity user, Level level) {
         super(EntityInit.THROWN_STICK.get(), user, level);
+    }
+
+    /**
+     * This is called by a coremod. Do NOT remove.
+     * Adds, well, this goal to the wolf GoalSelector.
+     *
+     * @param wolf Wolf instance.
+     * @author 0xJoeMama
+     */
+    @SuppressWarnings("unused")
+    public static void registerGoal(Wolf wolf) {
+        wolf.goalSelector.addGoal(4, new WolfFetchStickGoal(wolf, 1.2d));
+        wolf.goalSelector.addGoal(1, new WolfReturnStickGoal(wolf, 1.2d));
     }
 
     @Override
@@ -85,9 +102,11 @@ public class ThrownStickEntity extends ThrowableItemProjectile {
         super.onHitEntity(entityHitResult);
         Entity entity = entityHitResult.getEntity();
 
-        if (entity.isAlive() && this.getOwner() instanceof Player player) {
+        if (entity.isAlive() && this.getOwner() instanceof Player player && !(entity instanceof Wolf)) {
             entity.hurt(DamageSource.playerAttack(player), 1);
-            stopFromMoving(entityHitResult.getLocation());
+            this.stopFromMoving(entityHitResult.getLocation());
+        } else if (entity instanceof Wolf wolf && this.random.nextBoolean()) {
+            wolf.setItemInHand(InteractionHand.MAIN_HAND, Items.STICK.getDefaultInstance());
         }
     }
 
