@@ -23,6 +23,7 @@ import net.minecraft.world.item.BowlFoodItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.level.block.Block;
@@ -72,11 +73,27 @@ public final class ItemInit {
 
     public static final RegistryObject<Item> CHEESE_ITEM = ITEMS.register("cheese_item",
             () -> new Item(new Item.Properties().tab(CommunityMod.TAB)
-                    .food(new FoodProperties.Builder().nutrition(1000).saturationMod(1000.0f)
+                    .food(new FoodProperties.Builder().nutrition(10).saturationMod(1.0f)
                             .effect(() -> new MobEffectInstance(MobEffects.LEVITATION, 60, 1), 1.0f)
                             .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 7200, 3), 0.5f)
                             .effect(() -> new MobEffectInstance(MobEffects.HEALTH_BOOST, 7200, 10), 0.25f)
                             .build())));
+    
+    //Burger stuff
+    public static final RegistryObject<Item> CHEESEBURGER = ITEMS.register("cheeseburger",
+    		() -> new Item(new Item.Properties().tab(CommunityMod.TAB)
+    				.food(new FoodProperties.Builder().nutrition(100).saturationMod(100.0f)
+    						.effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 120, 2), 1.0f)
+    						.effect(() -> new MobEffectInstance(MobEffects.POISON, 40, 2), 1.0f)
+    						.build())));
+    public static final RegistryObject<Item> BURGER_TOPBUN = ITEMS.register("burger_topbun", () -> new Item(new Item.Properties().tab(CommunityMod.TAB)));
+    public static final RegistryObject<Item> BURGER_BOTTOMBUN = ITEMS.register("burger_bottombun", () -> new Item(new Item.Properties().tab(CommunityMod.TAB)));
+    public static final RegistryObject<Item> BURGER_CHEESE = ITEMS.register("burger_cheese", () -> new Item(new Item.Properties().tab(CommunityMod.TAB)));
+    public static final RegistryObject<Item> BURGER_LETTUCE = ITEMS.register("burger_lettuce", () -> new Item(new Item.Properties().tab(CommunityMod.TAB)));
+    public static final RegistryObject<Item> BURGER_TOMATO = ITEMS.register("burger_tomato", () -> new Item(new Item.Properties().tab(CommunityMod.TAB)));
+    public static final RegistryObject<Item> BURGER_MEAT = ITEMS.register("burger_meat", () -> new Item(new Item.Properties().tab(CommunityMod.TAB)));
+    public static final RegistryObject<Item> BURGER_INGREDIENTS = ITEMS.register("burger_ingredients", () -> new Item(new Item.Properties().tab(CommunityMod.TAB)));
+    //End burger stuff
 
     public static final RegistryObject<Item> MIGUEL_OF_FORTUNE = ITEMS.register("miguel_of_fortune",
             () -> new MiguelItem(new Item.Properties().tab(CommunityMod.TAB)));
