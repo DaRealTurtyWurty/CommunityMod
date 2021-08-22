@@ -2,7 +2,6 @@ package io.github.communitymod.client.entity.goose;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-
 import io.github.communitymod.common.entities.GooseEntity;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;

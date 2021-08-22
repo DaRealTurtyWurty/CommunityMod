@@ -1,11 +1,11 @@
 package io.github.communitymod.core.network;
 
-import java.util.function.Supplier;
-
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Explosion.BlockInteraction;
 import net.minecraftforge.fmllegacy.network.NetworkEvent.Context;
 import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
+
+import java.util.function.Supplier;
 
 public class ExplosionMessage {
     public BlockInteraction blockInteraction;

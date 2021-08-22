@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GDG",
+    "DGD",
+    "GDG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:granite"
+    },
+    "D": {
+      "item": "minecraft:diamond_block"
+    }
+  },
+  "result": {
+    "item": "communitymod:granmond",
+    "count": 1
+  }
+}

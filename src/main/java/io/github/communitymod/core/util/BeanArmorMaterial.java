@@ -1,13 +1,13 @@
 package io.github.communitymod.core.util;
 
-import java.util.function.Supplier;
-
 import io.github.communitymod.core.init.ItemInit;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
+
+import java.util.function.Supplier;
 
 public enum BeanArmorMaterial implements ArmorMaterial {
     BEAN_ARMOR("bean", 10, new int[] { 1, 1, 1, 1 }, 20, SoundEvents.ARMOR_EQUIP_CHAIN, 0f, 0f,

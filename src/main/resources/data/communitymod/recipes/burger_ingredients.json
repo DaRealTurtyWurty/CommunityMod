@@ -1,0 +1,36 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "communitymod:burger_lettuce"
+        },
+        {
+            "item": "communitymod:burger_lettuce"
+        },
+        {
+            "item": "communitymod:burger_tomato"
+        },
+        {
+            "item": "communitymod:burger_meat"
+        },
+        {
+            "item": "communitymod:burger_meat"
+        },
+        {
+            "item": "communitymod:burger_meat"
+        },
+        {
+            "item": "communitymod:burger_cheese"
+        },
+        {
+            "item": "communitymod:burger_cheese"
+        },
+        {
+            "item": "communitymod:burger_cheese"
+        }
+    ],
+    "result": {
+    	"item": "communitymod:burger_ingredients",
+    	"count": 1
+    }
+}

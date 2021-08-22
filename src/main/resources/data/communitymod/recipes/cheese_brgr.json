@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+          	"item": "communitymod:cheese_item"
+        }
+    ],
+    "result": {
+        "item": "communitymod:burger_cheese",
+        "count": 2
+    }
+}
