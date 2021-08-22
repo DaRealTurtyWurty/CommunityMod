@@ -14,8 +14,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.glfw.GLFW;
 
 import javax.annotation.Nullable;
@@ -27,27 +25,29 @@ import java.util.List;
  * I added it because ???
  */
 public class SpecialItem extends Item {
-    public SpecialItem(Properties properties) {
+    public SpecialItem(final Properties properties) {
         super(properties);
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        player.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 5));
-        Zombie zombie = new Zombie(level);
-        zombie.setPos(player.getX(), player.getY(), player.getZ());
-        level.addFreshEntity(zombie);
-        return InteractionResultHolder.success(player.getItemInHand(hand));
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+    public void appendHoverText(final ItemStack stack, @Nullable final Level level,
+            final List<Component> tooltip, final TooltipFlag flag) {
         super.appendHoverText(stack, level, tooltip, flag);
-        if (InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_SHIFT)) {
+        if (InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(),
+                GLFW.GLFW_KEY_LEFT_SHIFT)) {
             tooltip.add(new TextComponent("Advanced Tooltip"));
         } else {
             tooltip.add(new TextComponent("Hold \u00A7eSHIFT \u00A77for more information."));
         }
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(final Level level, final Player player,
+            final InteractionHand hand) {
+        player.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 5));
+        final var zombie = new Zombie(level);
+        zombie.setPos(player.getX(), player.getY(), player.getZ());
+        level.addFreshEntity(zombie);
+        return InteractionResultHolder.success(player.getItemInHand(hand));
     }
 }

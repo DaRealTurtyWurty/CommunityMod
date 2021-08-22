@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "W",
+        "#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:bread"
+        },
+        "W": {
+            "item": "minecraft:wheat_seeds"
+        }
+    },
+    "result": {
+        "item": "communitymod:burger_bottombun",
+        "count": 1
+    }
+}

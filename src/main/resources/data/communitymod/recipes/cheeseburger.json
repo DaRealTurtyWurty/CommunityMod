@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#",
+        "G",
+        "L"
+    ],
+    "key": {
+        "#": {
+            "item": "communitymod:burger_topbun"
+        },
+        "G": {
+            "item": "communitymod:burger_ingredients"
+        },
+        "L": {
+            "item": "communitymod:burger_bottombun"
+        }
+    },
+    "result": {
+    	"item": "communitymod:cheeseburger",
+    	"count": 1
+    }
+}
