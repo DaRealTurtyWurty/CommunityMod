@@ -31,7 +31,6 @@ public class StatsCommand extends BaseCommand {
     static int execute(CommandContext<CommandSourceStack> commandContext) throws CommandSyntaxException {
         ServerPlayer player = EntityArgument.getPlayer(commandContext, "player");
         player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
-            //@todo still having command errors, if you know the fix feel free to apply it.
             DefaultPlayerSkills actualSkills = (DefaultPlayerSkills) skills;
             player.displayClientMessage(Component.nullToEmpty(ColorConstants.BOLD + ColorConstants.AQUA + "Stats for" + player.getGameProfile().getName()
                     + ColorConstants.RESET + ColorConstants.YELLOW +
