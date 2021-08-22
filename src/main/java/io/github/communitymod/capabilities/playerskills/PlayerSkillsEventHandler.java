@@ -5,6 +5,7 @@ import io.github.communitymod.capabilities.entitylevel.CapabilityMobLevel;
 import io.github.communitymod.capabilities.entitylevel.DefaultMobLevel;
 import io.github.communitymod.core.GameplayEvents;
 import io.github.communitymod.core.util.ColorConstants;
+import io.github.communitymod.core.util.OtherUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -85,7 +86,9 @@ public class PlayerSkillsEventHandler {
                 event.getOriginal().getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(oldskills -> {
                     DefaultPlayerSkills newskills1 = (DefaultPlayerSkills) newskills;
                     DefaultPlayerSkills oldskills1 = (DefaultPlayerSkills) oldskills;
+
                     newskills1.combatXp = (0);
+                    OtherUtils.sendChat(player, newskills1.combatLvl + " = " + (oldskills1.combatLvl - 1) + ", " + oldskills1.combatLvl + ", " + newskills1.combatLvl);
                     newskills1.combatLvl = (oldskills1.combatLvl - 1);
 
                     newskills1.miningXp = (0);

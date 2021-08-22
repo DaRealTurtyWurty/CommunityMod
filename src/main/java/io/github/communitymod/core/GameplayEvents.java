@@ -24,6 +24,8 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHealEvent;
@@ -39,6 +41,7 @@ public class GameplayEvents {
 
     public static int skillShowTimer = 0;
     public static String skillShowText = "";
+
     public static boolean showLevelCombat = false;
     public static boolean showLevelMining = false;
     public static boolean showLevelForaging = false;
@@ -70,7 +73,7 @@ public class GameplayEvents {
             attacker1.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
                 DefaultPlayerSkills actualSkills = (DefaultPlayerSkills) skills;
                 float actualAmount = event.getAmount();
-                event.setAmount(actualAmount * (actualSkills.strength / 100f) * (1f + displayLevelCombat * 0.04f) * 2f);
+                event.setAmount(actualAmount * (actualSkills.strength / 100f) * (1f + displayLevelCombat * 0.04f) * 5f);
 
                 ArmorStand dmgTag = new ArmorStand(world, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
                 dmgTag.setCustomName(Component.nullToEmpty(ColorConstants.YELLOW + Math.round(event.getAmount())));
@@ -86,7 +89,7 @@ public class GameplayEvents {
             attacker2.getCapability(CapabilityMobLevel.MOB_LEVEL_CAPABILITY).ifPresent(mobLevel -> {
                 DefaultMobLevel actualMobLevel = (DefaultMobLevel) mobLevel;
                 float actualAmount = event.getAmount();
-                event.setAmount(actualAmount * (((((actualMobLevel.mobLevel / 10f) - 1f) * 50f) + 100f) / 100f) * (1f + (actualMobLevel.mobLevel / 10f) * 0.04f));
+                event.setAmount(actualAmount * (((((1f + (actualMobLevel.mobLevel - 1f) / 4f) - 1f) * 50f) + 100f) / 100f) * (1f + (1f + (actualMobLevel.mobLevel - 1f) / 4f) * 0.04f));
 
                 ArmorStand dmgTag = new ArmorStand(world, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
                 dmgTag.setCustomName(Component.nullToEmpty(ColorConstants.YELLOW + Math.round(event.getAmount())));
@@ -104,18 +107,18 @@ public class GameplayEvents {
                 if (event.getSource() == DamageSource.FALL) {
 
                     ArmorStand dmgTag = new ArmorStand(world, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
-                    dmgTag.setCustomName(Component.nullToEmpty(ColorConstants.YELLOW + (Math.round(event.getAmount()) * 5f)));
+                    dmgTag.setCustomName(Component.nullToEmpty(ColorConstants.YELLOW + (Math.round(event.getAmount() * 5))));
                     dmgTag.setCustomNameVisible(true);
                     dmgTag.setInvulnerable(true);
                     dmgTag.noPhysics = true;
                     dmgTag.setInvisible(true);
                     world.addFreshEntity(dmgTag);
-                    event.setAmount(event.getAmount() * (target.getMaxHealth() / actualSkills.maxHealth));
+                    event.setAmount(event.getAmount() * (target.getMaxHealth() / actualSkills.maxHealth) * 5f);
 
                 } else if (event.getSource().isBypassArmor()) {
                     event.setAmount(event.getAmount() * (target.getMaxHealth() / actualSkills.maxHealth));
                 } else {
-                    event.setAmount((event.getAmount() * (actualSkills.defense / (actualSkills.defense + 100f))) * (target.getMaxHealth() / actualSkills.maxHealth));
+                    event.setAmount((event.getAmount() * (1 - (actualSkills.defense / (actualSkills.defense + 100f)))) * (target.getMaxHealth() / actualSkills.maxHealth));
                 }
             });
         }
@@ -124,18 +127,18 @@ public class GameplayEvents {
             target.getCapability(CapabilityMobLevel.MOB_LEVEL_CAPABILITY).ifPresent(mobLevel -> {
                 DefaultMobLevel actualMobLevel = (DefaultMobLevel) mobLevel;
                 if (event.getSource() == DamageSource.FALL) {
-                    event.setAmount((event.getAmount() * ((target.getMaxHealth() * 5f) / (actualMobLevel.mobLevel * 2.5f * target.getMaxHealth())) * 5f));
+                    event.setAmount(event.getAmount() / (1f + ((actualMobLevel.mobLevel - 1f) / 4f)) * 5f);
                     ArmorStand dmgTag = new ArmorStand(world, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
-                    dmgTag.setCustomName(Component.nullToEmpty(ColorConstants.YELLOW + (Math.round(event.getAmount() * 5f))));
+                    dmgTag.setCustomName(Component.nullToEmpty(ColorConstants.YELLOW + (Math.round(event.getAmount()))));
                     dmgTag.setCustomNameVisible(true);
                     dmgTag.setInvulnerable(true);
                     dmgTag.noPhysics = true;
                     dmgTag.setInvisible(true);
                     world.addFreshEntity(dmgTag);
                 } else if (event.getSource().isBypassArmor()) {
-                    event.setAmount(event.getAmount() * ((target.getMaxHealth() * 5f) / ((actualMobLevel.mobLevel / 10f) * 2.5f * target.getMaxHealth())));
+                    event.setAmount(event.getAmount() / (1f + ((actualMobLevel.mobLevel - 1f) / 4f)) * 5f);
                 } else {
-                    event.setAmount(event.getAmount() * (1 - (targetTotalDefense.get() / (targetTotalDefense.get() + 100f))) * ((target.getMaxHealth() * 5) / (actualMobLevel.mobLevel * 2.5f * target.getMaxHealth())));
+                    event.setAmount(event.getAmount() * (1 - (targetTotalDefense.get() / (targetTotalDefense.get() + 100f))) / (1f + ((actualMobLevel.mobLevel - 1f) / 4f)));
                 }
             });
         }
@@ -143,7 +146,7 @@ public class GameplayEvents {
     }
 
     @SubscribeEvent
-    public static void playerUpdate(final LivingEvent.LivingUpdateEvent event) {
+    public static void entityUpdate(final LivingEvent.LivingUpdateEvent event) {
         if (event.getEntityLiving() instanceof Player player) {
             Level level = event.getEntity().level;
             skillShowTimer -= 1;
@@ -151,38 +154,38 @@ public class GameplayEvents {
             player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
                 DefaultPlayerSkills actualSkills = (DefaultPlayerSkills) skills;
                 if (showLevelCombat) {
-                    OtherUtils.SendChat(player, ColorConstants.DARK_AQUA + ColorConstants.BOLD + "========================================");
-                    OtherUtils.SendChat(player, ColorConstants.AQUA + "Combat " + ColorConstants.DARK_GRAY + (displayLevelCombat - 1) + " \u2192 " + displayLevelCombat);
-                    OtherUtils.SendChat(player, ColorConstants.GOLD + "REWARDS");
-                    OtherUtils.SendChat(player, ColorConstants.GOLD + "   - Deal " + ColorConstants.DARK_GRAY + "+" + ((displayLevelCombat - 1) * 4) + "%" + ColorConstants.YELLOW + " \u2192 " + ColorConstants.GOLD + "+" + (displayLevelCombat * 4) + "% More damage to mobs.");
-                    OtherUtils.SendChat(player, ColorConstants.DARK_AQUA + ColorConstants.BOLD + "========================================");
+                    OtherUtils.sendChat(player, ColorConstants.DARK_AQUA + ColorConstants.BOLD + "========================================");
+                    OtherUtils.sendChat(player, ColorConstants.AQUA + "Combat " + ColorConstants.DARK_GRAY + (displayLevelCombat - 1) + " \u2192 " + displayLevelCombat);
+                    OtherUtils.sendChat(player, ColorConstants.GOLD + "REWARDS");
+                    OtherUtils.sendChat(player, ColorConstants.GOLD + "   - Deal " + ColorConstants.DARK_GRAY + "+" + ((displayLevelCombat - 1) * 4) + "%" + ColorConstants.YELLOW + " \u2192 " + ColorConstants.GOLD + "+" + (displayLevelCombat * 4) + "% More damage to mobs.");
+                    OtherUtils.sendChat(player, ColorConstants.DARK_AQUA + ColorConstants.BOLD + "========================================");
                     player.playSound(SoundEvents.PLAYER_LEVELUP, 1f, 0.5f);
                     showLevelCombat = false;
                 }
                 if (showLevelMining) {
-                    OtherUtils.SendChat(player, ColorConstants.DARK_AQUA + ColorConstants.BOLD + "========================================");
-                    OtherUtils.SendChat(player, ColorConstants.AQUA + "Mining " + ColorConstants.DARK_GRAY + (displayLevelMining - 1) + " \u2192 " + displayLevelMining);
-                    OtherUtils.SendChat(player, ColorConstants.GOLD + "REWARDS");
-                    OtherUtils.SendChat(player, ColorConstants.GOLD + "   - Gain " + ColorConstants.DARK_GRAY + "+" + ((displayLevelMining - 1) * 2) + ColorConstants.DARK_GREEN + " \u2192 " + ColorConstants.GREEN + "+" + (displayLevelMining * 2) + " Defense.");
-                    OtherUtils.SendChat(player, ColorConstants.DARK_AQUA + ColorConstants.BOLD + "========================================");
+                    OtherUtils.sendChat(player, ColorConstants.DARK_AQUA + ColorConstants.BOLD + "========================================");
+                    OtherUtils.sendChat(player, ColorConstants.AQUA + "Mining " + ColorConstants.DARK_GRAY + (displayLevelMining - 1) + " \u2192 " + displayLevelMining);
+                    OtherUtils.sendChat(player, ColorConstants.GOLD + "REWARDS");
+                    OtherUtils.sendChat(player, ColorConstants.GOLD + "   - Gain " + ColorConstants.DARK_GRAY + "+" + ((displayLevelMining - 1) * 2) + ColorConstants.DARK_GREEN + " \u2192 " + ColorConstants.GREEN + "+" + (displayLevelMining * 2) + " Defense.");
+                    OtherUtils.sendChat(player, ColorConstants.DARK_AQUA + ColorConstants.BOLD + "========================================");
                     player.playSound(SoundEvents.PLAYER_LEVELUP, 1f, 0.5f);
                     showLevelMining = false;
                 }
                 if (showLevelFarming) {
-                    OtherUtils.SendChat(player, ColorConstants.DARK_AQUA + ColorConstants.BOLD + "========================================");
-                    OtherUtils.SendChat(player, ColorConstants.AQUA + "Farming " + ColorConstants.DARK_GRAY + (displayLevelFarming - 1) + " \u2192 " + displayLevelFarming);
-                    OtherUtils.SendChat(player, ColorConstants.GOLD + "REWARDS");
-                    OtherUtils.SendChat(player, ColorConstants.GOLD + "   - Gain " + ColorConstants.DARK_GRAY + "+" + ((displayLevelFarming - 1) * 3) + ColorConstants.DARK_RED + " \u2192 " + ColorConstants.RED + "+" + (displayLevelFarming * 3) + " Max Health.");
-                    OtherUtils.SendChat(player, ColorConstants.DARK_AQUA + ColorConstants.BOLD + "========================================");
+                    OtherUtils.sendChat(player, ColorConstants.DARK_AQUA + ColorConstants.BOLD + "========================================");
+                    OtherUtils.sendChat(player, ColorConstants.AQUA + "Farming " + ColorConstants.DARK_GRAY + (displayLevelFarming - 1) + " \u2192 " + displayLevelFarming);
+                    OtherUtils.sendChat(player, ColorConstants.GOLD + "REWARDS");
+                    OtherUtils.sendChat(player, ColorConstants.GOLD + "   - Gain " + ColorConstants.DARK_GRAY + "+" + ((displayLevelFarming - 1) * 3) + ColorConstants.DARK_RED + " \u2192 " + ColorConstants.RED + "+" + (displayLevelFarming * 3) + " Max Health.");
+                    OtherUtils.sendChat(player, ColorConstants.DARK_AQUA + ColorConstants.BOLD + "========================================");
                     player.playSound(SoundEvents.PLAYER_LEVELUP, 1f, 0.5f);
                     showLevelFarming = false;
                 }
                 if (showLevelForaging) {
-                    OtherUtils.SendChat(player, ColorConstants.DARK_AQUA + ColorConstants.BOLD + "========================================");
-                    OtherUtils.SendChat(player, ColorConstants.AQUA + "Foraging " + ColorConstants.DARK_GRAY + (displayLevelForaging - 1) + " \u2192 " + displayLevelForaging);
-                    OtherUtils.SendChat(player, ColorConstants.GOLD + "REWARDS");
-                    OtherUtils.SendChat(player, ColorConstants.GOLD + "   - Gain " + ColorConstants.DARK_GRAY + "+" + ((displayLevelForaging - 1) * 2) + ColorConstants.DARK_RED + " \u2192 " + ColorConstants.RED + "+" + (displayLevelForaging * 4) + " Strength.");
-                    OtherUtils.SendChat(player, ColorConstants.DARK_AQUA + ColorConstants.BOLD + "========================================");
+                    OtherUtils.sendChat(player, ColorConstants.DARK_AQUA + ColorConstants.BOLD + "========================================");
+                    OtherUtils.sendChat(player, ColorConstants.AQUA + "Foraging " + ColorConstants.DARK_GRAY + (displayLevelForaging - 1) + " \u2192 " + displayLevelForaging);
+                    OtherUtils.sendChat(player, ColorConstants.GOLD + "REWARDS");
+                    OtherUtils.sendChat(player, ColorConstants.GOLD + "   - Gain " + ColorConstants.DARK_GRAY + "+" + ((displayLevelForaging - 1) * 2) + ColorConstants.DARK_RED + " \u2192 " + ColorConstants.RED + "+" + (displayLevelForaging * 4) + " Strength.");
+                    OtherUtils.sendChat(player, ColorConstants.DARK_AQUA + ColorConstants.BOLD + "========================================");
                     player.playSound(SoundEvents.PLAYER_LEVELUP, 1f, 0.5f);
                     showLevelForaging = false;
                 }
@@ -253,39 +256,52 @@ public class GameplayEvents {
 
                 player.displayClientMessage(Component.nullToEmpty(
                         color + actualSkills.health + "/" + actualSkills.maxHealth + " Health" + "  " +
-                                ((actualSkills.defense != 0) ? (ColorConstants.GREEN + (actualSkills.defense * 5) + " Defense" + "  ") : ("")) +
+                                ((actualSkills.defense != 0) ? (ColorConstants.GREEN + (actualSkills.defense) + " Defense" + "  ") : ("")) +
                                 (skillShowTimer > 0 ? skillShowText : "")), true);
 
                 int headDefense;
                 int chestDefense;
                 int legsDefense;
                 int feetDefense;
+                int totalAddedProtection = 0;
 
                 if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof ArmorItem head) {
                     headDefense = head.getDefense();
+                    if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.HEAD)) > 0) {
+                        totalAddedProtection += EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.HEAD)) * 5;
+                    }
                 } else {
                     headDefense = 0;
                 }
 
                 if (player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ArmorItem chest) {
                     chestDefense = chest.getDefense();
+                    if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.CHEST)) > 0) {
+                        totalAddedProtection += EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.CHEST)) * 5;
+                    }
                 } else {
                     chestDefense = 0;
                 }
 
                 if (player.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ArmorItem legs) {
                     legsDefense = legs.getDefense();
+                    if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.LEGS)) > 0) {
+                        totalAddedProtection += EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.LEGS)) * 5;
+                    }
                 } else {
                     legsDefense = 0;
                 }
 
                 if (player.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof ArmorItem feet) {
                     feetDefense = feet.getDefense();
+                    if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.FEET)) > 0) {
+                        totalAddedProtection += EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.FEET)) * 5;
+                    }
                 } else {
                     feetDefense = 0;
                 }
 
-                actualSkills.defense = (((headDefense + chestDefense + legsDefense + feetDefense) * 5) + defenseAdder);
+                actualSkills.defense = (((headDefense + chestDefense + legsDefense + feetDefense) * 5) + defenseAdder + totalAddedProtection);
                 actualSkills.strength = (strengthAdder);
                 actualSkills.maxHealth = (maxHealthAdder + (event.getEntityLiving().getMaxHealth() - 20));
                 actualSkills.health = (Math.round(((event.getEntityLiving().getHealth() + event.getEntityLiving().getAbsorptionAmount()) / event.getEntityLiving().getMaxHealth()) * actualSkills.maxHealth));
@@ -303,13 +319,13 @@ public class GameplayEvents {
                 entity.setCustomNameVisible(true);
                 entity.setCustomName(Component.nullToEmpty(ColorConstants.GRAY + "[Lv." + ColorConstants.RED + (actualMobLevel.mobLevel) + ColorConstants.GRAY + "] " +
                         entity.getType().getDescription().getString() +
-                        " " + ColorConstants.RED + Math.round((entity.getHealth() + entity.getAbsorptionAmount()) * 2.5 * (actualMobLevel.mobLevel)) + "/" + Math.round(entity.getMaxHealth() * 2.5 * (actualMobLevel.mobLevel))));
+                        " " + ColorConstants.RED + Math.round((entity.getHealth() + entity.getAbsorptionAmount()) * 5f * (1f + (actualMobLevel.mobLevel - 1f) / 4f)) + "/" + Math.round(entity.getMaxHealth() * 5f * (1f + (actualMobLevel.mobLevel - 1f) / 4f))));
             });
         }
     }
 
     @SubscribeEvent
-    public static void PlayerHeal(final LivingHealEvent event) {
+    public static void playerHeal(final LivingHealEvent event) {
         if (event.getEntityLiving() instanceof Player player) {
             player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
                 DefaultPlayerSkills actualSkills = (DefaultPlayerSkills) skills;
