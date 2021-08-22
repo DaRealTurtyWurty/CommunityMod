@@ -6,6 +6,8 @@ import io.github.communitymod.capabilities.playerskills.CapabilityPlayerSkills;
 import io.github.communitymod.common.entities.BeanEntity;
 import io.github.communitymod.common.entities.GooseEntity;
 import io.github.communitymod.common.entities.ThrownStickEntity;
+import io.github.communitymod.common.entities.ai.goals.WolfFetchStickGoal;
+import io.github.communitymod.common.entities.ai.goals.WolfReturnStickGoal;
 import io.github.communitymod.core.init.DimensionInit;
 import io.github.communitymod.core.init.EntityInit;
 import io.github.communitymod.core.init.StructureInit;
@@ -16,6 +18,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -24,6 +27,7 @@ import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -62,6 +66,13 @@ public final class CommonEvents {
             }
         }
 
+        @SubscribeEvent
+        public static void onEntityJoined(final LivingSpawnEvent event) {
+            if (event.getEntity() instanceof Wolf wolf) {
+                wolf.goalSelector.addGoal(1, new WolfReturnStickGoal(wolf, 1.2d));
+                wolf.goalSelector.addGoal(4, new WolfFetchStickGoal(wolf, 1.2d));
+            }
+        }
 
         @SuppressWarnings("resource")
         @SubscribeEvent

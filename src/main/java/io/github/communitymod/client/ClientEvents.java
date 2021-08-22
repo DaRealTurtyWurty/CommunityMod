@@ -8,6 +8,7 @@ import io.github.communitymod.client.entity.goose.GooseRenderer;
 import io.github.communitymod.client.entity.stick.ThrownStickEntityRenderer;
 import io.github.communitymod.client.entity.wolf.WolfStickRenderLayer;
 import io.github.communitymod.core.init.EntityInit;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.WolfRenderer;

@@ -1,7 +1,5 @@
 package io.github.communitymod.common.entities;
 
-import io.github.communitymod.common.entities.ai.goals.WolfFetchStickGoal;
-import io.github.communitymod.common.entities.ai.goals.WolfReturnStickGoal;
 import io.github.communitymod.core.init.EntityInit;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
@@ -35,19 +33,6 @@ public class ThrownStickEntity extends ThrowableItemProjectile {
 
     public ThrownStickEntity(LivingEntity user, Level level) {
         super(EntityInit.THROWN_STICK.get(), user, level);
-    }
-
-    /**
-     * This is called by a coremod. Do NOT remove.
-     * Adds, well, this goal to the wolf GoalSelector.
-     *
-     * @param wolf Wolf instance.
-     * @author 0xJoeMama
-     */
-    @SuppressWarnings("unused")
-    public static void registerGoal(Wolf wolf) {
-        wolf.goalSelector.addGoal(4, new WolfFetchStickGoal(wolf, 1.2d));
-        wolf.goalSelector.addGoal(1, new WolfReturnStickGoal(wolf, 1.2d));
     }
 
     @Override
