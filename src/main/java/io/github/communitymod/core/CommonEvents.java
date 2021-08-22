@@ -9,7 +9,7 @@ import io.github.communitymod.core.init.DimensionInit;
 import io.github.communitymod.core.init.EntityInit;
 import io.github.communitymod.core.init.StructureInit;
 import io.github.communitymod.core.world.structures.ConfiguredStructures;
-import io.github.communitymod.core.world.structures.bean.BeanPieces;
+import io.github.communitymod.core.world.structures.tent.TentPieces;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.levelgen.StructureSettings;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
@@ -37,15 +37,15 @@ public final class CommonEvents {
             if (event.getWorld() instanceof final ServerLevel serverLevel) {
                 final Map<StructureFeature<?>, StructureFeatureConfiguration> tempMap = new HashMap<>(
                         serverLevel.getChunkSource().generator.getSettings().structureConfig());
-                tempMap.putIfAbsent(StructureInit.BEAN_STRUCTURE.get(),
-                        StructureSettings.DEFAULTS.get(StructureInit.BEAN_STRUCTURE.get()));
+                tempMap.putIfAbsent(StructureInit.TENT_STRUCTURE.get(),
+                        StructureSettings.DEFAULTS.get(StructureInit.TENT_STRUCTURE.get()));
                 serverLevel.getChunkSource().generator.getSettings().structureConfig = tempMap;
             }
         }
 
         @SubscribeEvent
         public static void biomeModification(final BiomeLoadingEvent event) {
-            event.getGeneration().getStructures().add(() -> ConfiguredStructures.CONFIGURE_TEST_STRUCTURE);
+            event.getGeneration().getStructures().add(() -> ConfiguredStructures.CONFIGURE_TENT_STRUCTURE);
         }
 
         @SubscribeEvent
@@ -63,7 +63,7 @@ public final class CommonEvents {
             DimensionInit.setup();
 
             // Structures
-            StructureInit.register(BeanPieces.BEAN_TYPE, "bean_structure");
+            StructureInit.register(TentPieces.TENT_TYPE, "tent_structure");
             StructureInit.setupStructures();
             ConfiguredStructures.registerConfiguredStructures();
 
