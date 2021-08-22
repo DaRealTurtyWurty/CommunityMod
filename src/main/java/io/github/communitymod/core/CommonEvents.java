@@ -90,12 +90,6 @@ public final class CommonEvents {
         public static void biomeModification(final BiomeLoadingEvent event) {
             event.getGeneration().getStructures().add(() -> ConfiguredStructures.CONFIGURE_TENT_STRUCTURE);
         }
-
-        @SubscribeEvent
-        public static void registerCommands(final RegisterCommandsEvent event) {
-            //@todo fix command
-            //CommandInit.registerCommands(event);
-        }
     }
 
     @EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.MOD)
