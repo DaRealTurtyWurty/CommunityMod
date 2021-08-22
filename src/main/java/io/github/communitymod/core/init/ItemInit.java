@@ -1,6 +1,10 @@
 package io.github.communitymod.core.init;
 
 import io.github.communitymod.CommunityMod;
+
+import io.github.communitymod.common.items.bean_accessories.BeanArtifact;
+import io.github.communitymod.common.items.bean_accessories.BeanRing;
+import io.github.communitymod.common.items.bean_accessories.BeanTalisman;
 import io.github.communitymod.common.items.BeanBelt;
 import io.github.communitymod.common.items.Dice;
 import io.github.communitymod.common.items.MiguelItem;
@@ -167,15 +171,22 @@ public final class ItemInit {
     public static final RegistryObject<Item> IRON_SPOON = ITEMS.register("iron_spoon",
         () -> new SpoonTemplate(
             Tiers.IRON, 5.0f, -2.0f,
-            new Item.Properties().tab(CommunityMod.TAB).durability(1024).defaultDurability(1024)));
+                new Item.Properties().tab(CommunityMod.TAB).durability(1024).defaultDurability(1024)));
     public static final RegistryObject<Item> DIAMOND_SPOON = ITEMS.register("diamond_spoon",
-        () -> new SpoonTemplate(
-            Tiers.DIAMOND, 5.0f, -2.0f,
-            new Item.Properties().tab(CommunityMod.TAB).durability(2048).defaultDurability(2048)));
+            () -> new SpoonTemplate(
+                    Tiers.DIAMOND, 5.0f, -2.0f,
+                    new Item.Properties().tab(CommunityMod.TAB).durability(2048).defaultDurability(2048)));
     public static final RegistryObject<Item> NETHERITE_SPOON = ITEMS.register("netherite_spoon",
-        () -> new SpoonTemplate(
-            Tiers.NETHERITE, 5.0f, -2.0f,
-            new Item.Properties().tab(CommunityMod.TAB).durability(4096).defaultDurability(4096)));
+            () -> new SpoonTemplate(
+                    Tiers.NETHERITE, 5.0f, -2.0f,
+                    new Item.Properties().tab(CommunityMod.TAB).durability(4096).defaultDurability(4096)));
+
+    public static final RegistryObject<Item> BEAN_TALISMAN = ITEMS.register("bean_talisman",
+            () -> new BeanTalisman(new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> BEAN_RING = ITEMS.register("bean_ring",
+            () -> new BeanRing(new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> BEAN_ARTIFACT = ITEMS.register("bean_artifact",
+            () -> new BeanArtifact(new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.EPIC)));
 
     @SubscribeEvent
     public static void registerBlockItems(final RegistryEvent.Register<Item> event) {

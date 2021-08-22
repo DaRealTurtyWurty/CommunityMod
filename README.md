@@ -48,3 +48,9 @@ to this README.md, then you will be asked to add to it. If you continue failing 
 - Eternium Ingot
 - Goose Entity
 - Apple Ingot
+- Bean Talisman
+- Bean Ring
+- Bean Artifact
+- Skills & Rewards
+- Stats
+- Mob Levels
