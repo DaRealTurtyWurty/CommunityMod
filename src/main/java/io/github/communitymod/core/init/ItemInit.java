@@ -1,7 +1,15 @@
 package io.github.communitymod.core.init;
 
 import io.github.communitymod.CommunityMod;
-import io.github.communitymod.common.items.*;
+import io.github.communitymod.common.items.BeanBelt;
+import io.github.communitymod.common.items.Dice;
+import io.github.communitymod.common.items.MiguelItem;
+import io.github.communitymod.common.items.OrbOfInsanity;
+import io.github.communitymod.common.items.Scythe;
+import io.github.communitymod.common.items.Soul;
+import io.github.communitymod.common.items.SpecialItem;
+import io.github.communitymod.common.items.SpoonTemplate;
+import io.github.communitymod.common.items.WhatSign;
 import io.github.communitymod.common.items.bean_accessories.BeanArtifact;
 import io.github.communitymod.common.items.bean_accessories.BeanRing;
 import io.github.communitymod.common.items.bean_accessories.BeanTalisman;
@@ -11,7 +19,14 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.BowlFoodItem;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.RecordItem;
+import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -174,7 +189,7 @@ public final class ItemInit {
             () -> new BeanArtifact(new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.EPIC)));
 
     public static final RegistryObject<Item> SOUL = ITEMS.register("soul",
-            () -> new Soul(new Item.Properties().tab(CommunityMod.TAB).stacksTo(64).rarity(Rarity.RARE)));
+            () -> new Soul(new Item.Properties().tab(CommunityMod.TAB).stacksTo(32).rarity(Rarity.RARE)));
 
     public static final RegistryObject<Item> SCYTHE = ITEMS.register("scythe",
             () -> new Scythe(ModToolMaterials.SCYTHE_SOURCE, 10, -2f, new Item.Properties().tab(CommunityMod.TAB).rarity(Rarity.RARE)));
