@@ -39,7 +39,7 @@ to this README.md, then you will be asked to add to it. If you continue failing 
 - Bean Belt
 - Da Dog Hand
 - Bean Music Disc (by LudoCrypt)
-- A Bean Structure
+- 10 Different Types of Tent Structures
 - Bean Sword
 - USSR Anthem Music Disc
 - James May Cheese Song Music Disc

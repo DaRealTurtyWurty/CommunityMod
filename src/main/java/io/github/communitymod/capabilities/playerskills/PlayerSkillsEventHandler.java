@@ -88,7 +88,6 @@ public class PlayerSkillsEventHandler {
                     DefaultPlayerSkills oldskills1 = (DefaultPlayerSkills) oldskills;
 
                     newskills1.combatXp = (0);
-                    OtherUtils.sendChat(player, newskills1.combatLvl + " = " + (oldskills1.combatLvl - 1) + ", " + oldskills1.combatLvl + ", " + newskills1.combatLvl);
                     newskills1.combatLvl = (oldskills1.combatLvl - 1);
 
                     newskills1.miningXp = (0);
