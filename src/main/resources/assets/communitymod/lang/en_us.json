@@ -45,6 +45,8 @@
     "item.communitymod.realz_ingot": "Realz Ingot",
     "item.communitymod.special_item": "Special Item",
     "item.communitymod.stone_spoon": "Stone Spoon",
+    "item.communitymod.soul": "Soul",
+    "item.communitymod.scythe": "Scythe",
     "item.communitymod.toast": "Toast",
     "item.communitymod.what": "What?!",
     "item.communitymod.basic_die": "Basic Die",
@@ -60,5 +62,6 @@
     "tooltip.communitymod.spoonShovel.text4": "§3 and then §eSaturation",
     "tooltip.communitymod.spoonShovel.text5": "§3 Hold §b SHIFT §3for more info.",
     "tooltip.communitymod.spoonShovel.text6": "§b Durability: §a",
-    "tooltip.communitymod.spoonShovel.text7": "§2 / §a"
+    "tooltip.communitymod.spoonShovel.text7": "§2 / §a",
+    "enchantment.communitymod.soul_boost": "\u00A7b\u00A7lSoul Boost"
 }
