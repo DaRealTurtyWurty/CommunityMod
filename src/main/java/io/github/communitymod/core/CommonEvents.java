@@ -25,7 +25,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.StructureSettings;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
-import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -89,12 +88,6 @@ public final class CommonEvents {
         @SubscribeEvent
         public static void biomeModification(final BiomeLoadingEvent event) {
             event.getGeneration().getStructures().add(() -> ConfiguredStructures.CONFIGURE_TENT_STRUCTURE);
-        }
-
-        @SubscribeEvent
-        public static void registerCommands(final RegisterCommandsEvent event) {
-            //@todo fix command
-            //CommandInit.registerCommands(event);
         }
     }
 

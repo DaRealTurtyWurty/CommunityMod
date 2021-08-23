@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DND",
+    "NON",
+    "DND"
+  ],
+  "key": {
+    "O": {
+      "item": "communitymod:orb_of_insanity"
+    },
+    "N": {
+      "item": "minecraft:netherite_hoe"
+    },
+    "D": {
+      "item": "minecraft:diamond_block"
+    }
+  },
+  "result": {
+    "item": "communitymod:scythe",
+    "count": 1
+  }
+}

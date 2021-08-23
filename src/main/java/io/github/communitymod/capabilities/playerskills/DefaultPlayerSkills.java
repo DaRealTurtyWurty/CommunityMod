@@ -17,14 +17,19 @@ public class DefaultPlayerSkills implements PlayerSkills {
     public int foragingXp;
 
     public int strength = 100;
+    public int baseStrength = 100;
 
     public int defense;
+    public int baseDefense;
 
     public float health = 100f;
     public float maxHealth = 100f;
+    public float baseMaxHealth = 100f;
 
     public float speed = 100f;
     public float baseSpeed = 100f;
+
+    public int soulCount;
 
     public void awardCombatXp(int xp) {
         //the while loops cannot be removed, as i cannot find another way to do this besides using recursion.
