@@ -6,17 +6,13 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.github.communitymod.capabilities.playerskills.CapabilityPlayerSkills;
 import io.github.communitymod.capabilities.playerskills.DefaultPlayerSkills;
-import io.github.communitymod.capabilities.playerskills.PlayerSkills;
 import io.github.communitymod.common.commands.BaseCommand;
 import io.github.communitymod.core.util.ColorConstants;
-import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.common.util.LazyOptional;
-import org.apache.logging.log4j.core.jmx.Server;
 
 public class StatsCommand extends BaseCommand {
     public StatsCommand(String name, int permissionLevel, boolean enabled) {
@@ -32,15 +28,15 @@ public class StatsCommand extends BaseCommand {
         ServerPlayer player = EntityArgument.getPlayer(commandContext, "player");
         player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
             DefaultPlayerSkills actualSkills = (DefaultPlayerSkills) skills;
-            player.displayClientMessage(Component.nullToEmpty(ColorConstants.BOLD + ColorConstants.AQUA + "Stats for" + player.getGameProfile().getName()
+            player.displayClientMessage(Component.nullToEmpty(ColorConstants.AQUA + ColorConstants.BOLD + "Stats for" + player.getGameProfile().getName()
                     + ColorConstants.RESET + ColorConstants.YELLOW +
-                    "Combat: " + actualSkills.combatLvl + " " + actualSkills.combatXp + " " +
+                    " Combat: " + actualSkills.combatLvl + " " + actualSkills.combatXp + " " +
                     "Mining: " + actualSkills.miningLvl + " " + actualSkills.miningXp + " " +
                     "Foraging: " + actualSkills.foragingLvl + " " + actualSkills.foragingXp + " " +
                     "Farming: " + actualSkills.farmingLvl + " " + actualSkills.farmingXp + " " +
                     ColorConstants.RED + "Health: " + actualSkills.health + " " + actualSkills.maxHealth + " " +
-                    ColorConstants.GREEN + "Defense: " + actualSkills.defense + " " +
-                    ColorConstants.RED + "Strength: " + actualSkills.strength + " " +
+                    ColorConstants.GREEN + "Defense: " + actualSkills.defense + " " + actualSkills.baseDefense + " " +
+                    ColorConstants.RED + "Strength: " + actualSkills.strength + " " + actualSkills.baseStrength + " " +
                     ColorConstants.WHITE + "Speed: " + actualSkills.speed + " " + actualSkills.baseSpeed + " "), false);
         });
         return Command.SINGLE_SUCCESS;

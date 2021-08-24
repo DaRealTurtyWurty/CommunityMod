@@ -1,8 +1,11 @@
 package io.github.communitymod.common.items;
 
+import io.github.communitymod.core.util.ColorConstants;
+import io.github.communitymod.core.util.OtherUtils;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -16,6 +19,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -36,7 +41,7 @@ public class OrbOfInsanity extends Item {
             return InteractionResultHolder.success(player.getItemInHand(hand));
         final Random rand = ThreadLocalRandom.current();
         var message = "If you receive this message, then AAAAAAAAAAAAAAAA";
-        final var randomNumb = rand.nextInt(32);
+        final var randomNumb = rand.nextInt(33);
         player.sendMessage(new TextComponent("The orb glows and leaves you with the number " + randomNumb),
                 player.getUUID());
         switch (randomNumb) {
@@ -163,38 +168,51 @@ public class OrbOfInsanity extends Item {
             player.spawnAtLocation(Items.DIRT);
             message = "The orb has granted you a piece of dirt.";
             break;
-        case 27:
-            player.spawnAtLocation(new ItemStack(Items.DIRT, 2));
-            message = "The orb has granted you two pieces of dirt. Fascinating!";
-            break;
-        case 28:
-            final var stand = new ArmorStand(EntityType.ARMOR_STAND, level);
-            stand.setPos(player.getX(), player.getY(), player.getZ());
-            level.addFreshEntity(stand);
-            message = "The orb gives you an armor stand.";
-            break;
-        case 29:
-            player.addEffect(new MobEffectInstance(MobEffects.POISON, 100, 1));
-            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 1));
-            message = "The orb poisons you and raises your ability to heal.";
-            break;
-        case 30:
-            player.addEffect(new MobEffectInstance(MobEffects.BAD_OMEN, 1, 1));
-            message = "The orb has given you a bad omen, but only for a fraction of a second.";
-            break;
-        case 31:
-            final var builder = new StringBuilder();
-            builder.append("This is the orb's message. Nothing else, just this message. ");
-            var numsAdded = 0; // Max 100.
-            while (numsAdded < 100 && rand.nextInt(100) != 19) {
-                builder.append("This is not the orb's message: ").append(rand.nextInt(999999999))
-                        .append("! ");
-                numsAdded++;
-            }
-            message = builder.toString();
-            break;
-        default:
-            break;
+            case 27:
+                player.spawnAtLocation(new ItemStack(Items.DIRT, 2));
+                message = "The orb has granted you two pieces of dirt. Fascinating!";
+                break;
+            case 28:
+                final var stand = new ArmorStand(EntityType.ARMOR_STAND, level);
+                stand.setPos(player.getX(), player.getY(), player.getZ());
+                level.addFreshEntity(stand);
+                message = "The orb gives you an armor stand.";
+                break;
+            case 29:
+                player.addEffect(new MobEffectInstance(MobEffects.POISON, 100, 1));
+                player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 1));
+                message = "The orb poisons you and raises your ability to heal.";
+                break;
+            case 30:
+                player.addEffect(new MobEffectInstance(MobEffects.BAD_OMEN, 1, 1));
+                message = "The orb has given you a bad omen, but only for a fraction of a second.";
+                break;
+            case 31:
+                List<Player> players = new ArrayList<>();
+                Player[] allPlayers = (Player[]) player.level.players().toArray();
+                for (Player player1 : allPlayers) {
+                    if (OtherUtils.distanceOf(player, player1) <= 5) {
+                        players.add(player1);
+                    }
+                }
+                if (players.size() > 1) {
+                    message = ColorConstants.RED + "The orb does not like how you and " + ColorConstants.DARK_RED + (players.size() - 1) + ColorConstants.RED + (players.size() - 1 > 1 ? " other people" : " other person") + " are so close together. Wear masks!";
+                    players.forEach(player2 -> player2.hurt(DamageSource.GENERIC, player2.getMaxHealth() / 2f));
+                }
+                break;
+            case 32:
+                final var builder = new StringBuilder();
+                builder.append("This is the orb's message. Nothing else, just this message. ");
+                var numsAdded = 0; // Max 100.
+                while (numsAdded < 100 && rand.nextInt(100) != 19) {
+                    builder.append("This is not the orb's message: ").append(rand.nextInt(999999999))
+                            .append("! ");
+                    numsAdded++;
+                }
+                message = builder.toString();
+                break;
+            default:
+                break;
         }
         player.sendMessage(new TextComponent(message), player.getUUID());
         player.getCooldowns().addCooldown(player.getItemInHand(hand).getItem(), 20);

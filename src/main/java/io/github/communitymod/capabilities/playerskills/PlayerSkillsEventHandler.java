@@ -5,7 +5,6 @@ import io.github.communitymod.capabilities.entitylevel.CapabilityMobLevel;
 import io.github.communitymod.capabilities.entitylevel.DefaultMobLevel;
 import io.github.communitymod.core.GameplayEvents;
 import io.github.communitymod.core.util.ColorConstants;
-import io.github.communitymod.core.util.OtherUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -32,7 +31,7 @@ public class PlayerSkillsEventHandler {
     }
 
     @SubscribeEvent
-    public static void AwardCombatStats(final LivingDeathEvent event) {
+    public static void awardCombatStats(final LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof Player & event.getEntityLiving() instanceof Mob) {
             Player player = (Player) event.getSource().getEntity();
             Mob target = (Mob) event.getEntityLiving();
@@ -50,7 +49,7 @@ public class PlayerSkillsEventHandler {
     }
 
     @SubscribeEvent
-    public static void AwardMiningStats(final BlockEvent.BreakEvent event) {
+    public static void awardMiningStats(final BlockEvent.BreakEvent event) {
         int harvestLevel = 0;
         if (!event.getPlayer().isCreative()) {
             event.getPlayer().getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
@@ -76,14 +75,18 @@ public class PlayerSkillsEventHandler {
     }
 
     @SubscribeEvent
-    public static void PersistCapabilityData(final PlayerEvent.Clone event) {
+    public static void persistCapabilityData(final PlayerEvent.Clone event) {
+        System.out.println("step 1");
         Player player = event.getPlayer();
         GameplayEvents.miningBonus = 0;
         GameplayEvents.farmingBonus = 0;
         GameplayEvents.foragingBonus = 0;
         player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(newskills -> {
+            System.out.println("step 2");
             if (event.isWasDeath()) {
+                System.out.println("step 3");
                 event.getOriginal().getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(oldskills -> {
+                    System.out.println("step 4");
                     DefaultPlayerSkills newskills1 = (DefaultPlayerSkills) newskills;
                     DefaultPlayerSkills oldskills1 = (DefaultPlayerSkills) oldskills;
 

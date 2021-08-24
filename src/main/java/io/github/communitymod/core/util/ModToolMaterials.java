@@ -8,7 +8,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.function.Supplier;
 
 public enum ModToolMaterials implements Tier {
-    BEAN(0, 118, 2.0F, 0.0F, 15, () -> Ingredient.of(ItemInit.BEANS.get()));
+    BEAN(0, 118, 2.0F, 0.0F, 15, () -> Ingredient.of(ItemInit.BEANS.get())),
+    SCYTHE_SOURCE(0, 2500, 2.0F, 0F, 20, () -> Ingredient.of(ItemInit.SOUL.get()));
 
     private final float damage;
     private final int enchantmentValue;
@@ -18,7 +19,7 @@ public enum ModToolMaterials implements Tier {
     private final int uses;
 
     ModToolMaterials(final int harvestLevel, final int uses, final float attackSpeed, final float damage,
-            final int enchantValue, final Supplier<Ingredient> repairIngredient) {
+                     final int enchantValue, final Supplier<Ingredient> repairIngredient) {
         this.level = harvestLevel;
         this.uses = uses;
         this.speed = attackSpeed;

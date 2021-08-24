@@ -9,6 +9,8 @@ import io.github.communitymod.common.items.Dice;
 import io.github.communitymod.common.items.MeatballWand;
 import io.github.communitymod.common.items.MiguelItem;
 import io.github.communitymod.common.items.OrbOfInsanity;
+import io.github.communitymod.common.items.Scythe;
+import io.github.communitymod.common.items.Soul;
 import io.github.communitymod.common.items.SpecialItem;
 import io.github.communitymod.common.items.SpoonTemplate;
 import io.github.communitymod.common.items.WhatSign;
@@ -27,6 +29,7 @@ import net.minecraft.world.item.BowlFoodItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.RecordItem;
+//github.com/NotUnfound/CommunityMod.git
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.Block;
@@ -179,6 +182,12 @@ public final class ItemInit {
 
 	public static final RegistryObject<Item> MEATBALL_WAND = ITEMS.register("meatball_wand",
 			() -> new MeatballWand(new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.UNCOMMON)));
+	public static final RegistryObject<Item> SOUL = ITEMS.register("soul",
+			() -> new Soul(new Item.Properties().tab(CommunityMod.TAB).stacksTo(32).rarity(Rarity.RARE)));
+
+	public static final RegistryObject<Item> SCYTHE = ITEMS.register("scythe",
+			() -> new Scythe(ModToolMaterials.SCYTHE_SOURCE, 10, -2f,
+					new Item.Properties().tab(CommunityMod.TAB).rarity(Rarity.RARE)));
 
 	@SubscribeEvent
 	public static void registerBlockItems(final RegistryEvent.Register<Item> event) {

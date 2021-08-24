@@ -1,16 +1,10 @@
 package io.github.communitymod;
 
 import io.github.communitymod.core.config.Config;
-import io.github.communitymod.core.init.BlockEntityInit;
-import io.github.communitymod.core.init.BlockInit;
-import io.github.communitymod.core.init.EntityInit;
-import io.github.communitymod.core.init.ItemInit;
-import io.github.communitymod.core.init.SoundsInit;
-import io.github.communitymod.core.init.StructureInit;
+import io.github.communitymod.core.init.*;
 import io.github.communitymod.core.network.PacketHandler;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -37,6 +31,7 @@ public class CommunityMod {
 	public CommunityMod() {
 		final var bus = FMLJavaModLoadingContext.get().getModEventBus();
 
+		EnchantmentInit.ENCHANTMENTS.register(bus);
 		ItemInit.ITEMS.register(bus);
 		BlockInit.BLOCKS.register(bus);
 		StructureInit.STRUCTURES.register(bus);
@@ -50,8 +45,5 @@ public class CommunityMod {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_SPEC);
 
 		PacketHandler.init();
-
-
-		
 	}
 }

@@ -5,7 +5,10 @@ import io.github.communitymod.capabilities.entitylevel.CapabilityMobLevel;
 import io.github.communitymod.capabilities.entitylevel.DefaultMobLevel;
 import io.github.communitymod.capabilities.playerskills.CapabilityPlayerSkills;
 import io.github.communitymod.capabilities.playerskills.DefaultPlayerSkills;
+import io.github.communitymod.common.items.Scythe;
+import io.github.communitymod.common.items.Soul;
 import io.github.communitymod.core.init.BlockInit;
+import io.github.communitymod.core.init.EnchantmentInit;
 import io.github.communitymod.core.init.ItemInit;
 import io.github.communitymod.core.util.ColorConstants;
 import io.github.communitymod.core.util.OtherUtils;
@@ -17,16 +20,29 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.entity.monster.Shulker;
+import net.minecraft.world.entity.monster.Endermite;
+import net.minecraft.world.entity.monster.ZombifiedPiglin;
+import net.minecraft.world.entity.monster.WitherSkeleton;
+import net.minecraft.world.entity.monster.Ghast;
+import net.minecraft.world.entity.monster.Blaze;
+import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.event.AnvilUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -41,6 +57,8 @@ public class GameplayEvents {
 
     public static int skillShowTimer = 0;
     public static String skillShowText = "";
+
+    public static int ticksPassed = 0;
 
     public static boolean showLevelCombat = false;
     public static boolean showLevelMining = false;
@@ -74,6 +92,10 @@ public class GameplayEvents {
                 DefaultPlayerSkills actualSkills = (DefaultPlayerSkills) skills;
                 float actualAmount = event.getAmount();
                 event.setAmount(actualAmount * (actualSkills.strength / 100f) * (1f + displayLevelCombat * 0.04f) * 5f);
+
+                if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.SOUL_BOOST.get(), attacker1.getMainHandItem()) > 0) {
+                    event.setAmount(event.getAmount() * (1f + (actualSkills.soulCount / 0.1f)));
+                }
 
                 ArmorStand dmgTag = new ArmorStand(world, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
                 dmgTag.setCustomName(Component.nullToEmpty(ColorConstants.YELLOW + Math.round(event.getAmount())));
@@ -151,6 +173,7 @@ public class GameplayEvents {
             Level level = event.getEntity().level;
             skillShowTimer -= 1;
             skillShowText = skillShowTimer < 1 ? "" : skillShowText;
+            ticksPassed += 1;
             player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
                 DefaultPlayerSkills actualSkills = (DefaultPlayerSkills) skills;
                 if (showLevelCombat) {
@@ -243,6 +266,11 @@ public class GameplayEvents {
                 defenseAdder += miningBonus;
                 maxHealthAdder += farmingBonus;
 
+                if (ticksPassed % 100 == 0 && actualSkills.soulCount > 500) {
+                    player.hurt(DamageSource.GENERIC, player.getMaxHealth() / 100f);
+                    OtherUtils.sendChat(player, ColorConstants.DARK_RED + "The " + ColorConstants.AQUA + "souls" + ColorConstants.DARK_RED + " start to bite...");
+                }
+
                 String color;
                 if (player.isFullyFrozen()) {
                     color = ColorConstants.AQUA;
@@ -270,6 +298,9 @@ public class GameplayEvents {
                     if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.HEAD)) > 0) {
                         totalAddedProtection += EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.HEAD)) * 5;
                     }
+                    if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.SOUL_BOOST.get(), player.getItemBySlot(EquipmentSlot.HEAD)) > 0) {
+                        totalAddedProtection += actualSkills.soulCount;
+                    }
                 } else {
                     headDefense = 0;
                 }
@@ -278,6 +309,9 @@ public class GameplayEvents {
                     chestDefense = chest.getDefense();
                     if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.CHEST)) > 0) {
                         totalAddedProtection += EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.CHEST)) * 5;
+                    }
+                    if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.SOUL_BOOST.get(), player.getItemBySlot(EquipmentSlot.CHEST)) > 0) {
+                        totalAddedProtection += actualSkills.soulCount;
                     }
                 } else {
                     chestDefense = 0;
@@ -288,6 +322,9 @@ public class GameplayEvents {
                     if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.LEGS)) > 0) {
                         totalAddedProtection += EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.LEGS)) * 5;
                     }
+                    if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.SOUL_BOOST.get(), player.getItemBySlot(EquipmentSlot.LEGS)) > 0) {
+                        totalAddedProtection += actualSkills.soulCount;
+                    }
                 } else {
                     legsDefense = 0;
                 }
@@ -297,11 +334,14 @@ public class GameplayEvents {
                     if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.FEET)) > 0) {
                         totalAddedProtection += EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.FEET)) * 5;
                     }
+                    if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.SOUL_BOOST.get(), player.getItemBySlot(EquipmentSlot.FEET)) > 0) {
+                        totalAddedProtection += actualSkills.soulCount;
+                    }
                 } else {
                     feetDefense = 0;
                 }
 
-                actualSkills.defense = (((headDefense + chestDefense + legsDefense + feetDefense) * 5) + defenseAdder + totalAddedProtection);
+                actualSkills.defense = (((headDefense + chestDefense + legsDefense + feetDefense) * 15) + defenseAdder + totalAddedProtection);
                 actualSkills.strength = (strengthAdder);
                 actualSkills.maxHealth = (maxHealthAdder + (event.getEntityLiving().getMaxHealth() - 20));
                 actualSkills.health = (Math.round(((event.getEntityLiving().getHealth() + event.getEntityLiving().getAbsorptionAmount()) / event.getEntityLiving().getMaxHealth()) * actualSkills.maxHealth));
@@ -325,12 +365,82 @@ public class GameplayEvents {
     }
 
     @SubscribeEvent
+    public static void soulManagement(final LivingDeathEvent event) {
+        if (event.getSource().getEntity() instanceof Player player) {
+            if (event.getEntityLiving() instanceof Mob target) {
+                if (player.getMainHandItem().getItem() instanceof Scythe scythe) {
+                    player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills ->
+                            target.getCapability(CapabilityMobLevel.MOB_LEVEL_CAPABILITY).ifPresent(mobLevel -> {
+                                DefaultPlayerSkills actualSkills = (DefaultPlayerSkills) skills;
+                                DefaultMobLevel actualMobLevel = (DefaultMobLevel) mobLevel;
+                                float chance = 1f;
+                                chance *= actualMobLevel.mobLevel;
+                                chance *= (1f + ((actualSkills.combatLvl - 1f) / 4f));
+                                if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.SOUL_BOOST.get(), player.getMainHandItem()) > 0) {
+                                    chance *= (1f + (actualSkills.soulCount / 4f));
+                                }
+                                int rnd1 = player.level.random.nextInt(2000) + 1;
+                                //if (chance >= rnd1){
+                                OtherUtils.sendChat(player, ColorConstants.AQUA + "You found a Soul!");
+                                player.playSound(SoundEvents.ZOMBIE_CONVERTED_TO_DROWNED, 1f, .8f);
+                                if (!player.getInventory().add(new ItemStack(ItemInit.SOUL.get()))) {
+                                    ItemEntity item = new ItemEntity(player.level, player.position().x, player.position().y, player.position().z, new ItemStack(ItemInit.SOUL.get()));
+                                    player.level.addFreshEntity(item);
+                                }
+                                int rnd2 = player.level.random.nextInt(4) + 1;
+                                if (rnd2 == 1) {
+                                    actualSkills.soulCount += 1;
+                                    OtherUtils.sendChat(player, ColorConstants.AQUA + "The soul merges into your blood...");
+                                    player.playSound(SoundEvents.ZOMBIE_VILLAGER_CURE, 1f, .8f);
+                                }
+                                //}
+                            }));
+                }
+            }
+        }
+
+        if (event.getEntityLiving() instanceof Player target) {
+            if (event.getSource().getEntity() instanceof Mob killer) {
+                if (killer instanceof EnderMan | killer instanceof Shulker | killer instanceof Endermite) {
+                    killer.hurt(DamageSource.GENERIC, killer.getHealth() / 2f);
+                } else if (killer instanceof EnderDragon) {
+                    killer.hurt(DamageSource.GENERIC, killer.getHealth() / 10f);
+                } else if (killer instanceof Piglin | killer instanceof ZombifiedPiglin | killer instanceof WitherSkeleton | killer instanceof WitherBoss | killer instanceof Blaze | killer instanceof Ghast) {
+                    killer.heal(killer.getHealth() / 5f);
+                } else {
+                    killer.kill();
+                }
+            } else if (event.getSource().getEntity() instanceof Player killer) {
+                killer.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills1 -> {
+                    killer.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills2 -> {
+                        DefaultPlayerSkills actualSkills1 = (DefaultPlayerSkills) skills1;
+                        DefaultPlayerSkills actualSkills2 = (DefaultPlayerSkills) skills2;
+                        actualSkills1.soulCount += Math.round(actualSkills2.soulCount / 2f);
+                    });
+                });
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void playerHeal(final LivingHealEvent event) {
         if (event.getEntityLiving() instanceof Player player) {
             player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
                 DefaultPlayerSkills actualSkills = (DefaultPlayerSkills) skills;
                 event.setAmount((event.getAmount() / actualSkills.maxHealth) * 100);
             });
+        }
+    }
+
+    @SubscribeEvent
+    public static void infuseSouls(final AnvilUpdateEvent event) {
+        if (event.getLeft().getItem() instanceof TieredItem left) {
+            if (event.getRight().getItem() instanceof Soul right && event.getRight().getCount() == 32) {
+                var output = new ItemStack(left);
+                output.enchant(EnchantmentInit.SOUL_BOOST.get(), 1);
+                event.setOutput(output);
+                event.setCost(5);
+            }
         }
     }
 }
