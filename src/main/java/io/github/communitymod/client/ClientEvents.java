@@ -5,6 +5,7 @@ import io.github.communitymod.client.entity.bean.BeanModel;
 import io.github.communitymod.client.entity.bean.BeanRenderer;
 import io.github.communitymod.client.entity.goose.GooseModel;
 import io.github.communitymod.client.entity.goose.GooseRenderer;
+import io.github.communitymod.client.entity.meatball.MeatballRenderer;
 import io.github.communitymod.client.entity.stick.ThrownStickEntityRenderer;
 import io.github.communitymod.client.entity.wolf.WolfStickRenderLayer;
 import io.github.communitymod.core.init.EntityInit;
@@ -23,38 +24,42 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public final class ClientEvents {
 
-    @EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.FORGE, value = Dist.CLIENT)
-    public static final class ForgeEvents {
+	@EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.FORGE, value = Dist.CLIENT)
+	public static final class ForgeEvents {
 
-    }
+	}
 
-    @EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.MOD, value = Dist.CLIENT)
-    public static final class ModEvents {
+	@EventBusSubscriber(modid = CommunityMod.MODID, bus = Bus.MOD, value = Dist.CLIENT)
+	public static final class ModEvents {
 
-        @SubscribeEvent
-        public static void clientSetup(final FMLClientSetupEvent event) {
+		@SubscribeEvent
+		public static void clientSetup(final FMLClientSetupEvent event) {
 
-        }
+		}
 
-        @SubscribeEvent
-        public static void addCustomLayers(final EntityRenderersEvent.AddLayers event) {
-            LivingEntityRenderer<Wolf, ? extends EntityModel<Wolf>> renderer = event.getRenderer(EntityType.WOLF);
-            if (renderer instanceof WolfRenderer wolfRenderer) {
-                wolfRenderer.addLayer(new WolfStickRenderLayer(wolfRenderer));
-            }
-        }
+		@SubscribeEvent
+		public static void addCustomLayers(final EntityRenderersEvent.AddLayers event) {
+			LivingEntityRenderer<Wolf, ? extends EntityModel<Wolf>> renderer = event.getRenderer(EntityType.WOLF);
+			if (renderer instanceof WolfRenderer wolfRenderer) {
+				wolfRenderer.addLayer(new WolfStickRenderLayer(wolfRenderer));
+			}
+		}
 
-        @SubscribeEvent
-        public static void registerLayers(final EntityRenderersEvent.RegisterLayerDefinitions event) {
-            event.registerLayerDefinition(BeanRenderer.BEAN_LAYER, BeanModel::createBodyMesh);
-            event.registerLayerDefinition(GooseRenderer.GOOSE_LAYER, GooseModel::createBodyLayer);
-        }
+		@SubscribeEvent
+		public static void registerLayers(final EntityRenderersEvent.RegisterLayerDefinitions event) {
+			event.registerLayerDefinition(BeanRenderer.BEAN_LAYER, BeanModel::createBodyMesh);
+			event.registerLayerDefinition(GooseRenderer.GOOSE_LAYER, GooseModel::createBodyLayer);
+			event.registerLayerDefinition(MeatballRenderer.MEATBALL_LAYER, MeatballRenderer::createBodyLayer);
 
-        @SubscribeEvent
-        public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
-            event.registerEntityRenderer(EntityInit.BEAN_ENTITY.get(), BeanRenderer::new);
-            event.registerEntityRenderer(EntityInit.GOOSE_ENTITY.get(), GooseRenderer::new);
-            event.registerEntityRenderer(EntityInit.THROWN_STICK.get(), ThrownStickEntityRenderer::new);
-        }
-    }
+		}
+
+		@SubscribeEvent
+		public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
+			event.registerEntityRenderer(EntityInit.BEAN_ENTITY.get(), BeanRenderer::new);
+			event.registerEntityRenderer(EntityInit.GOOSE_ENTITY.get(), GooseRenderer::new);
+			event.registerEntityRenderer(EntityInit.THROWN_STICK.get(), ThrownStickEntityRenderer::new);
+			event.registerEntityRenderer(EntityInit.MEATBALL.get(), MeatballRenderer::new);
+
+		}
+	}
 }
