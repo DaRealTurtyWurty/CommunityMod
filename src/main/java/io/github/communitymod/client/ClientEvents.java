@@ -3,6 +3,7 @@ package io.github.communitymod.client;
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.client.entity.bean.BeanModel;
 import io.github.communitymod.client.entity.bean.BeanRenderer;
+import io.github.communitymod.client.entity.extremetnt.ExtremeTntRenderer;
 import io.github.communitymod.client.entity.goose.GooseModel;
 import io.github.communitymod.client.entity.goose.GooseRenderer;
 import io.github.communitymod.client.entity.meatball.MeatballRenderer;
@@ -50,16 +51,14 @@ public final class ClientEvents {
 			event.registerLayerDefinition(BeanRenderer.BEAN_LAYER, BeanModel::createBodyMesh);
 			event.registerLayerDefinition(GooseRenderer.GOOSE_LAYER, GooseModel::createBodyLayer);
 			event.registerLayerDefinition(MeatballRenderer.MEATBALL_LAYER, MeatballRenderer::createBodyLayer);
-
-		}
-
-		@SubscribeEvent
-		public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
-			event.registerEntityRenderer(EntityInit.BEAN_ENTITY.get(), BeanRenderer::new);
-			event.registerEntityRenderer(EntityInit.GOOSE_ENTITY.get(), GooseRenderer::new);
-			event.registerEntityRenderer(EntityInit.THROWN_STICK.get(), ThrownStickEntityRenderer::new);
-			event.registerEntityRenderer(EntityInit.MEATBALL.get(), MeatballRenderer::new);
-
-		}
-	}
+    }
+    
+    @SubscribeEvent
+    public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(EntityInit.BEAN_ENTITY.get(), BeanRenderer::new);
+        event.registerEntityRenderer(EntityInit.GOOSE_ENTITY.get(), GooseRenderer::new);
+        event.registerEntityRenderer(EntityInit.THROWN_STICK.get(), ThrownStickEntityRenderer::new);
+        event.registerEntityRenderer(EntityInit.EXTREME_TNT_ENTITY.get(), ExtremeTntRenderer::new);
+        event.registerEntityRenderer(EntityInit.MEATBALL.get(), MeatballRenderer::new);
+    }
 }

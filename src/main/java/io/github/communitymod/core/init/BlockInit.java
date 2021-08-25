@@ -1,7 +1,9 @@
 package io.github.communitymod.core.init;
 
 import io.github.communitymod.CommunityMod;
+import io.github.communitymod.common.blocks.ExtremeTnt;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
@@ -23,6 +25,9 @@ public final class BlockInit {
                     .requiresCorrectToolForDrops()
                     .strength(5.0F, 6.0F)
                     .sound(SoundType.METAL)));
+
+    public static final RegistryObject<Block> EXTREME_TNT = BLOCKS.register("extreme_tnt",
+            () -> new ExtremeTnt(BlockBehaviour.Properties.copy(Blocks.TNT)));
 
 
     @SuppressWarnings("unchecked")

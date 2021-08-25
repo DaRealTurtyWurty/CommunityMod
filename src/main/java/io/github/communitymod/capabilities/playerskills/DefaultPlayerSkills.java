@@ -31,6 +31,11 @@ public class DefaultPlayerSkills implements PlayerSkills {
 
     public int soulCount;
 
+    public int soulstealerArmorTimer;
+    public int soulstealerArmorCooldown;
+    public int soulstealerArmorCover;
+    public int soulstealerDefenseReducer;
+
     public void awardCombatXp(int xp) {
         //the while loops cannot be removed, as i cannot find another way to do this besides using recursion.
         int qxp = xp;
