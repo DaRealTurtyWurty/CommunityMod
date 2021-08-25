@@ -28,7 +28,7 @@ public class MeatballWand extends Item {
 
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
-		return true;
+		return getDurabilityForDisplay(stack) != 0;
 	}
 
 	@Override
@@ -44,8 +44,6 @@ public class MeatballWand extends Item {
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 
 		ItemStack stack = player.getItemInHand(hand);
-
-		System.out.println(stack.getOrCreateTag().getInt("charge"));
 
 		if (stack.getOrCreateTag().getInt("charge") <= 100) {
 
