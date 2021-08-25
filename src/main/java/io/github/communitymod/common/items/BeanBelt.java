@@ -1,8 +1,8 @@
 package io.github.communitymod.common.items;
 
+import io.github.communitymod.common.armor.material.ModArmorMaterial;
 import io.github.communitymod.core.network.ExplosionMessage;
 import io.github.communitymod.core.network.PacketHandler;
-import io.github.communitymod.core.util.BeanArmorMaterial;
 import io.github.communitymod.core.util.ColorConstants;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.resources.language.I18n;
@@ -24,7 +24,7 @@ public class BeanBelt extends ArmorItem {
     private byte ticks = COOLDOWN;
 
     public BeanBelt(final Properties properties) {
-        super(BeanArmorMaterial.BEAN_ARMOR, EquipmentSlot.LEGS, properties);
+        super(ModArmorMaterial.BEAN_ARMOR, EquipmentSlot.LEGS, properties);
     }
 
     @Override

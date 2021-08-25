@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#S#",
+    "#N#",
+    "###"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:nether_star"
+    },
+    "N": {
+      "item": "minecraft:netherite_helmet"
+    },
+    "#": {
+      "item": "communitymod:soul"
+    }
+  },
+  "result": {
+    "item": "communitymod:soulstealer_helmet",
+    "count": 1
+  }
+}
