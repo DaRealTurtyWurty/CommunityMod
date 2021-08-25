@@ -57,3 +57,4 @@ to this README.md, then you will be asked to add to it. If you continue failing 
 - Souls
 - Soul Stealer Enchantment
 - Sycthe
+- Extreme Tnt

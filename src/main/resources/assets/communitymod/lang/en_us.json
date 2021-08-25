@@ -1,9 +1,11 @@
 {
     "block.communitymod.bean_block": "Block of Beans",
     "block.communitymod.granmond": "Granmond",
+    "block.communitymod.extreme_tnt": "Extreme Tnt",
 
     "entity.communitymod.bean": "Bean",
     "entity.communitymod.goose": "Goose",
+    "entity.communitymod.extreme_tnt": "Extreme Tnt",
 
 	  "item.communitymod.cheeseburger": "The Hospital Burger",
 	  "item.communitymod.burger_topbun": "Top Bun",

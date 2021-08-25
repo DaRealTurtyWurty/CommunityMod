@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "communitymod:blocks/extreme_tnt_top",
+    "bottom": "communitymod:blocks/extreme_tnt_bottom",
+    "side": "communitymod:blocks/extreme_tnt_side"
+  }
+}
