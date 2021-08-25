@@ -58,3 +58,4 @@ to this README.md, then you will be asked to add to it. If you continue failing 
 - Soul Stealer Enchantment
 - Sycthe
 - Extreme Tnt
+- Soulstealer armor

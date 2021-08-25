@@ -1,6 +1,11 @@
 package io.github.communitymod.core.init;
 
 import io.github.communitymod.CommunityMod;
+import io.github.communitymod.common.armor.material.ModArmorMaterial;
+import io.github.communitymod.common.armor.soulstealer.SoulstealerBoots;
+import io.github.communitymod.common.armor.soulstealer.SoulstealerChestplate;
+import io.github.communitymod.common.armor.soulstealer.SoulstealerHelmet;
+import io.github.communitymod.common.armor.soulstealer.SoulstealerLeggings;
 import io.github.communitymod.common.items.BeanBelt;
 import io.github.communitymod.common.items.Dice;
 import io.github.communitymod.common.items.MiguelItem;
@@ -13,20 +18,19 @@ import io.github.communitymod.common.items.WhatSign;
 import io.github.communitymod.common.items.bean_accessories.BeanArtifact;
 import io.github.communitymod.common.items.bean_accessories.BeanRing;
 import io.github.communitymod.common.items.bean_accessories.BeanTalisman;
-import io.github.communitymod.core.util.BeanArmorMaterial;
 import io.github.communitymod.core.util.ModToolMaterials;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.BowlFoodItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.BowlFoodItem;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.RecordItem;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -107,7 +111,7 @@ public final class ItemInit {
                     new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.UNCOMMON)));
 
     public static final RegistryObject<Item> BEAN_HAT = ITEMS.register("bean_hat",
-            () -> new ArmorItem(BeanArmorMaterial.BEAN_ARMOR, EquipmentSlot.HEAD,
+            () -> new ArmorItem(ModArmorMaterial.BEAN_ARMOR, EquipmentSlot.HEAD,
                     new Item.Properties().tab(CommunityMod.TAB)));
 
     public static final RegistryObject<Item> BEAN_BELT = ITEMS.register("bean_belt",
@@ -181,6 +185,9 @@ public final class ItemInit {
                     Tiers.NETHERITE, 5.0f, -2.0f,
                     new Item.Properties().tab(CommunityMod.TAB).durability(4096).defaultDurability(4096)));
 
+    public static final RegistryObject<Item> SOUL = ITEMS.register("soul",
+            () -> new Soul(new Item.Properties().tab(CommunityMod.TAB).stacksTo(32).rarity(Rarity.RARE)));
+
     public static final RegistryObject<Item> BEAN_TALISMAN = ITEMS.register("bean_talisman",
             () -> new BeanTalisman(new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> BEAN_RING = ITEMS.register("bean_ring",
@@ -188,11 +195,22 @@ public final class ItemInit {
     public static final RegistryObject<Item> BEAN_ARTIFACT = ITEMS.register("bean_artifact",
             () -> new BeanArtifact(new Item.Properties().tab(CommunityMod.TAB).stacksTo(1).rarity(Rarity.EPIC)));
 
-    public static final RegistryObject<Item> SOUL = ITEMS.register("soul",
-            () -> new Soul(new Item.Properties().tab(CommunityMod.TAB).stacksTo(32).rarity(Rarity.RARE)));
 
     public static final RegistryObject<Item> SCYTHE = ITEMS.register("scythe",
-            () -> new Scythe(ModToolMaterials.SCYTHE_SOURCE, 10, -2f, new Item.Properties().tab(CommunityMod.TAB).rarity(Rarity.RARE)));
+            () -> new Scythe(ModToolMaterials.SCYTHE_SOURCE, 10, -3f, new Item.Properties().tab(CommunityMod.TAB).rarity(Rarity.RARE)));
+
+    public static final RegistryObject<Item> SOULSTEALER_HELMET = ITEMS.register("soulstealer_helmet",
+            () -> new SoulstealerHelmet(ModArmorMaterial.SOULSTEALER, EquipmentSlot.HEAD,
+                    new Item.Properties().tab(CommunityMod.TAB).rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> SOULSTEALER_CHESTPLATE = ITEMS.register("soulstealer_chestplate",
+            () -> new SoulstealerChestplate(ModArmorMaterial.SOULSTEALER, EquipmentSlot.CHEST,
+                    new Item.Properties().tab(CommunityMod.TAB).rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> SOULSTEALER_LEGGINGS = ITEMS.register("soulstealer_leggings",
+            () -> new SoulstealerLeggings(ModArmorMaterial.SOULSTEALER, EquipmentSlot.LEGS,
+                    new Item.Properties().tab(CommunityMod.TAB).rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> SOULSTEALER_BOOTS = ITEMS.register("soulstealer_boots",
+            () -> new SoulstealerBoots(ModArmorMaterial.SOULSTEALER, EquipmentSlot.FEET,
+                    new Item.Properties().tab(CommunityMod.TAB).rarity(Rarity.RARE)));
 
     @SubscribeEvent
     public static void registerBlockItems(final RegistryEvent.Register<Item> event) {
