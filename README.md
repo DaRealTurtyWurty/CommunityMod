@@ -45,7 +45,7 @@ to this README.md, then you will be asked to add to it. If you continue failing 
 - James May Cheese Song Music Disc
 - Apple O Realz
 - Realz Ingot
-- Eternium Ingot
+- Eternium Crystal
 - Goose Entity
 - Apple Ingot
 - Bean Talisman
