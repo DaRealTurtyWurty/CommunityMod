@@ -1,10 +1,15 @@
 package io.github.communitymod.core;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.capabilities.entitylevel.CapabilityMobLevel;
 import io.github.communitymod.capabilities.entitylevel.DefaultMobLevel;
 import io.github.communitymod.capabilities.playerskills.CapabilityPlayerSkills;
 import io.github.communitymod.capabilities.playerskills.DefaultPlayerSkills;
+import io.github.communitymod.common.armor.soulstealer.SoulstealerBoots;
+import io.github.communitymod.common.armor.soulstealer.SoulstealerChestplate;
+import io.github.communitymod.common.armor.soulstealer.SoulstealerHelmet;
+import io.github.communitymod.common.armor.soulstealer.SoulstealerLeggings;
 import io.github.communitymod.common.items.Scythe;
 import io.github.communitymod.common.items.Soul;
 import io.github.communitymod.core.init.BlockInit;
@@ -12,9 +17,13 @@ import io.github.communitymod.core.init.EnchantmentInit;
 import io.github.communitymod.core.init.ItemInit;
 import io.github.communitymod.core.util.ColorConstants;
 import io.github.communitymod.core.util.OtherUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,19 +33,19 @@ import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.EnderMan;
-import net.minecraft.world.entity.monster.Shulker;
-import net.minecraft.world.entity.monster.Endermite;
-import net.minecraft.world.entity.monster.ZombifiedPiglin;
-import net.minecraft.world.entity.monster.WitherSkeleton;
-import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.monster.Blaze;
+import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.entity.monster.Endermite;
+import net.minecraft.world.entity.monster.Ghast;
+import net.minecraft.world.entity.monster.Shulker;
+import net.minecraft.world.entity.monster.WitherSkeleton;
+import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -48,9 +57,14 @@ import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.lwjgl.glfw.GLFW;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Mod.EventBusSubscriber(modid = CommunityMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class GameplayEvents {
@@ -71,6 +85,10 @@ public class GameplayEvents {
     public static int miningBonus;
     public static int farmingBonus;
     public static int foragingBonus;
+
+    public static int soulBonus;
+
+    private static int inputDelay;
 
     @SubscribeEvent
     public static void onLivingEntityHurt(final LivingHurtEvent event) {
@@ -174,6 +192,7 @@ public class GameplayEvents {
             skillShowTimer -= 1;
             skillShowText = skillShowTimer < 1 ? "" : skillShowText;
             ticksPassed += 1;
+            inputDelay -= 1;
             player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
                 DefaultPlayerSkills actualSkills = (DefaultPlayerSkills) skills;
                 if (showLevelCombat) {
@@ -212,6 +231,73 @@ public class GameplayEvents {
                     player.playSound(SoundEvents.PLAYER_LEVELUP, 1f, 0.5f);
                     showLevelForaging = false;
                 }
+                actualSkills.soulstealerArmorCooldown -= 1;
+
+                int headDefense;
+                int chestDefense;
+                int legsDefense;
+                int feetDefense;
+                int totalAddedProtection = 0;
+
+                if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof ArmorItem head) {
+                    headDefense = head.getDefense();
+                    if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.HEAD)) > 0) {
+                        totalAddedProtection += EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.HEAD)) * 5;
+                    }
+                    if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.SOUL_BOOST.get(), player.getItemBySlot(EquipmentSlot.HEAD)) > 0) {
+                        totalAddedProtection += actualSkills.soulCount;
+                    }
+                    if (head instanceof SoulstealerHelmet) {
+                        actualSkills.soulstealerArmorCover += 1;
+                    }
+                } else {
+                    headDefense = 0;
+                }
+
+                if (player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ArmorItem chest) {
+                    chestDefense = chest.getDefense();
+                    if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.CHEST)) > 0) {
+                        totalAddedProtection += EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.CHEST)) * 5;
+                    }
+                    if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.SOUL_BOOST.get(), player.getItemBySlot(EquipmentSlot.CHEST)) > 0) {
+                        totalAddedProtection += actualSkills.soulCount;
+                    }
+                    if (chest instanceof SoulstealerChestplate) {
+                        actualSkills.soulstealerArmorCover += 1;
+                    }
+                } else {
+                    chestDefense = 0;
+                }
+
+                if (player.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ArmorItem legs) {
+                    legsDefense = legs.getDefense();
+                    if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.LEGS)) > 0) {
+                        totalAddedProtection += EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.LEGS)) * 5;
+                    }
+                    if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.SOUL_BOOST.get(), player.getItemBySlot(EquipmentSlot.LEGS)) > 0) {
+                        totalAddedProtection += actualSkills.soulCount;
+                    }
+                    if (legs instanceof SoulstealerLeggings) {
+                        actualSkills.soulstealerArmorCover += 1;
+                    }
+                } else {
+                    legsDefense = 0;
+                }
+
+                if (player.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof ArmorItem feet) {
+                    feetDefense = feet.getDefense();
+                    if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.FEET)) > 0) {
+                        totalAddedProtection += EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.FEET)) * 5;
+                    }
+                    if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.SOUL_BOOST.get(), player.getItemBySlot(EquipmentSlot.FEET)) > 0) {
+                        totalAddedProtection += actualSkills.soulCount;
+                    }
+                    if (feet instanceof SoulstealerBoots) {
+                        actualSkills.soulstealerArmorCover += 1;
+                    }
+                } else {
+                    feetDefense = 0;
+                }
 
                 if (actualSkills.miningLvl > 0) {
                     miningBonus = actualSkills.miningLvl * 2;
@@ -221,6 +307,9 @@ public class GameplayEvents {
                 }
                 if (actualSkills.foragingLvl > 0) {
                     foragingBonus = actualSkills.foragingLvl * 2;
+                }
+                if (actualSkills.soulCount > 0) {
+                    soulBonus = actualSkills.soulCount;
                 }
 
                 int strengthAdder = 100;
@@ -262,9 +351,27 @@ public class GameplayEvents {
                     speedAdder += ((float) Math.floor(beanCount / 128d));
                 }
 
-                strengthAdder += foragingBonus;
-                defenseAdder += miningBonus;
-                maxHealthAdder += farmingBonus;
+                if (actualSkills.soulstealerArmorCover >= 4) {
+                    actualSkills.soulstealerArmorTimer += 1;
+                } else {
+                    if (actualSkills.soulstealerArmorTimer > 0) {
+                        actualSkills.soulstealerArmorTimer -= 1;
+                    }
+                }
+
+                if (actualSkills.soulstealerArmorCover >= 4) {
+                    if (actualSkills.soulstealerArmorTimer % 200 == 0) {
+                        actualSkills.soulstealerDefenseReducer += 1;
+                    }
+                } else {
+                    if (actualSkills.soulstealerArmorTimer % 200 == 0) {
+                        actualSkills.soulstealerDefenseReducer -= 1;
+                    }
+                }
+
+                strengthAdder += foragingBonus + actualSkills.soulstealerDefenseReducer;
+                defenseAdder += miningBonus + (actualSkills.soulstealerDefenseReducer * 5);
+                maxHealthAdder += farmingBonus - actualSkills.soulstealerDefenseReducer;
 
                 if (ticksPassed % 100 == 0 && actualSkills.soulCount > 500) {
                     player.hurt(DamageSource.GENERIC, player.getMaxHealth() / 100f);
@@ -276,7 +383,7 @@ public class GameplayEvents {
                     color = ColorConstants.AQUA;
                 } else if (player.hasEffect(MobEffects.WITHER)) {
                     color = ColorConstants.DARK_GRAY;
-                } else if (player.hasEffect(MobEffects.ABSORPTION)) {
+                } else if (player.getAbsorptionAmount() > 0) {
                     color = ColorConstants.GOLD;
                 } else {
                     color = ColorConstants.RED;
@@ -287,58 +394,59 @@ public class GameplayEvents {
                                 ((actualSkills.defense != 0) ? (ColorConstants.GREEN + (actualSkills.defense) + " Defense" + "  ") : ("")) +
                                 (skillShowTimer > 0 ? skillShowText : "")), true);
 
-                int headDefense;
-                int chestDefense;
-                int legsDefense;
-                int feetDefense;
-                int totalAddedProtection = 0;
-
-                if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof ArmorItem head) {
-                    headDefense = head.getDefense();
-                    if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.HEAD)) > 0) {
-                        totalAddedProtection += EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.HEAD)) * 5;
+                //Soulstealer abilty
+                if (InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_RIGHT_CONTROL)) {
+                    if (inputDelay <= 0) {
+                        if (actualSkills.soulstealerArmorCooldown < 1) {
+                            List<LivingEntity> filteredEntities = new ArrayList<>();
+                            List<MobEffectInstance> effects = new ArrayList<>();
+                            AtomicReference<Float> totalStolenHealth = new AtomicReference<>((float) 0);
+                            if (!level.isClientSide()) {
+                                ((ServerLevel) level).getEntities().getAll().forEach(entity -> {
+                                    if (entity instanceof Mob | entity instanceof Player) {
+                                        if (OtherUtils.distanceOf(player, entity) <= 20 && OtherUtils.distanceOf(player, entity) > 0) {
+                                            filteredEntities.add((LivingEntity) entity);
+                                        }
+                                    }
+                                });
+                                filteredEntities.forEach(entity -> {
+                                    Collection<MobEffectInstance> mobEffects = entity.getActiveEffects();
+                                    effects.addAll(mobEffects);
+                                    entity.hurt(DamageSource.GENERIC, entity.getMaxHealth() * getScaledSoulsPercent(player));
+                                    totalStolenHealth.set(totalStolenHealth.get() + entity.getMaxHealth() * getScaledSoulsPercent(player));
+                                    ((ServerLevel) level).sendParticles(ParticleTypes.DAMAGE_INDICATOR, entity.getX(), entity.getY(),
+                                            entity.getZ(), 6, 1, 0, 1, 0.3f);
+                                });
+                                float scaledStolenHealth = totalStolenHealth.get() * getScaledSoulsPercent(player);
+                                OtherUtils.sendChat(player, ColorConstants.GRAY + "Your Powersteal dealt " + ColorConstants.RED + totalStolenHealth.get() + ColorConstants.GRAY + " across " + ColorConstants.RED + filteredEntities.size() + ColorConstants.GRAY + " entities.");
+                                scaledStolenHealth *= player.getMaxHealth() / actualSkills.maxHealth;
+                                if (scaledStolenHealth + player.getHealth() > player.getMaxHealth()) {
+                                    player.setHealth(player.getMaxHealth());
+                                    player.setAbsorptionAmount(scaledStolenHealth + player.getHealth() - player.getMaxHealth());
+                                } else {
+                                    player.heal(scaledStolenHealth);
+                                }
+                                ((ServerLevel) level).sendParticles(ParticleTypes.HEART, player.getX(), player.getY(),
+                                        player.getZ(), 6, 1, 0, 1, 0.3f);
+                                effects.forEach(effect ->
+                                        player.addEffect(new MobEffectInstance(effect.getEffect(), effect.getAmplifier(), Math.round(effect.getDuration() * getScaledSoulsPercent(player)))));
+                                actualSkills.soulstealerArmorCooldown = 6000;
+                            }
+                        } else {
+                            OtherUtils.sendChat(player, ColorConstants.RED + "You must wait another " + Math.round(actualSkills.soulstealerArmorCooldown / 20f) + "s to use this ability!");
+                        }
+                        inputDelay = 20;
                     }
-                    if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.SOUL_BOOST.get(), player.getItemBySlot(EquipmentSlot.HEAD)) > 0) {
-                        totalAddedProtection += actualSkills.soulCount;
-                    }
-                } else {
-                    headDefense = 0;
                 }
 
-                if (player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ArmorItem chest) {
-                    chestDefense = chest.getDefense();
-                    if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.CHEST)) > 0) {
-                        totalAddedProtection += EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.CHEST)) * 5;
-                    }
-                    if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.SOUL_BOOST.get(), player.getItemBySlot(EquipmentSlot.CHEST)) > 0) {
-                        totalAddedProtection += actualSkills.soulCount;
-                    }
-                } else {
-                    chestDefense = 0;
+
+                if (actualSkills.soulstealerArmorCover < 4) {
+                    strengthAdder += actualSkills.soulstealerArmorCover * 10;
+                    speedAdder += actualSkills.soulstealerArmorCover * 3;
                 }
 
-                if (player.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ArmorItem legs) {
-                    legsDefense = legs.getDefense();
-                    if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.LEGS)) > 0) {
-                        totalAddedProtection += EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.LEGS)) * 5;
-                    }
-                    if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.SOUL_BOOST.get(), player.getItemBySlot(EquipmentSlot.LEGS)) > 0) {
-                        totalAddedProtection += actualSkills.soulCount;
-                    }
-                } else {
-                    legsDefense = 0;
-                }
-
-                if (player.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof ArmorItem feet) {
-                    feetDefense = feet.getDefense();
-                    if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.FEET)) > 0) {
-                        totalAddedProtection += EnchantmentHelper.getItemEnchantmentLevel(Enchantments.ALL_DAMAGE_PROTECTION, player.getItemBySlot(EquipmentSlot.FEET)) * 5;
-                    }
-                    if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.SOUL_BOOST.get(), player.getItemBySlot(EquipmentSlot.FEET)) > 0) {
-                        totalAddedProtection += actualSkills.soulCount;
-                    }
-                } else {
-                    feetDefense = 0;
+                if (ticksPassed % 100 == 0 && actualSkills.soulstealerArmorCover < 4) {
+                    player.hurt(DamageSource.GENERIC, (player.getMaxHealth() / 500f) * actualSkills.soulstealerArmorCover);
                 }
 
                 actualSkills.defense = (((headDefense + chestDefense + legsDefense + feetDefense) * 15) + defenseAdder + totalAddedProtection);
@@ -367,6 +475,7 @@ public class GameplayEvents {
     @SubscribeEvent
     public static void soulManagement(final LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof Player player) {
+            soulBonus = 0;
             if (event.getEntityLiving() instanceof Mob target) {
                 if (player.getMainHandItem().getItem() instanceof Scythe scythe) {
                     player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills ->
@@ -380,23 +489,32 @@ public class GameplayEvents {
                                     chance *= (1f + (actualSkills.soulCount / 4f));
                                 }
                                 int rnd1 = player.level.random.nextInt(2000) + 1;
-                                //if (chance >= rnd1){
-                                OtherUtils.sendChat(player, ColorConstants.AQUA + "You found a Soul!");
-                                player.playSound(SoundEvents.ZOMBIE_CONVERTED_TO_DROWNED, 1f, .8f);
-                                if (!player.getInventory().add(new ItemStack(ItemInit.SOUL.get()))) {
-                                    ItemEntity item = new ItemEntity(player.level, player.position().x, player.position().y, player.position().z, new ItemStack(ItemInit.SOUL.get()));
-                                    player.level.addFreshEntity(item);
+                                if (chance >= rnd1) {
+                                    OtherUtils.sendChat(player, ColorConstants.AQUA + "You found a Soul!");
+                                    player.playSound(SoundEvents.ZOMBIE_CONVERTED_TO_DROWNED, 1f, .8f);
+                                    if (!player.getInventory().add(new ItemStack(ItemInit.SOUL.get()))) {
+                                        ItemEntity item = new ItemEntity(player.level, player.position().x, player.position().y, player.position().z, new ItemStack(ItemInit.SOUL.get()));
+                                        player.level.addFreshEntity(item);
+                                    }
+                                    int rnd2 = player.level.random.nextInt(4) + 1;
+                                    if (rnd2 == 1) {
+                                        actualSkills.soulCount += 1;
+                                        OtherUtils.sendChat(player, ColorConstants.AQUA + "The soul merges into your blood...");
+                                        player.playSound(SoundEvents.ZOMBIE_VILLAGER_CURE, 1f, .8f);
+                                    }
                                 }
-                                int rnd2 = player.level.random.nextInt(4) + 1;
-                                if (rnd2 == 1) {
-                                    actualSkills.soulCount += 1;
-                                    OtherUtils.sendChat(player, ColorConstants.AQUA + "The soul merges into your blood...");
-                                    player.playSound(SoundEvents.ZOMBIE_VILLAGER_CURE, 1f, .8f);
-                                }
-                                //}
                             }));
                 }
             }
+
+            player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
+                DefaultPlayerSkills actualSkills = (DefaultPlayerSkills) skills;
+                if (actualSkills.soulstealerArmorCover >= 4) {
+                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 100, 2));
+                    player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 60, 4));
+                    player.setAbsorptionAmount(player.getAbsorptionAmount() + 2);
+                }
+            });
         }
 
         if (event.getEntityLiving() instanceof Player target) {
@@ -434,13 +552,21 @@ public class GameplayEvents {
 
     @SubscribeEvent
     public static void infuseSouls(final AnvilUpdateEvent event) {
-        if (event.getLeft().getItem() instanceof TieredItem left) {
-            if (event.getRight().getItem() instanceof Soul right && event.getRight().getCount() == 32) {
-                var output = new ItemStack(left);
+        if (event.getLeft().getItem() instanceof TieredItem | event.getLeft().getItem() instanceof ArmorItem) {
+            Item left = event.getLeft().getItem();
+            if (event.getRight().getItem() instanceof Soul right && event.getRight().getCount() >= 32) {
+                ItemStack output = event.getLeft();
                 output.enchant(EnchantmentInit.SOUL_BOOST.get(), 1);
                 event.setOutput(output);
                 event.setCost(5);
             }
         }
+    }
+
+    private static float getScaledSoulsPercent(Player player) {
+        AtomicInteger souls = new AtomicInteger();
+        player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills ->
+                souls.set(((DefaultPlayerSkills) skills).soulCount));
+        return Math.round(10f + (Math.min(souls.get(), 500) / 100f) * 60f) * 0.01f;
     }
 }
