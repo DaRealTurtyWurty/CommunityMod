@@ -10,6 +10,7 @@ import io.github.communitymod.common.items.BeanBelt;
 import io.github.communitymod.common.items.Dice;
 import io.github.communitymod.common.items.MiguelItem;
 import io.github.communitymod.common.items.OrbOfInsanity;
+import io.github.communitymod.common.items.ProcessingTool;
 import io.github.communitymod.common.items.Scythe;
 import io.github.communitymod.common.items.Soul;
 import io.github.communitymod.common.items.SpecialItem;
@@ -158,6 +159,10 @@ public final class ItemInit {
                             .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 7200, 3), 0.5f)
                             .effect(() -> new MobEffectInstance(MobEffects.HEALTH_BOOST, 7200, 10), 0.25f)
                             .build())));
+    
+    public static final RegistryObject<Item> PROCESSING_TOOL = ITEMS.register("processing_tool",
+    		() -> new ProcessingTool(new Item.Properties().tab(CommunityMod.TAB).defaultDurability(128)
+    				.fireResistant()));
 
     //Spoons
     public static final RegistryObject<Item> WOODEN_SPOON = ITEMS.register("wooden_spoon",

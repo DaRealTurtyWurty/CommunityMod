@@ -1,0 +1,10 @@
+{
+    "type": "communitymod:processing_tool_recipe",
+    "input": {
+        "item": "minecraft:iron_ore"
+    },
+    "output": {
+        "item": "minecraft:iron_ingot",
+        "count": 2
+    }
+}

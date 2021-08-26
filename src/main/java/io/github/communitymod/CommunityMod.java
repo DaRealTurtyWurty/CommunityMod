@@ -6,6 +6,7 @@ import io.github.communitymod.core.network.PacketHandler;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -30,6 +31,8 @@ public class CommunityMod {
 
     public CommunityMod() {
         final var bus = FMLJavaModLoadingContext.get().getModEventBus();
+        
+        bus.addGenericListener(RecipeSerializer.class, RecipeInit::registerRecipes);
 
         EnchantmentInit.ENCHANTMENTS.register(bus);
         ItemInit.ITEMS.register(bus);
