@@ -16,61 +16,61 @@ import net.minecraft.world.phys.Vec3;
 
 public class MeatballWand extends Item {
 
-	public MeatballWand(Properties properties) {
-		super(properties);
-	}
+    public MeatballWand(Properties properties) {
+        super(properties);
+    }
 
-	@Override
-	public double getDurabilityForDisplay(ItemStack stack) {
-		double charge = stack.getOrCreateTag().getInt("charge");
-		return charge / 100;
-	}
+    @Override
+    public double getDurabilityForDisplay(ItemStack stack) {
+        double charge = stack.getOrCreateTag().getInt("charge");
+        return charge / 100;
+    }
 
-	@Override
-	public boolean showDurabilityBar(ItemStack stack) {
-		return getDurabilityForDisplay(stack) != 0;
-	}
+    @Override
+    public boolean showDurabilityBar(ItemStack stack) {
+        return getDurabilityForDisplay(stack) != 0;
+    }
 
-	@Override
-	public void appendHoverText(ItemStack pStack, Level pLevel, List<Component> pTooltipComponents,
-			TooltipFlag pIsAdvanced) {
-		
-		pTooltipComponents.add(new TextComponent("F L A V O U R"));
-		
-		super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
-	}
+    @Override
+    public void appendHoverText(ItemStack pStack, Level pLevel, List<Component> pTooltipComponents,
+            TooltipFlag pIsAdvanced) {
 
-	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+        pTooltipComponents.add(new TextComponent("F L A V O U R"));
 
-		ItemStack stack = player.getItemInHand(hand);
+        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+    }
 
-		if (stack.getOrCreateTag().getInt("charge") <= 100) {
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 
-			player.getCooldowns().addCooldown(this, 10);
+        ItemStack stack = player.getItemInHand(hand);
 
-			Meatball proj = new Meatball(world, player);
+        if (stack.getOrCreateTag().getInt("charge") <= 100) {
 
-			proj.setIDFlags(stack.getOrCreateTag().getString("upgrades"));
+            player.getCooldowns().addCooldown(this, 10);
 
-			Vec3 vec = player.getLookAngle();
+            Meatball proj = new Meatball(world, player);
 
-			proj.setDeltaMovement(vec.multiply(1.5, 1.5, 1.5));
+            proj.setIDFlags(stack.getOrCreateTag().getString("upgrades"));
 
-			proj.setPos(player.getX(), player.getEyeY(), player.getZ());
+            Vec3 vec = player.getLookAngle();
 
-			world.addFreshEntity(proj);
+            proj.setDeltaMovement(vec.multiply(1.5, 1.5, 1.5));
 
-			if (!player.isCreative()) {
-				stack.getOrCreateTag().putInt("charge", stack.getOrCreateTag().getInt("charge") + 2);
-			}
+            proj.setPos(player.getX(), player.getEyeY(), player.getZ());
 
-			return InteractionResultHolder.success(stack);
+            world.addFreshEntity(proj);
 
-		}
+            if (!player.isCreative()) {
+                stack.getOrCreateTag().putInt("charge", stack.getOrCreateTag().getInt("charge") + 2);
+            }
 
-		return InteractionResultHolder.pass(stack);
+            return InteractionResultHolder.success(stack);
 
-	}
+        }
+
+        return InteractionResultHolder.pass(stack);
+
+    }
 
 }

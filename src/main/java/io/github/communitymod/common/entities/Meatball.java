@@ -24,115 +24,115 @@ import net.minecraft.world.phys.Vec3;
 
 public class Meatball extends Projectile {
 
-	public static final EntityDataAccessor<String> ID_FLAGS = SynchedEntityData.defineId(Meatball.class,
-			EntityDataSerializers.STRING);
+    public static final EntityDataAccessor<String> ID_FLAGS = SynchedEntityData.defineId(Meatball.class,
+            EntityDataSerializers.STRING);
 
-	public Meatball(EntityType<? extends Meatball> type, Level world) {
-		super(type, world);
-	}
+    public Meatball(EntityType<? extends Meatball> type, Level world) {
+        super(type, world);
+    }
 
-	public Meatball(Level world, Player owner) {
-		super(EntityInit.MEATBALL.get(), world);
-		this.setOwner(owner);
-	}
+    public Meatball(Level world, Player owner) {
+        super(EntityInit.MEATBALL.get(), world);
+        this.setOwner(owner);
+    }
 
-	@Override
-	protected void defineSynchedData() {
-		this.entityData.define(ID_FLAGS, "0000000000000000");
-	}
+    @Override
+    protected void defineSynchedData() {
+        this.entityData.define(ID_FLAGS, "0000000000000000");
+    }
 
-	public String getIDFlags() {
+    public String getIDFlags() {
 
-		return this.entityData.get(ID_FLAGS);
+        return this.entityData.get(ID_FLAGS);
 
-	}
+    }
 
-	public void setIDFlags(String id) {
+    public void setIDFlags(String id) {
 
-		if (id.length() != 16) {
-			return;
-		}
+        if (id.length() != 16) {
+            return;
+        }
 
-		this.entityData.set(ID_FLAGS, id);
+        this.entityData.set(ID_FLAGS, id);
 
-	}
+    }
 
-	public void tick() {
+    public void tick() {
 
-		HitResult hitresult = ProjectileUtil.getHitResult(this, this::canHitEntity);
-		boolean flag = false;
-		if (hitresult.getType() == HitResult.Type.BLOCK) {
-			BlockPos blockpos = ((BlockHitResult) hitresult).getBlockPos();
-			BlockState blockstate = this.level.getBlockState(blockpos);
-			if (blockstate.is(Blocks.NETHER_PORTAL)) {
-				this.handleInsidePortal(blockpos);
-				flag = true;
-			} else if (blockstate.is(Blocks.END_GATEWAY)) {
-				BlockEntity blockentity = this.level.getBlockEntity(blockpos);
-				if (blockentity instanceof TheEndGatewayBlockEntity
-						&& TheEndGatewayBlockEntity.canEntityTeleport(this)) {
-					TheEndGatewayBlockEntity.teleportEntity(this.level, blockpos, blockstate, this,
-							(TheEndGatewayBlockEntity) blockentity);
-				}
+        HitResult hitresult = ProjectileUtil.getHitResult(this, this::canHitEntity);
+        boolean flag = false;
+        if (hitresult.getType() == HitResult.Type.BLOCK) {
+            BlockPos blockpos = ((BlockHitResult) hitresult).getBlockPos();
+            BlockState blockstate = this.level.getBlockState(blockpos);
+            if (blockstate.is(Blocks.NETHER_PORTAL)) {
+                this.handleInsidePortal(blockpos);
+                flag = true;
+            } else if (blockstate.is(Blocks.END_GATEWAY)) {
+                BlockEntity blockentity = this.level.getBlockEntity(blockpos);
+                if (blockentity instanceof TheEndGatewayBlockEntity
+                        && TheEndGatewayBlockEntity.canEntityTeleport(this)) {
+                    TheEndGatewayBlockEntity.teleportEntity(this.level, blockpos, blockstate, this,
+                            (TheEndGatewayBlockEntity) blockentity);
+                }
 
-				flag = true;
-			}
-			this.onHitBlock((BlockHitResult) hitresult);
-		}
+                flag = true;
+            }
+            this.onHitBlock((BlockHitResult) hitresult);
+        }
 
-		if (hitresult.getType() == HitResult.Type.ENTITY) {
+        if (hitresult.getType() == HitResult.Type.ENTITY) {
 
-			onHitEntity((EntityHitResult) hitresult);
+            onHitEntity((EntityHitResult) hitresult);
 
-		}
+        }
 
-		if (hitresult.getType() != HitResult.Type.MISS && !flag
-				&& !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, hitresult)) {
-			this.onHit(hitresult);
-		}
+        if (hitresult.getType() != HitResult.Type.MISS && !flag
+                && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, hitresult)) {
+            this.onHit(hitresult);
+        }
 
-		this.checkInsideBlocks();
-		Vec3 vec3 = this.getDeltaMovement();
-		double d2 = this.getX() + vec3.x;
-		double d0 = this.getY() + vec3.y;
-		double d1 = this.getZ() + vec3.z;
-		this.updateRotation();
-		float f;
-		if (this.isInWater()) {
-			for (int i = 0; i < 4; ++i) {
-				this.level.addParticle(ParticleTypes.BUBBLE, d2 - vec3.x * 0.25D, d0 - vec3.y * 0.25D,
-						d1 - vec3.z * 0.25D, vec3.x, vec3.y, vec3.z);
-			}
+        this.checkInsideBlocks();
+        Vec3 vec3 = this.getDeltaMovement();
+        double d2 = this.getX() + vec3.x;
+        double d0 = this.getY() + vec3.y;
+        double d1 = this.getZ() + vec3.z;
+        this.updateRotation();
+        float f;
+        if (this.isInWater()) {
+            for (int i = 0; i < 4; ++i) {
+                this.level.addParticle(ParticleTypes.BUBBLE, d2 - vec3.x * 0.25D, d0 - vec3.y * 0.25D,
+                        d1 - vec3.z * 0.25D, vec3.x, vec3.y, vec3.z);
+            }
 
-			f = 0.8F;
-		} else {
-			f = 0.99F;
-		}
+            f = 0.8F;
+        } else {
+            f = 0.99F;
+        }
 
-		this.setDeltaMovement(vec3.scale((double) f));
-		if (!this.isNoGravity()) {
-			Vec3 vec31 = this.getDeltaMovement();
-			/*
-			 * .03 is gravity
-			 */
-			this.setDeltaMovement(vec31.x, vec31.y - (double) .03, vec31.z);
-		}
+        this.setDeltaMovement(vec3.scale((double) f));
+        if (!this.isNoGravity()) {
+            Vec3 vec31 = this.getDeltaMovement();
+            /*
+             * .03 is gravity
+             */
+            this.setDeltaMovement(vec31.x, vec31.y - (double) .03, vec31.z);
+        }
 
-		this.setPos(d2, d0, d1);
+        this.setPos(d2, d0, d1);
 
-	}
+    }
 
-	@Override
-	protected void onHitEntity(EntityHitResult r) {
-		Entity entity = r.getEntity();
-		this.level.explode(getOwner(), entity.getX(), entity.getY(), entity.getZ(), 3, BlockInteraction.NONE);
-		super.onHitEntity(r);
-		this.kill();
-	}
+    @Override
+    protected void onHitEntity(EntityHitResult r) {
+        Entity entity = r.getEntity();
+        this.level.explode(getOwner(), entity.getX(), entity.getY(), entity.getZ(), 3, BlockInteraction.NONE);
+        super.onHitEntity(r);
+        this.kill();
+    }
 
-	@Override
-	protected void onHitBlock(BlockHitResult r) {
-		BlockPos pos = r.getBlockPos();
+    @Override
+    protected void onHitBlock(BlockHitResult r) {
+        BlockPos pos = r.getBlockPos();
 //
 //		super.onHitBlock(r);
 //		if (!(this.getDeltaMovement().y() == 0)) {
@@ -141,12 +141,12 @@ public class Meatball extends Projectile {
 //			
 //		} else if (this.getDeltaMovement().x() + this.getDeltaMovement().z() == 0) {
 //
-		this.level.explode(getOwner(), r.getBlockPos().getX(), r.getBlockPos().getY(), r.getBlockPos().getZ(), 3,
-				BlockInteraction.NONE);
+        this.level.explode(getOwner(), r.getBlockPos().getX(), r.getBlockPos().getY(), r.getBlockPos().getZ(), 3,
+                BlockInteraction.NONE);
 //			
 //			this.kill();
 //		}
-		this.kill();
-	}
+        this.kill();
+    }
 
 }

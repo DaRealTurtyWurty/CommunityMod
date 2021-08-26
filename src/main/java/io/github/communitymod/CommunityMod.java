@@ -15,35 +15,35 @@ import net.minecraftforge.registries.ForgeRegistries;
 @Mod(CommunityMod.MODID)
 public class CommunityMod {
 
-	public static final String MODID = "communitymod";
+    public static final String MODID = "communitymod";
 
-	public static final CreativeModeTab TAB = new CreativeModeTab(MODID) {
+    public static final CreativeModeTab TAB = new CreativeModeTab(MODID) {
 
-		@Override
-		public ItemStack makeIcon() {
-			final var resourceLocation = new ResourceLocation(Config.CLIENT.tabIcon.get());
-			return (ForgeRegistries.ITEMS.containsKey(resourceLocation)
-					? ForgeRegistries.ITEMS.getValue(resourceLocation)
-					: ItemInit.BEANS.get()).getDefaultInstance();
-		}
-	};
+        @Override
+        public ItemStack makeIcon() {
+            final var resourceLocation = new ResourceLocation(Config.CLIENT.tabIcon.get());
+            return (ForgeRegistries.ITEMS.containsKey(resourceLocation)
+                    ? ForgeRegistries.ITEMS.getValue(resourceLocation)
+                    : ItemInit.BEANS.get()).getDefaultInstance();
+        }
+    };
 
-	public CommunityMod() {
-		final var bus = FMLJavaModLoadingContext.get().getModEventBus();
+    public CommunityMod() {
+        final var bus = FMLJavaModLoadingContext.get().getModEventBus();
 
-		EnchantmentInit.ENCHANTMENTS.register(bus);
-		ItemInit.ITEMS.register(bus);
-		BlockInit.BLOCKS.register(bus);
-		StructureInit.STRUCTURES.register(bus);
-		BlockInit.toBlacklist();
-		BlockEntityInit.BLOCK_ENTITIES.register(bus);
-		EntityInit.ENTITIES.register(bus);
-		EntityInit.registerSpawnEggs();
-		SoundsInit.SOUNDS.register(bus);
+        EnchantmentInit.ENCHANTMENTS.register(bus);
+        ItemInit.ITEMS.register(bus);
+        BlockInit.BLOCKS.register(bus);
+        StructureInit.STRUCTURES.register(bus);
+        BlockInit.toBlacklist();
+        BlockEntityInit.BLOCK_ENTITIES.register(bus);
+        EntityInit.ENTITIES.register(bus);
+        EntityInit.registerSpawnEggs();
+        SoundsInit.SOUNDS.register(bus);
 
-		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
-		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_SPEC);
 
-		PacketHandler.init();
-	}
+        PacketHandler.init();
+    }
 }
