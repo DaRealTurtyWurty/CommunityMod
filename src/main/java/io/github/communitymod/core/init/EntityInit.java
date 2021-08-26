@@ -4,6 +4,7 @@ import io.github.communitymod.CommunityMod;
 import io.github.communitymod.common.entities.BeanEntity;
 import io.github.communitymod.common.entities.ExtremeTntEntity;
 import io.github.communitymod.common.entities.GooseEntity;
+import io.github.communitymod.common.entities.Meatball;
 import io.github.communitymod.common.entities.ThrownStickEntity;
 import io.github.communitymod.common.items.ModSpawnEggItem;
 import io.github.communitymod.core.util.SpawnEggData;
@@ -16,8 +17,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public final class EntityInit {
 
-    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister
-            .create(ForgeRegistries.ENTITIES, CommunityMod.MODID);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES,
+            CommunityMod.MODID);
 
     public static final RegistryObject<EntityType<BeanEntity>> BEAN_ENTITY = ENTITIES.register("bean",
             () -> EntityType.Builder.<BeanEntity>of(BeanEntity::new, MobCategory.MISC).sized(0.8f, 1.75f)
@@ -28,19 +29,19 @@ public final class EntityInit {
                     .build(new ResourceLocation(CommunityMod.MODID, "goose").toString()));
 
     public static final RegistryObject<EntityType<ThrownStickEntity>> THROWN_STICK = ENTITIES.register("stick",
-            () -> EntityType.Builder.<ThrownStickEntity>of(ThrownStickEntity::new, MobCategory.MISC)
-                    .sized(0.25f, 0.25f)
-                    .clientTrackingRange(4)
-                    .updateInterval(10)
+            () -> EntityType.Builder.<ThrownStickEntity>of(ThrownStickEntity::new, MobCategory.MISC).sized(0.25f, 0.25f)
+                    .clientTrackingRange(4).updateInterval(10)
                     .build(new ResourceLocation(CommunityMod.MODID, "stick").toString()));
 
-    public static final RegistryObject<EntityType<ExtremeTntEntity>> EXTREME_TNT_ENTITY = ENTITIES.register("extreme_tnt",
-            () -> EntityType.Builder.<ExtremeTntEntity>of(ExtremeTntEntity::new, MobCategory.MISC)
-                    .fireImmune()
-                    .sized(0.98F, 0.98F)
-                    .clientTrackingRange(10)
-                    .updateInterval(10)
+    public static final RegistryObject<EntityType<ExtremeTntEntity>> EXTREME_TNT_ENTITY = ENTITIES.register(
+            "extreme_tnt",
+            () -> EntityType.Builder.<ExtremeTntEntity>of(ExtremeTntEntity::new, MobCategory.MISC).fireImmune()
+                    .sized(0.98F, 0.98F).clientTrackingRange(10).updateInterval(10)
                     .build(new ResourceLocation(CommunityMod.MODID, "extreme_tnt").toString()));
+
+    public static final RegistryObject<EntityType<Meatball>> MEATBALL = ENTITIES.register("meatball",
+            () -> EntityType.Builder.<Meatball>of(Meatball::new, MobCategory.MISC).sized(0.375f, 0.375f)
+                    .build(new ResourceLocation(CommunityMod.MODID, "meatball").toString()));
 
     public static void registerSpawnEggs() {
         ItemInit.ITEMS.register("bean_spawn_egg",

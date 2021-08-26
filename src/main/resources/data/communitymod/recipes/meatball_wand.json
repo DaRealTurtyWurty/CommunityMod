@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " NM",
+        "NGN",
+        "RN "
+    ],
+    "key": {
+        "N": {
+            "item": "minecraft:gold_nugget"
+        },
+        "R": { 
+            "item": "minecraft:blaze_rod"
+        },
+        "M": { 
+            "tag": "communitymod:meatball_meat"
+        },
+        "G": { 
+            "item": "minecraft:end_crystal"
+        }
+    },
+    "result": {
+        "item": "communitymod:meatball_wand",
+        "count": 1
+    }
+}
