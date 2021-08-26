@@ -1,4 +1,4 @@
-package io.github.communitymod.core.util;
+package io.github.communitymod.common.armor.material;
 
 import io.github.communitymod.core.init.ItemInit;
 import net.minecraft.sounds.SoundEvent;
@@ -9,14 +9,15 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.function.Supplier;
 
-public enum BeanArmorMaterial implements ArmorMaterial {
-    BEAN_ARMOR("bean", 10, new int[] { 1, 1, 1, 1 }, 20, SoundEvents.ARMOR_EQUIP_CHAIN, 0f, 0f,
-            () -> Ingredient.of(ItemInit.BEANS.get()));
+public enum ModArmorMaterial implements ArmorMaterial {
+    BEAN_ARMOR("bean", new int[]{1000, 1000, 1000, 1000}, new int[]{1, 1, 1, 1}, 20, SoundEvents.ARMOR_EQUIP_CHAIN, 0f, 0f,
+            () -> Ingredient.of(ItemInit.BEANS.get())),
+    //@todo Ingredient.of(ItemInit.SOUL.get()) gives an init error, its empty for now
+    SOULSTEALER("soulstealer", new int[]{700, 1300, 1200, 800}, new int[]{5, 10, 8, 5}, 30, SoundEvents.ARMOR_EQUIP_NETHERITE, 4f, 1f,
+            () -> /*Ingredient.of(ItemInit.SOUL.get())*/ Ingredient.EMPTY);
 
-    private static final int[] baseDurability = { 100, 100, 100, 100 };
-
+    private final int[] durability;
     private final int[] defense;
-    private final int durabilityMultiplier;
     private final int enchantmentValue;
     private final SoundEvent equipSound;
     private final float knockbackResistance;
@@ -24,11 +25,11 @@ public enum BeanArmorMaterial implements ArmorMaterial {
     private final Ingredient repairIngredient;
     private final float toughness;
 
-    BeanArmorMaterial(final String name, final int durabilityMultiplier, final int[] defense,
-            final int enchantmentValue, final SoundEvent equipSound, final float toughness,
-            final float knockbackResistance, final Supplier<Ingredient> repairIngredient) {
+    ModArmorMaterial(final String name, final int[] durability, final int[] defense,
+                     final int enchantmentValue, final SoundEvent equipSound, final float toughness,
+                     final float knockbackResistance, final Supplier<Ingredient> repairIngredient) {
         this.name = name;
-        this.durabilityMultiplier = durabilityMultiplier;
+        this.durability = durability;
         this.defense = defense;
         this.enchantmentValue = enchantmentValue;
         this.equipSound = equipSound;
@@ -44,7 +45,7 @@ public enum BeanArmorMaterial implements ArmorMaterial {
 
     @Override
     public int getDurabilityForSlot(final EquipmentSlot slot) {
-        return baseDurability[slot.getIndex()] * this.durabilityMultiplier;
+        return durability[slot.getIndex()];
     }
 
     @Override

@@ -2,6 +2,7 @@ package io.github.communitymod.core.init;
 
 import io.github.communitymod.CommunityMod;
 import io.github.communitymod.common.entities.BeanEntity;
+import io.github.communitymod.common.entities.ExtremeTntEntity;
 import io.github.communitymod.common.entities.GooseEntity;
 import io.github.communitymod.common.entities.Meatball;
 import io.github.communitymod.common.entities.ThrownStickEntity;
@@ -31,6 +32,12 @@ public final class EntityInit {
             () -> EntityType.Builder.<ThrownStickEntity>of(ThrownStickEntity::new, MobCategory.MISC).sized(0.25f, 0.25f)
                     .clientTrackingRange(4).updateInterval(10)
                     .build(new ResourceLocation(CommunityMod.MODID, "stick").toString()));
+
+    public static final RegistryObject<EntityType<ExtremeTntEntity>> EXTREME_TNT_ENTITY = ENTITIES.register(
+            "extreme_tnt",
+            () -> EntityType.Builder.<ExtremeTntEntity>of(ExtremeTntEntity::new, MobCategory.MISC).fireImmune()
+                    .sized(0.98F, 0.98F).clientTrackingRange(10).updateInterval(10)
+                    .build(new ResourceLocation(CommunityMod.MODID, "extreme_tnt").toString()));
 
     public static final RegistryObject<EntityType<Meatball>> MEATBALL = ENTITIES.register("meatball",
             () -> EntityType.Builder.<Meatball>of(Meatball::new, MobCategory.MISC).sized(0.375f, 0.375f)
