@@ -10,16 +10,16 @@ import net.minecraftforge.event.RegistryEvent.Register;
 
 public class RecipeInit {
 
-	public static final RecipeType<ProcessingToolRecipe> PROCESSING_TOOL_RECIPE = new ProcessingToolRecipeType();
-	
-	public static void registerRecipes(Register<RecipeSerializer<?>> event) {
-		registerRecipe(event, PROCESSING_TOOL_RECIPE, ProcessingToolRecipe.SERIALIZER);
-	}
-	
-	private static void registerRecipe(Register<RecipeSerializer<?>> event, RecipeType<?> type,
-			RecipeSerializer<?> serializer) {
-		Registry.register(Registry.RECIPE_TYPE, new ResourceLocation(type.toString()), type);
-		event.getRegistry().register(serializer);
-	}
-	
+    public static final RecipeType<ProcessingToolRecipe> PROCESSING_TOOL_RECIPE = new ProcessingToolRecipeType();
+    
+    public static void registerRecipes(Register<RecipeSerializer<?>> event) {
+        registerRecipe(event, PROCESSING_TOOL_RECIPE, ProcessingToolRecipe.SERIALIZER);
+    }
+    
+    private static void registerRecipe(Register<RecipeSerializer<?>> event, RecipeType<?> type,
+            RecipeSerializer<?> serializer) {
+        Registry.register(Registry.RECIPE_TYPE, new ResourceLocation(type.toString()), type);
+        event.getRegistry().register(serializer);
+    }
+    
 }
