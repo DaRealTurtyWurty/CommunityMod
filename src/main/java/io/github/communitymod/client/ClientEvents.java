@@ -6,10 +6,10 @@ import io.github.communitymod.client.entity.bean.BeanRenderer;
 import io.github.communitymod.client.entity.extremetnt.ExtremeTntRenderer;
 import io.github.communitymod.client.entity.goose.GooseModel;
 import io.github.communitymod.client.entity.goose.GooseRenderer;
+import io.github.communitymod.client.entity.meatball.MeatballRenderer;
 import io.github.communitymod.client.entity.stick.ThrownStickEntityRenderer;
 import io.github.communitymod.client.entity.wolf.WolfStickRenderLayer;
 import io.github.communitymod.core.init.EntityInit;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.WolfRenderer;
@@ -49,6 +49,8 @@ public final class ClientEvents {
         public static void registerLayers(final EntityRenderersEvent.RegisterLayerDefinitions event) {
             event.registerLayerDefinition(BeanRenderer.BEAN_LAYER, BeanModel::createBodyMesh);
             event.registerLayerDefinition(GooseRenderer.GOOSE_LAYER, GooseModel::createBodyLayer);
+            event.registerLayerDefinition(MeatballRenderer.MEATBALL_LAYER, MeatballRenderer::createBodyLayer);
+
         }
 
         @SubscribeEvent
@@ -57,6 +59,7 @@ public final class ClientEvents {
             event.registerEntityRenderer(EntityInit.GOOSE_ENTITY.get(), GooseRenderer::new);
             event.registerEntityRenderer(EntityInit.THROWN_STICK.get(), ThrownStickEntityRenderer::new);
             event.registerEntityRenderer(EntityInit.EXTREME_TNT_ENTITY.get(), ExtremeTntRenderer::new);
+            event.registerEntityRenderer(EntityInit.MEATBALL.get(), MeatballRenderer::new);
         }
     }
 }
