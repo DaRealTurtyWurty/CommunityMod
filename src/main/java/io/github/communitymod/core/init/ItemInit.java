@@ -11,6 +11,7 @@ import io.github.communitymod.common.armor.soulstealer.SoulstealerHelmet;
 import io.github.communitymod.common.armor.soulstealer.SoulstealerLeggings;
 import io.github.communitymod.common.items.BeanBelt;
 import io.github.communitymod.common.items.Dice;
+import io.github.communitymod.common.items.Magnet;
 import io.github.communitymod.common.items.MeatballWand;
 import io.github.communitymod.common.items.MiguelItem;
 import io.github.communitymod.common.items.OrbOfInsanity;
@@ -161,6 +162,10 @@ public final class ItemInit {
     public static final RegistryObject<Item> PROCESSING_TOOL = ITEMS.register("processing_tool",
     		() -> new ProcessingTool(new Item.Properties().tab(CommunityMod.TAB).defaultDurability(128)
     				.fireResistant()));
+    
+    public static final RegistryObject<Item> MAGNET = ITEMS.register("magnet",
+    		() -> new Magnet(new Item.Properties().tab(CommunityMod.TAB).defaultDurability(4096)
+    				.fireResistant().rarity(Rarity.RARE)));
 
     // Spoons
     public static final RegistryObject<Item> WOODEN_SPOON = ITEMS.register("wooden_spoon",

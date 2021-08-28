@@ -1,10 +1,10 @@
 {
     "type": "communitymod:processing_tool_recipe",
     "input": {
-        "tag": "forge:ores/iron"
+        "tag": "forge:ores/netherite_scrap"
     },
     "output": {
-        "item": "minecraft:iron_ingot",
+        "item": "minecraft:netherite_scrap",
         "count": 2
     }
 }
