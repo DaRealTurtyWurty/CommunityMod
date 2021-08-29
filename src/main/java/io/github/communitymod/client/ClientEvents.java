@@ -1,6 +1,7 @@
 package io.github.communitymod.client;
 
 import io.github.communitymod.CommunityMod;
+import io.github.communitymod.client.blockentity.renderer.MeatballChaliceRenderer;
 import io.github.communitymod.client.entity.bean.BeanModel;
 import io.github.communitymod.client.entity.bean.BeanRenderer;
 import io.github.communitymod.client.entity.extremetnt.ExtremeTntRenderer;
@@ -9,8 +10,13 @@ import io.github.communitymod.client.entity.goose.GooseRenderer;
 import io.github.communitymod.client.entity.meatball.MeatballRenderer;
 import io.github.communitymod.client.entity.stick.ThrownStickEntityRenderer;
 import io.github.communitymod.client.entity.wolf.WolfStickRenderLayer;
+import io.github.communitymod.core.init.BlockEntityInit;
+import io.github.communitymod.core.init.BlockInit;
 import io.github.communitymod.core.init.EntityInit;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.WolfRenderer;
 import net.minecraft.world.entity.EntityType;
@@ -35,6 +41,8 @@ public final class ClientEvents {
         @SubscribeEvent
         public static void clientSetup(final FMLClientSetupEvent event) {
 
+            BlockEntityRenderers.register(BlockEntityInit.MEATBALL_CHALICE_BE.get(), MeatballChaliceRenderer::new);
+            ItemBlockRenderTypes.setRenderLayer(BlockInit.GLASS_TABLE.get(), RenderType.translucent());
         }
 
         @SubscribeEvent

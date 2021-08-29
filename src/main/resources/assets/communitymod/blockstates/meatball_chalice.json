@@ -1,0 +1,10 @@
+{
+  "variants" : {
+    "glowing=false" : {
+      "model" : "communitymod:block/meatball_chalice"
+    },
+    "glowing=true" : {
+      "model" : "communitymod:block/meatball_chalice_glowing"
+    }
+  }
+}

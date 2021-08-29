@@ -59,6 +59,8 @@ public class Meatball extends Projectile {
 
     public void tick() {
 
+        activeTick();
+
         HitResult hitresult = ProjectileUtil.getHitResult(this, this::canHitEntity);
         boolean flag = false;
         if (hitresult.getType() == HitResult.Type.BLOCK) {
@@ -122,30 +124,21 @@ public class Meatball extends Projectile {
 
     }
 
+    private void activeTick() {
+
+    }
+
     @Override
     protected void onHitEntity(EntityHitResult r) {
         Entity entity = r.getEntity();
-        this.level.explode(getOwner(), entity.getX(), entity.getY(), entity.getZ(), 3, BlockInteraction.NONE);
-        super.onHitEntity(r);
         this.kill();
     }
 
     @Override
     protected void onHitBlock(BlockHitResult r) {
         BlockPos pos = r.getBlockPos();
-//
-//		super.onHitBlock(r);
-//		if (!(this.getDeltaMovement().y() == 0)) {
-//			
-//			this.setDeltaMovement(0, Math.abs(this.getDeltaMovement().y()) - 0.1, 0);
-//			
-//		} else if (this.getDeltaMovement().x() + this.getDeltaMovement().z() == 0) {
-//
         this.level.explode(getOwner(), r.getBlockPos().getX(), r.getBlockPos().getY(), r.getBlockPos().getZ(), 3,
                 BlockInteraction.NONE);
-//			
-//			this.kill();
-//		}
         this.kill();
     }
 

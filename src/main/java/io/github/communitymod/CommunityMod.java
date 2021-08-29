@@ -32,8 +32,8 @@ public class CommunityMod {
         final var bus = FMLJavaModLoadingContext.get().getModEventBus();
 
         EnchantmentInit.ENCHANTMENTS.register(bus);
-        ItemInit.ITEMS.register(bus);
         BlockInit.BLOCKS.register(bus);
+        ItemInit.ITEMS.register(bus);
         StructureInit.STRUCTURES.register(bus);
         BlockInit.toBlacklist();
         BlockEntityInit.BLOCK_ENTITIES.register(bus);
