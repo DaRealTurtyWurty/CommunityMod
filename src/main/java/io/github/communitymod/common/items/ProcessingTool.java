@@ -29,7 +29,6 @@ public class ProcessingTool extends Item {
         ItemStack offHandItem = player.getOffhandItem();
         for (final Recipe<?> recipe : pLevel.getRecipeManager().getAllRecipesFor(RecipeInit.PROCESSING_TOOL_RECIPE)) {
             final ProcessingToolRecipe processingToolRecipe = (ProcessingToolRecipe) recipe;
-            System.out.println(recipe);
             if (processingToolRecipe.isValid(offHandItem)) {
                 player.drop(new ItemStack(recipe.getResultItem().getItem(), recipe.getResultItem().getCount()), false);
                 offHandItem.shrink(1);

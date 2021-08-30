@@ -60,3 +60,4 @@ to this README.md, then you will be asked to add to it. If you continue failing 
 - Extreme Tnt
 - Soulstealer armor
 - Processing Tool
+- Magnet

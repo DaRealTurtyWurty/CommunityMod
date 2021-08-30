@@ -1,10 +1,10 @@
 {
     "type": "communitymod:processing_tool_recipe",
     "input": {
-        "tag": "forge:ores/iron"
+        "tag": "forge:ores/diamond"
     },
     "output": {
-        "item": "minecraft:iron_ingot",
+        "item": "minecraft:diamond",
         "count": 2
     }
 }
