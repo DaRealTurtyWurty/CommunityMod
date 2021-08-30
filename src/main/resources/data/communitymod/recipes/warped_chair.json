@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "R  ",
+        "RRR",
+        "L L"
+    ],
+    "key": {
+        "R": {
+            "item": "minecraft:warped_stem"
+        },
+        "L": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "communitymod:warped_chair",
+        "count": 1
+    }
+}

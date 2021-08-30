@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " R ",
+        " L ",
+        "LLL"
+    ],
+    "key": {
+        "R": {
+            "item": "minecraft:sea_lantern"
+        },
+        "L": {
+            "item": "minecraft:prismarine"
+        }
+    },
+    "result": {
+        "item": "communitymod:prismarine_lamp",
+        "count": 1
+    }
+}

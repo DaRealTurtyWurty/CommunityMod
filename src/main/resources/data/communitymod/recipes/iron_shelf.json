@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"LLL",
+		"LML",
+		"LLL"
+	],
+	"key": {
+		"M": {
+			"item": "minecraft:iron_block"
+		},
+		"L": {
+			"item": "minecraft:iron_ingot"
+		}
+	},
+	"result": {
+		"item": "communitymod:iron_shelf",
+		"count": 1
+	}
+}

@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "RRR",
+        "L L",
+        "L L"
+    ],
+    "key": {
+        "R": {
+            "item": "minecraft:obsidian"
+        },
+        "L": {
+            "item": "minecraft:blaze_rod"
+        }
+    },
+    "result": {
+        "item": "communitymod:obsidian_table",
+        "count": 1
+    }
+}

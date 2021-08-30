@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "R  ",
+        "RRR",
+        "L L"
+    ],
+    "key": {
+        "R": {
+            "item": "minecraft:white_wool"
+        },
+        "L": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "communitymod:wool_chair",
+        "count": 1
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "RRR",
+        "L L",
+        "L L"
+    ],
+    "key": {
+        "R": {
+            "item": "minecraft:granite"
+        },
+        "L": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "communitymod:glass_table",
+        "count": 1
+    }
+}
