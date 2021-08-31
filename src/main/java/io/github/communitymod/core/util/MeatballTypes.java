@@ -7,12 +7,24 @@ public enum MeatballTypes {
     DAMAGE, FIRE, FREEZE, EXPLOSIVE, AMOUNT, MAXSIZE, POISON, SEASONING, CAUSTICITY, SPEED, WEIGHT, RICOCHET, GENTILE,
     FASTRELOAD, HOLY, ELDRITCH;
 
-    public MeatballTypes get(int index) {
+    public static MeatballTypes get(int index) {
         return MeatballTypes.values()[index];
     }
 
-    public int getIndex(MeatballTypes type) {
+    public static int getIndex(MeatballTypes type) {
         return type.ordinal();
+    }
+
+    public static int getIndex(String type) {
+
+        if (containsValue(type)) {
+            for (MeatballTypes t : getListValues()) {
+                if (t.toString() == type) {
+                    return getIndex(t);
+                }
+            }
+        }
+        return 0;
     }
 
     public static List<MeatballTypes> getListValues() {

@@ -51,7 +51,7 @@ public class MeatballChaliceBlockEntity extends BaseContainerBlockEntity {
         if (bE.timer == 1) {
             if (bE.selectTargetBlock(pLevel, pPos) != null) {
                 bE.getItem().getOrCreateTag().putBoolean(bE.selectTargetBlock(pLevel, pPos).toString(), true);
-                System.out.println(bE.selectTargetBlock(pLevel, pPos).toString());
+
             }
         }
     }
@@ -64,7 +64,7 @@ public class MeatballChaliceBlockEntity extends BaseContainerBlockEntity {
         for (int x = pPos.getX() - 4; x < pPos.getX() + 4; x++) {
             for (int y = pPos.getY() - 3; y < pPos.getY() + 3; y++) {
                 for (int z = pPos.getZ() - 4; z < pPos.getZ() + 4; z++) {
-                    
+
                     BlockPos pos = new BlockPos(x, y, z);
                     Block block = pLevel.getBlockState(pos).getBlock();
 

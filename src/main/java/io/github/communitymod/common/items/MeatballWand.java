@@ -58,13 +58,25 @@ public class MeatballWand extends Item {
 
             Meatball proj = new Meatball(world, player);
 
-            proj.setIDFlags(stack.getOrCreateTag().getString("upgrades"));
-
             Vec3 vec = player.getLookAngle();
 
-            proj.setDeltaMovement(vec.multiply(1.5, 1.5, 1.5));
+            float f = stack.getOrCreateTag().getBoolean("SPEED") ? 3.0f : 1.5f;
+
+            proj.setDeltaMovement(vec.multiply(f, f, f));
 
             proj.setPos(player.getX(), player.getEyeY(), player.getZ());
+
+            String id = "";
+
+            for (int i = 0; i < 16; i++) {
+
+                if (stack.getOrCreateTag().contains(MeatballTypes.get(i).name())) {
+                    id = id.concat("1");
+                } else
+                    id = id.concat("0");
+            }
+
+            proj.setIDFlags(id);
 
             world.addFreshEntity(proj);
 
