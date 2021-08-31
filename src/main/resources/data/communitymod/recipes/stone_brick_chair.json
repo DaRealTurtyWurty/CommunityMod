@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "R  ",
+        "RRR",
+        "L L"
+    ],
+    "key": {
+        "R": {
+            "item": "minecraft:stone_bricks"
+        },
+        "L": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "communitymod:stone_brick_chair",
+        "count": 1
+    }
+}

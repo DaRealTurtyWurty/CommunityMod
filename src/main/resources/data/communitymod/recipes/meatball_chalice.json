@@ -1,0 +1,23 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" I ",
+		"QQQ",
+		"RRR"
+	],
+	"key": {
+		"I": {
+			"item": "minecraft:diamond"
+		},
+		"Q": {
+			"item": "minecraft:quartz_pillar"
+		},
+		"R": {
+			"item": "minecraft:lapis_lazuli"
+		}
+	},
+	"result": {
+		"item": "communitymod:meatball_chalice",
+		"count": 1
+	}
+}

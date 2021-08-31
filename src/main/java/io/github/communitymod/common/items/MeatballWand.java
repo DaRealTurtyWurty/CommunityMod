@@ -3,6 +3,7 @@ package io.github.communitymod.common.items;
 import java.util.List;
 
 import io.github.communitymod.common.entities.Meatball;
+import io.github.communitymod.core.util.MeatballTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.InteractionHand;
@@ -35,7 +36,13 @@ public class MeatballWand extends Item {
     public void appendHoverText(ItemStack pStack, Level pLevel, List<Component> pTooltipComponents,
             TooltipFlag pIsAdvanced) {
 
-        pTooltipComponents.add(new TextComponent("F L A V O U R"));
+        for (String key : pStack.getOrCreateTag().getAllKeys()) {
+            if (MeatballTypes.containsValue(key)) {
+                String lower = key.toLowerCase().substring(1);
+                String upper = key.substring(0, 1);
+                pTooltipComponents.add(new TextComponent(upper + lower));
+            }
+        }
 
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
@@ -47,22 +54,37 @@ public class MeatballWand extends Item {
 
         if (stack.getOrCreateTag().getInt("charge") <= 100) {
 
-            player.getCooldowns().addCooldown(this, 10);
+            player.getCooldowns().addCooldown(this, stack.getOrCreateTag().getBoolean("FASTRELOAD") ? 10 : 20);
 
             Meatball proj = new Meatball(world, player);
 
-            proj.setIDFlags(stack.getOrCreateTag().getString("upgrades"));
-
             Vec3 vec = player.getLookAngle();
 
-            proj.setDeltaMovement(vec.multiply(1.5, 1.5, 1.5));
+            float f = stack.getOrCreateTag().getBoolean("SPEED") ? 3.0f : 1.5f;
+
+            proj.setDeltaMovement(vec.multiply(f, f, f));
 
             proj.setPos(player.getX(), player.getEyeY(), player.getZ());
+
+            String id = "";
+
+            for (int i = 0; i < 16; i++) {
+
+                if (stack.getOrCreateTag().contains(MeatballTypes.get(i).name())) {
+                    id = id.concat("1");
+                } else
+                    id = id.concat("0");
+            }
+
+            proj.setIDFlags(id);
 
             world.addFreshEntity(proj);
 
             if (!player.isCreative()) {
-                stack.getOrCreateTag().putInt("charge", stack.getOrCreateTag().getInt("charge") + 2);
+
+                stack.getOrCreateTag().putInt("charge", stack.getOrCreateTag().getInt("charge")
+                        + (stack.getOrCreateTag().getBoolean("GENTILE") ? 1 : 2));
+
             }
 
             return InteractionResultHolder.success(stack);

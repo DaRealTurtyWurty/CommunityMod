@@ -51,10 +51,16 @@ public class MeatballRenderer extends EntityRenderer<Meatball> {
 
         VertexConsumer vertexconsumer = pBuffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
 
-        this.meatball.xRot += pEntity.getDeltaMovement().x;
-        this.meatball.yRot += pEntity.getDeltaMovement().y;
-        this.meatball.zRot += pEntity.getDeltaMovement().z;
+        this.meatball.xRot += pEntity.getDeltaMovement().x / 1.3;
+        this.meatball.yRot += pEntity.getDeltaMovement().y / 1.3;
+        this.meatball.zRot += pEntity.getDeltaMovement().z / 1.3;
 
+        if (pEntity.isLarge()) {
+            pMatrixStack.scale(4, 4, 4);
+            this.meatball.xRot /= 2f;
+            this.meatball.yRot /= 2f;
+            this.meatball.zRot /= 2f;
+        }
         this.meatball.render(pMatrixStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY);
 
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);

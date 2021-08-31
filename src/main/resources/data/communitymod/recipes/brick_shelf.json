@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "LLL",
+        "LLL",
+        "LLL"
+    ],
+    "key": {
+        "L": {
+            "item": "minecraft:brick_slab"
+        }
+    },
+    "result": {
+        "item": "communitymod:brick_shelf",
+        "count": 1
+    }
+}

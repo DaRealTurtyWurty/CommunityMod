@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "LLL",
+        "LLL",
+        "LLL"
+    ],
+    "key": {
+        "L": {
+            "item": "minecraft:oak_slab"
+        }
+    },
+    "result": {
+        "item": "communitymod:oak_shelf",
+        "count": 1
+    }
+}

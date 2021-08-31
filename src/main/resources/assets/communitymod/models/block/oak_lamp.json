@@ -1,0 +1,6 @@
+{
+	"parent": "communitymod:block/lamp_base",
+	"textures": {
+		"all": "communitymod:blocks/oak_lamp"
+	}
+}

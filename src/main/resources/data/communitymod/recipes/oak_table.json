@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "RRR",
+        "L L",
+        "L L"
+    ],
+    "key": {
+        "R": {
+            "item": "minecraft:oak_log"
+        },
+        "L": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "communitymod:oak_table",
+        "count": 1
+    }
+}

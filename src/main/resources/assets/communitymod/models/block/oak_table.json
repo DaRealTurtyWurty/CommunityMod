@@ -1,0 +1,6 @@
+{
+	"parent": "communitymod:block/table_base",
+	"textures": {
+		"all": "communitymod:blocks/oak_table"
+	}
+}

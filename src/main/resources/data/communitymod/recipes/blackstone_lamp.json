@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " R ",
+        " L ",
+        "LLL"
+    ],
+    "key": {
+        "R": {
+            "item": "minecraft:soul_lantern"
+        },
+        "L": {
+            "item": "minecraft:blackstone"
+        }
+    },
+    "result": {
+        "item": "communitymod:blackstone_lamp",
+        "count": 1
+    }
+}
